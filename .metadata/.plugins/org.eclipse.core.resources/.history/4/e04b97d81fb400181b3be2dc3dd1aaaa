@@ -1,0 +1,5 @@
+package movie.info;
+
+public class MovieLike {
+
+}

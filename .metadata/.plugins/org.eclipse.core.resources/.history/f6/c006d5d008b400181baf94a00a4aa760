@@ -1,0 +1,151 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String pageTitle = request.getParameter("title");	
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ìíë´</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+    $(document).ready(function() {
+	    $('#media').carousel({
+	    pause: true,
+	    interval: false,
+  		});
+	});
+	</script>  
+</head>
+<body>
+<div class="frame">
+<div class="header">
+<div data-role="main" class="ui-content">
+    <a href="#logpop" data-rel="popup">Login</a>  <a href="mypage.html" >mypage</a>
+    <div data-role="popup" id="logpop" class="ui-content" style="min-width:250px;">
+      <form method="post">
+        <div>
+          <h3>Login</h3>
+          <input type="text" name="ID" id="ID" placeholder="ID">
+          <input type="password" name="passw" id="pswd" placeholder="Password">
+          <label for="log">Keep me logged in</label>
+          <input type="checkbox" name="login" id="log" value="1" data-mini="true">
+          <input type="submit" data-inline="true" value="Login">
+          <br>
+          <a href="">íìê°ì</a>
+          <a href="">ID/PWì°¾ê¸°</a>
+          <a href="">ì¸ì¦ë©ì¼ ì¬ë°ê¸</a>
+        </div>
+      </form>
+    </div>
+  </div>
+<div class="nav">
+   <ul id ="menu">
+       <li><a href="">ìíìê°</a>
+        <ul>
+            <li><a href="movielist.html">ìí ëª©ë¡</a></li>
+            <li><a href="boxoffice.html">ë°ì¤ì¤í¼ì¤</a></li>
+        </ul>
+       </li>
+       <li><a href="">ìíí ë¡ </a>
+        <ul>
+            <li><a href="pro-con_debate.html">ì°¬ë°í ë¡ </a></li>
+            <li><a href="Debate_battle.html">í ë¡ ë°°í</a></li>
+        </ul>
+       </li>
+    <li><a href=""><img src="/img/logo.png"></a></li>
+    <li><a href="">ìíìë¤</a>
+     <ul>
+        <li><a href="Free_bulletin_board.html">ìì ê²ìí</a></li>
+        <li><a href="movie_quiz.html">ìíí´ì¦</a></li>
+        <li><a href="famous_restaurant.html">ê·¹ì¥ë§ì§</a></li>
+        <li><a href="goods_info.html">êµ¿ì¦ì ë³´</a></li>
+     </ul>
+    </li>
+    <li><a href="">ìíê´ë ¨ì ë³´</a>
+     <ul>
+      <li><a href="movie_preview.html">ìì¬í</a></li> 
+      <li><a href="stage.html">ë¬´ëì¸ì¬</a></li>
+      <li><a href="movie_issue.html">ìíì´ì</a></li> 
+     </ul>
+    </li>
+   </ul>
+</div>
+</div>
+<!--//nav-->
+
+<div class="content1_wrap s-horizon_wrap">
+<h2 style="text-align-last: center">ìí í ë¡ </h2>
+<div class="talk">
+ <h4 style="text-align-last: center" ><a href="pro-con_debate.html">ì°¬ë°í ë¡ </a></h4>
+  <a target="_blank" href=""><img src="/img/movie_image(4).png"></a>
+    <div class="desc"><a href="">ì¸ê°ê³¼ OSë ì¬ëì ë¹ ì§ ì ììê¹?</a></div>
+    <div class="desc"><a href="">í­ë ¥ì¼ë¡ ì ì§ëë ë²ì§ìì ëìíëê°?</a> </div>
+    <div class="desc"><a href="">ëª¨ì±ì ë ë§ë¤ì´ì§ë ê²ì¸ê°?</a></div>
+</div>
+<div class="talk">
+    <h4 style="text-align-last: center"><a href="Debate_battle.html">í ë¡ ë°°í</a></h4>
+  <a target="_blank" href=""><img src="/img/movie_image%20(5).jpg"></a>
+    <div class="desc"><a href="">'íìê¾¼' ì ê¸°íë íêµí­ë ¥ì ê°í´ìì¼ ë¿ì¸ê°?</a></div>
+    <div class="desc"><a href="">'ìíëì¬'ì í­êµ° êµì íë«ì²ì ê°ë¥´ì¹¨ì ì³ìê°? </a> </div>
+    <div class="desc"><a href="">'ëë¥¼ ì°¾ìì¤'ì ìì´ë¯¸ì ê°ì ì ì¬ëì¸ê° ì§ì°©ì¸ê°?</a></div>
+</div>
+</div>
+<br>
+<div class="content2_wrap s-horizon_wrap">
+<h2 style="text-align-last: center">ìí ì´ì</h2>
+<div class="issue">
+  <a target="_blank" href=""><img src="http://placehold.it/199x150"></a>
+    <div class="desc"><a href="">ê¸°ì¬ ì ëª©</a></div>
+</div>
+<div class="issue">
+  <a target="_blank" href=""><img src="http://placehold.it/199x150"></a>
+    <div class="desc"><a href="">ê¸°ì¬ ì ëª©</a></div>
+</div>
+<div class="issue">
+  <a target="_blank" href=""><img src="http://placehold.it/199x150"></a>
+    <div class="desc"><a href="">ê¸°ì¬ ì ëª©</a></div>
+</div>
+<div class="issue">
+  <a target="_blank" href=""><img src="http://placehold.it/199x150"></a>
+    <div class="desc"><a href="">ê¸°ì¬ ì ëª©</a></div>
+</div>
+</div>
+<br>
+<div class="content3_wrap s-horizon_wrap">
+    <h2 style="text-align-last: center"><a href="Free_bulletin_board.html">ìíìë¤</a></h2>
+<div class="suda">
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+</div>
+<div class="suda">
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+    <div class="desc"><a href="">ì»¤ë®¤ëí°ê¸</a></div>
+</div>
+</div>
+   
+</div>
+</body>    
+</html>

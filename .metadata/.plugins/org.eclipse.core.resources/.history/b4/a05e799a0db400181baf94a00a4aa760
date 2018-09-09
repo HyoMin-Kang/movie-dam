@@ -1,0 +1,80 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String pageTitle = request.getParameter("title");	
+%>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title><%=pageTitle %></title>
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../assets/images/favicon/favicon.ico">
+<link rel="apple-touch-icon" sizes="144x144" type="image/x-icon" href="../assets/images/favicon/apple-touch-icon.png">
+
+<!-- All CSS Plugins -->
+<link rel="stylesheet" type="text/css" href="../assets/css/plugin.css">
+
+<!-- Main CSS Stylesheet -->
+<link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+<!-- Google Web Fonts  -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
+</head>
+<body>
+
+<div class="header">
+<div data-role="main" class="ui-content">
+    <a href="#logpop" data-rel="popup">Login</a>
+    <div data-role="popup" id="logpop" class="ui-content" style="min-width:250px;">
+      <form method="post">
+        <div>
+          <h3>Login</h3>
+          <input type="text" name="ID" id="ID" placeholder="ID">
+          <input type="password" name="passw" id="pswd" placeholder="Password">
+          <label for="log">Keep me logged in</label>
+          <input type="checkbox" name="login" id="log" value="1" data-mini="true">
+          <input type="submit" data-inline="true" value="Login">
+          <br>
+          <a href="">회원가입</a>
+          <a href="">ID/PW찾기</a>
+          <a href="">인증메일 재발급</a>
+        </div>
+      </form>
+    </div>
+  </div>
+<div class="nav">
+   <ul id ="menu">
+       <li><a href="">영화소개</a>
+        <ul>
+            <li><a href="">영화 목록</a></li>
+            <li><a href="">박스오피스</a></li>
+        </ul>
+       </li>
+       <li><a href="">영화토론</a>
+        <ul>
+            <li><a href="">찬반토론</a></li>
+            <li><a href="">토론배틀</a></li>
+        </ul>
+       </li>
+    <li><a href=""><img src="/img/logo.png"></a></li>
+    <li><a href="">영화수다</a>
+     <ul>
+        <li><a href="">자유게시판</a></li>
+        <li><a href="">영화퀴즈</a></li>
+        <li><a href="">극장맛집</a></li>
+        <li><a href="">굿즈정보</a></li>
+     </ul>
+    </li>
+    <li><a href="">영화관련정보</a>
+     <ul>
+      <li><a href="">시사회</a></li> 
+      <li><a href="stage.html">무대인사</a></li>
+      <li><a href="">영화이슈</a></li> 
+     </ul>
+    </li>
+   </ul>
+</div>
+</div>
