@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "movie.board.CommentDBBean" %>
-<%@ page import = "movie.board.CommentDataBean" %>
+<%@ page import = "moviedam.board.CommentDBBean" %>
+<%@ page import = "moviedam.board.CommentDataBean" %>
 <%@ page import = "java.sql.Timestamp" %>
 
 <% request.setCharacterEncoding("utf-8");%>
     
     
-    <jsp:useBean id="cmtdto" class="movie.board.CommentDataBean"/>
+    <jsp:useBean id="cmtdto" class="moviedam.board.CommentDataBean"/>
     <jsp:setProperty property="*" name="cmtdto"/>
     
     

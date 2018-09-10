@@ -1,4 +1,4 @@
-package movie.member;
+package moviedam.member;
 import java.sql.Timestamp;
 
 public class MemberDataBean {
@@ -8,9 +8,11 @@ public class MemberDataBean {
 	private String mem_pwd;
 	private String mem_email;
 	private String mem_name;
-	private Timestamp mem_birth;
+	private String mem_birth;
 	private int mem_gender;
 	private String mem_nickname;
+	private String mem_postcode;
+	private String mem_address;
 	private Timestamp join_date;
 	private String profile_url;
 	private int mem_type;
@@ -51,10 +53,10 @@ public class MemberDataBean {
 	public void setMem_name(String mem_name) {
 		this.mem_name = mem_name;
 	}
-	public Timestamp getMem_birth() {
+	public String getMem_birth() {
 		return mem_birth;
 	}
-	public void setMem_birth(Timestamp mem_birth) {
+	public void setMem_birth(String mem_birth) {
 		this.mem_birth = mem_birth;
 	}
 	public int getMem_gender() {
@@ -86,5 +88,17 @@ public class MemberDataBean {
 	}
 	public void setMem_type(int mem_type) {
 		this.mem_type = mem_type;
+	}
+	public String getMem_postcode() {
+		return mem_postcode;
+	}
+	public void setMem_postcode(String mem_postcode) {
+		this.mem_postcode = mem_postcode;
+	}
+	public String getMem_address() {
+		return mem_address;
+	}
+	public void setMem_address(String mem_address) {
+		this.mem_address = mem_address;
 	}
 }

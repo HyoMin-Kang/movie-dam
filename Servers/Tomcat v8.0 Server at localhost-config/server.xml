@@ -126,6 +126,7 @@
 
       
       
+      
       <Context docBase="movie-dam" path="/movie-dam" reloadable="true" source="org.eclipse.jst.jee.server:movie-dam">
       	<Resource name="jdbc/miso"
            auth="Container"

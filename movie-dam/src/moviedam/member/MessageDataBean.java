@@ -1,4 +1,4 @@
-package movie.member;
+package moviedam.member;
 import java.sql.Timestamp;
 
 public class MessageDataBean {

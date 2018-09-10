@@ -1,4 +1,4 @@
-package movie.info;
+package moviedam.info;
 
 public class MovieLike {
 	private int movie_like_id;

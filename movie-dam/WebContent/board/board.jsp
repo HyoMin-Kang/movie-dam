@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="movie.board.BoardDBBean" %>
-<%@ page import="movie.board.BoardDataBean" %>
-<%@ page import="movie.board.CommentDBBean" %>
-<%@ page import="movie.board.CommentDataBean" %>
+<%@ page import="moviedam.board.BoardDBBean" %>
+<%@ page import="moviedam.board.BoardDataBean" %>
+<%@ page import="moviedam.board.CommentDBBean" %>
+<%@ page import="moviedam.board.CommentDataBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 

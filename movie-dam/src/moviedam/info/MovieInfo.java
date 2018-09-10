@@ -1,4 +1,4 @@
-package movie.info;
+package moviedam.info;
 
 public class MovieInfo {
 	private String movieCd;

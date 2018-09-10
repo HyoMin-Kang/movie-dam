@@ -1,4 +1,4 @@
-package movie.board;
+package moviedam.board;
 
 import java.sql.Timestamp;
 
