@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String pageTitle = request.getParameter("title");	
@@ -19,11 +20,9 @@
 
 <!-- Main CSS Stylesheet -->
 <link rel="stylesheet" type="text/css" href="/movie-dam/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/movie-dam/assets/css/main.css">
 
 <!-- Google Web Fonts  -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
 </head>
 <body>
-
         
