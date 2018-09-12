@@ -110,24 +110,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Footer Start -->
-			<div class="col-md-12 page-body margin-top-50 footer">
-				<footer>
-					<ul class="menu-link">
-						<li><a href="mypage.html">프로필</a></li>
-						<li><a href="active_individual.html">활동</a></li>
-						<li><a href="message.html">메시지</a></li>
-						<li><a href="setting.html">설정</a></li>
-					</ul>
-
-					<p>© 영화담</p>
-
-
-				</footer>
-			</div>
-			<!-- Footer End -->
-
 		</div>
 		<!-- Post End -->
 	</div>

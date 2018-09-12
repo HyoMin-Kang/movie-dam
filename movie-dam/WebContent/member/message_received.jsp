@@ -190,23 +190,6 @@
 							</div>
 						</div>
 
-
-						<!-- Footer Start -->
-						<div class="col-md-12 page-body margin-top-50 footer">
-							<footer>
-								<ul class="menu-link">
-									<li><a href="/movie-dam/member/profile.jsp">프로필</a></li>
-									<li><a href="#">활동</a></li>
-									<li><a href="#">메시지</a></li>
-									<li><a href="/movie-dam/member/profile_setting.jsp">설정</a></li>
-								</ul>
-
-								<p>© 영화담</p>
-							</footer>
-						</div>
-						<!-- Footer End -->
-
-
 					</div>
 				</div> 
 				<!-- Blog Post (Right Sidebar) End -->

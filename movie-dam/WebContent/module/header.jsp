@@ -15,11 +15,12 @@
 <link rel="shortcut icon" href="/movie-dam/assets/images/favicon/favicon.ico">
 <link rel="apple-touch-icon" sizes="144x144" type="image/x-icon" href="/movie-dam/assets/images/favicon/apple-touch-icon.png">
 
-<!-- All CSS Plugins -->
-<link rel="stylesheet" type="text/css" href="/movie-dam/assets/css/plugin.css">
+<!-- Bootstrap CSS -->
+<!-- <link rel="stylesheet" href="/movie-dam/assets/bootstrap-4.1.3/css/bootstrap.min.css"> -->
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/lux/bootstrap.min.css" rel="stylesheet">
 
-<!-- Main CSS Stylesheet -->
-<link rel="stylesheet" type="text/css" href="/movie-dam/assets/css/style.css">
+<!-- Custom styles for this template -->
+<link href="/movie-dam/assets/bootstrap-4.1.3/custom.css" rel="stylesheet">
 
 <!-- Google Web Fonts  -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
