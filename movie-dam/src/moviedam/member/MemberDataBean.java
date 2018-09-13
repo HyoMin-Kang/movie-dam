@@ -14,7 +14,6 @@ public class MemberDataBean {
 	private String mem_postcode;
 	private String mem_address;
 	private Timestamp join_date;
-	private String profile_url;
 	private int mem_type;
 	
 	public int getMem_id() {
@@ -76,12 +75,6 @@ public class MemberDataBean {
 	}
 	public void setJoin_date(Timestamp join_date) {
 		this.join_date = join_date;
-	}
-	public String getProfile_url() {
-		return profile_url;
-	}
-	public void setProfile_url(String profile_url) {
-		this.profile_url = profile_url;
 	}
 	public int getMem_type() {
 		return mem_type;

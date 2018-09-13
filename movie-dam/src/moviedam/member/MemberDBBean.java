@@ -32,7 +32,7 @@ public class MemberDBBean {
 		try{
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, member.getMem_id());
 			pstmt.setInt(2, member.getMem_status());
 			pstmt.setString(3, member.getMem_userid());
@@ -45,8 +45,7 @@ public class MemberDBBean {
 			pstmt.setString(10, member.getMem_postcode());
 			pstmt.setString(11, member.getMem_address());
 			pstmt.setTimestamp(12, member.getJoin_date());
-			pstmt.setString(13, member.getProfile_url());
-			pstmt.setInt(14, member.getMem_type());
+			pstmt.setInt(13, member.getMem_type());
 			pstmt.executeUpdate();
 			rs = "ok";
 			
@@ -104,7 +103,7 @@ public class MemberDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("select mem_userid from member where id = ?");
+			pstmt = conn.prepareStatement("select mem_userid from member where mem_userid = ?");
 			pstmt.setString(1, mem_userid);
 			rs = pstmt.executeQuery();
 			
@@ -122,6 +121,47 @@ public class MemberDBBean {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return x;
+	}
+	
+	public MemberDataBean getProfile(String mem_userid) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberDataBean profile = null;
+		
+		try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("select * from member where mem_userid = ?");
+			pstmt.setString(1, mem_userid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				profile = new MemberDataBean();
+				profile.setMem_id(rs.getInt("mem_id"));
+				profile.setMem_status(rs.getInt("mem_status"));
+				profile.setMem_userid(rs.getString("mem_userid"));
+				profile.setMem_pwd(rs.getString("mem_pwd"));
+				profile.setMem_email(rs.getString("mem_email"));
+				profile.setMem_name(rs.getString("mem_name"));
+				profile.setMem_birth(rs.getString("mem_birth"));
+				profile.setMem_gender(rs.getInt("mem_gender"));
+				profile.setMem_nickname(rs.getString("mem_nickname"));
+				profile.setMem_postcode(rs.getString("mem_postcode"));
+				profile.setMem_address(rs.getString("mem_address"));
+				profile.setJoin_date(rs.getTimestamp("join_date"));
+				profile.setMem_type(rs.getInt("mem_type"));
+			} else {
+				profile = null;
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return profile;
 	}
 	
 }

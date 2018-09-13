@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="moviedam.member.MemberDBBean" %>
+<%@ page import="moviedam.member.MemberDataBean" %>
+
 <%
 	request.setCharacterEncoding("utf-8");
-	String title = "ㅇㅇㅇ님의 프로필";
+	String mem_userid = request.getParameter("mem_userid");
+	
+	try{
+		MemberDBBean mem_db = MemberDBBean.getInstance(); 
+		MemberDataBean profile =  mem_db.getProfile(mem_userid);
+
+		String title = profile.getMem_nickname()+"님의 프로필";
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -11,120 +21,82 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<div id="main">
-	<div class="container">
-		<div class="row">
-
-			<!-- About Me (Left Sidebar) Start -->
-			<div class="col-md-3">
-				<div class="about-fixed">
-
-					<div class="my-pic">
-						<img src="/movie-dam/assets/images/pic/my-pic.png" alt="">
-						<a href="javascript:void(0)" class="collapsed" data-target="#menu" data-toggle="collapse"><i class="icon-menu menu"></i></a>
-
-						<div id="menu" class="collapse">
-							<ul class="menu-link">
-								<li><a href="#">프로필</a></li>
-								<li><a href="#">활동</a></li>
-								<li><a href="#">메시지</a></li>
-								<li><a href="#">설정</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="my-detail">
-						<div class="white-spacing">
-							<h1>Nick Name</h1>
-							<h5>
-								<a href="./profile_follower.jsp">팔로워 00명</a>&nbsp;/&nbsp;
-								<a href="./profile_following.jsp">팔로잉 00명</a>
-							</h5>
-							<span><a class="btn btn-default" href="#" role="button">팔로우</a></span> 
-							<span><a class="btn btn-default" href="#" role="button">팔로우 해제</a></span> 
-						</div>
-						<ul class="social-icon">
-							<li><a href="#" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank" class="github"><i class="fa fa-github"></i></a></li>
-						</ul>
-					</div>
-				</div>
+<div class="container">
+	<div class="row">
+		<div class="card bg-secondary mb-3" style="max-width: 20rem;">
+  			<h3 class="card-header"><%=profile.getMem_nickname() %></h3>
+    		<img style="height: 200px; width: 100%; display: block;" src="/movie-dam/assets/images/user_profile.png" alt="Card image cap">
+  			<div class="card-body">
+	    		<h4 class="card-title"></h4>
+	    		<a href="./profile_follower.jsp?mem_userid=${sessionScope.userid }" class="card-link">팔로워 xx명</a>
+    			<a href="./profile_following.jsp?mem_userid=${sessionScope.userid }" class="card-link">팔로잉 xx명</a>
+	    		<a href="#" class="btn btn-info">팔로우</a>
 			</div>
-			<!-- About Me (Left Sidebar) End -->
-
-			<!-- Blog Post (Right Sidebar) Start -->
-			<div class="col-md-9">
-				<div class="col-md-12 page-body">
-					<div class="row">
-						<div class="sub-title">
-							<nav class="navbar">
-								<!-- Collect the nav links, forms, and other content for toggling -->
-								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-									<ul class="nav navbar-nav">
-
-										<li class="nav"><a href="./profile.jsp" role="button" aria-expanded="false">프로필</a></li>
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">활동<span class="caret"></span></a>
-											<ul class="dropdown-menu" role="menu">
-												<li><a href="active_individual.html">개인</a></li>
-												<li><a href="active_like.html">좋아요</a></li>
-												<li><a href="active_friend.html">친구</a></li>
-											</ul>
-										</li>
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">메시지<span class="caret"></span></a>
-											<ul class="dropdown-menu" role="menu">
-												<li><a href="./message_received.jsp">받은 메시지</a></li>
-												<li><a href="./message_send.jsp">메시지 보내기</a></li>
-											</ul>
-										</li>
-										<li class="nav"><a href="./profile_setting.jsp" role="button" aria-expanded="false">설정</a></li>
-									</ul>
-								</div>
-								<!-- /.navbar-collapse -->
-							</nav>
-						</div>
-						<!-- /.container-fluid -->
-
-						<div class="col-md-12 content-page">
-
-							<!-- Default panel contents -->
-							<!-- Table -->
-
-							<table class="type01">
-								<tr>
-									<th scope="row">닉네임</th>
-									<td>내용이 들어갑니다.</td>
-								</tr>
-								<tr>
-									<th scope="row">성별</th>
-									<td>내용이 들어갑니다.</td>
-								</tr>
-								<tr>
-									<th scope="row">나이</th>
-									<td>내용이 들어갑니다.</td>
-								</tr>
-								<tr>
-									<th scope="row">커뮤니티 글 작성</th>
-									<td>내용이 들어갑니다.</td>
-								</tr>
-								<tr>
-									<th scope="row">커뮤니티 답변 작성</th>
-									<td>내용이 들어갑니다.</td>
-								</tr>
-							</table>
-
-						</div>
-
-					</div>
-				</div> 
-				<!-- Blog Post (Right Sidebar) End -->
-
+			<div class="card-footer text-muted">
+    			최근 접속 시간 : 
+  			</div>
+			<div class="list-group list-group-flush">
+				<a href="./profile.jsp?mem_userid=${sessionScope.userid }" class="list-group-item list-group-item-action active">기본 정보</a>
+				<a href="#" class="list-group-item list-group-item-action">활동</a>
+				<a href="./message_received.jsp?mem_userid=${sessionScope.userid }" class="list-group-item list-group-item-action">메시지</a>
+				<a href="./profile_setting.jsp?mem_userid=${sessionScope.userid }" class="list-group-item list-group-item-action">설정</a>
 			</div>
+		</div>
+  		<div class="col-lg-8">
+  			<h3>
+				기본 정보
+				<small class="text-muted">Profile</small>
+			</h3>
+			<table class="table table-bordered">
+				<tr>
+					<th>아이디</th>
+					<td><%=profile.getMem_userid() %></td>
+    			</tr>
+				<tr>
+					<th>이메일</th>
+					<td><%=profile.getMem_email() %></td>
+    			</tr>
+				<tr>
+					<th>이름</th>
+					<td><%=profile.getMem_name() %></td>
+    			</tr>
+				<tr>
+					<th>생년월일</th>
+					<td><%=profile.getMem_birth() %></td>
+    			</tr>
+				<tr>
+					<th>성별</th>
+					<td><%=profile.getMem_gender() %></td>
+    			</tr>
+				<tr>
+					<th>닉네임</th>
+					<td><%=profile.getMem_nickname() %></td>
+    			</tr>
+				<tr>
+					<th>주소</th>
+					<td><%=profile.getMem_address() %></td>
+    			</tr>
+				<tr>
+					<th>가입일</th>
+					<td><%=profile.getJoin_date() %></td>
+    			</tr>
+			</table>
+  		</div>
+	</div>
+</div>
 
-		</div> <!-- /.row -->
-	</div> <!-- /.container -->
-</div> <!-- /.main -->
+<%
+	} catch(Exception e){
+%>
+	<script>
+		alert('잘못된 접근입니다!');
+		history.go(-1);
+	</script>		
+<%
+	}
+%>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
+
+</body>
+</html>
