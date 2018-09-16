@@ -1,0 +1,19 @@
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: yellow;
+}
+
+
+fieldset {
+	border : 1px solid #ddd;
+	padding : 10px;
+	margin : 20px 0;
+}
+legend {
+	border: 1px solid #ddd;
+	display :inline;
+	width: auto;
+	padding : 0 10px;
+	background-color: lightgreen;
+	box-shadow: 2px 2px 2px #ddd;
+}

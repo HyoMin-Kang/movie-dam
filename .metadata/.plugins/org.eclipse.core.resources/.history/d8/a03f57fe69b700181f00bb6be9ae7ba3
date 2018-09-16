@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>    
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "시사회";
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false"/>
+
+<div class="container">
+	<h3>
+		<%=title %>
+		<small class="text-muted">Movie Preview</small>
+	</h3>
+	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<label class="btn btn-primary"> <input type="checkbox" checked="checked" autocomplete="off">CGV</label> 
+		<label class="btn btn-primary"> <input type="checkbox" checked="checked" autocomplete="off">롯데시네마</label> 
+		<label class="btn btn-primary"> <input type="checkbox" checked="checked" autocomplete="off">메가박스</label>
+	</div>
+	<div class="row">
+	
+	
+	</div>
+	
+</div>
+
+<jsp:include page="/module/footer.jsp" flush="false"/>
+
+</body>
+</html>

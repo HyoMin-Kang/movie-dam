@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "로그인";
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false"/>
+
+<div class="container">
+	<h3>
+		<%=title %>
+		<small class="text-muted">Box Office</small>
+	</h3>
+	
+	<div class="row">
+	
+	</div>
+	
+</div>

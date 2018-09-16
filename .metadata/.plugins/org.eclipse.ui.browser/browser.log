@@ -1,0 +1,22 @@
+
+9월 10, 2018 16:25:49.16 NEW SESSION
+9월 10, 2018 16:25:49.16 
+9월 10, 2018 16:25:49.17 KLIB_SelfTest return : KLR_OK
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.42 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:28:51.43 [4976:10820:0910/162851.425:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 10, 2018 16:29:35.98 Unable to read VR Path Registry from C:\Users\win7_64\AppData\Local\openvr\openvrpaths.vrpath
+
+9월 12, 2018 23:48:35.17 NEW SESSION
+9월 12, 2018 23:48:35.17 Unable to read VR Path Registry from C:\Users\win7_64\AppData\Local\openvr\openvrpaths.vrpath
+9월 12, 2018 23:59:56.41 
+9월 12, 2018 23:59:56.41 KLIB_SelfTest return : KLR_OK

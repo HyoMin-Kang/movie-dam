@@ -102,6 +102,7 @@ button {
 }
 
 #main {
+    clear:both;
     margin: 50px 0;
 }
 
@@ -268,6 +269,211 @@ button {
     }
 }
 
+
+/* 넣은 코드 폼 수정 Bordered form */
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+/* 넣은 코드 수정 nav*/
+body {
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+}
+
+.nav ul {
+  z-index: 1;
+  list-style: none;
+  background-color: white;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.nav li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+  line-height: 40px;
+  text-align: left;
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  padding-left: 15px;
+  border-bottom: 1px solid;
+  transition: .3s;
+}
+
+.nav a:hover {
+ color: indianred;
+}
+
+.nav a.active {
+  color: black;
+  cursor: default;
+}
+
+/* Sub Menus */
+.nav ul li {
+  font-size: .8em;
+}
+
+/*******************************************
+   Style menu for larger screens
+
+   Using 650px (130px each * 5 items), but ems
+   or other values could be used depending on other factors
+********************************************/
+
+  .nav a {
+    border-bottom: none;
+  }
+
+  .nav > ul > li {
+    text-align: center;
+  }
+
+  .nav > ul > li > a {
+    padding-left: 0;
+  }
+    
+  .logo{
+    align-content: center;
+    background-color: white;
+    display: inline-block;
+    margin: 10px;
+}
+
+  /* Sub Menus */
+  .nav li ul {
+    position: absolute;
+    display: none;
+    width: inherit;
+  }
+
+  .nav li:hover ul {
+    display: block;
+  }
+
+  .nav li ul li {
+    display: block;
+}
 
 
 /* Menu */
@@ -1266,7 +1472,7 @@ blockquote {
 @media only screen and (max-width:479px) {
 	
     #main {
-       margin: 15px 0;
+       padding: 20px;
      }
 	
     .sub-title {
@@ -1783,7 +1989,96 @@ blockquote {
     color: #fff;
 }
 
+table.type01 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+}
+table.type01 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;
+}
+table.type01 td {
+    width: 500px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
 
+.content {
+    padding-top: 30px;
+}
+
+/* Testimonials */
+.testimonials blockquote {
+    background: #f8f8f8 none repeat scroll 0 0;
+    border: medium none;
+    color: #666;
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 15px;
+    position: relative;
+}
+.testimonials blockquote::before {
+    width: 0; 
+    height: 0;
+	right: 0;
+	bottom: 0;
+	content: " "; 
+	display: block; 
+	position: absolute;
+    border-bottom: 20px solid #fff;    
+	border-right: 0 solid transparent;
+	border-left: 15px solid transparent;
+	border-left-style: inset; /*FF fixes*/
+	border-bottom-style: inset; /*FF fixes*/
+}
+.testimonials blockquote::after {
+    width: 0;
+    height: 0;
+    right: 0;
+    bottom: 0;
+    content: " ";
+    display: block;
+    position: absolute;
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: #1abc9c transparent transparent transparent;
+}
+.testimonials .carousel-info img {
+    border: 1px solid #f5f5f5;
+    border-radius: 150px !important;
+    height: 75px;
+    padding: 3px;
+    width: 75px;
+}
+.testimonials .carousel-info {
+    overflow: hidden;
+}
+.testimonials .carousel-info img {
+    margin-right: 15px;
+}
+.testimonials .carousel-info span {
+    display: block;
+}
+.testimonials span.testimonials-people {
+    color: #e6400c;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 23px 0 7px;
+}
+.testimonials span.testimonials-post {
+    color: #656565;
+    font-size: 12px;
+}
 
 /* UiPasta Credit */
 
@@ -1800,4 +2095,176 @@ blockquote {
 
 .uipasta-credit a:hover {
     color: #333333;
+}
+/**/
+<!--
+.container div{min-height: 14px;}
+
+.nav{background-color: white}
+    
+.frame{
+    width: auto;
+    margin: 0 auto;
+    border: 1px solid;
+}
+.header {
+  padding: 10px;
+  text-align: center;
+  background: #eee;
+  margin-bottom: 0px;
+}
+.container {
+    display: flex;
+    flex-flow: row wrap;
+}
+       
+.logo{
+    font-size: 2em;
+    font-weight: bold;
+    background-color: antiquewhite;
+    display: inline-block;
+    padding: 30px;
+    margin-bottom: 20px;
+} 
+.nav{padding-top: 10px;}
+.nav li:hover ul{display: block;}
+.nav li{
+    display: inline-block;
+    font: 14px bold;
+    padding: 10px 0;
+}
+.nav li ul {
+    display:none;
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    width:100px;
+    position:absolute;
+}
+    li a {
+    display:block;
+    min-width:100px;
+    height: 50px;
+    line-height: 50px;
+    font-family: block, Helvetica, Arial, sans-serif;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+}
+        
+.media-carousel 
+{
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+  margin-top: 30px;
+}
+
+.media-carousel .carousel-control.left 
+{
+  left: -12px;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 100px;
+}
+    
+.media-carousel .carousel-control.right 
+{
+  right: -12px !important;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 100px;
+}
+.media-carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+.media-carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+.media-carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+.media-carousel img
+{
+  width: 300px;
+  height: auto;
+}
+
+div.talk {
+    padding:inherit;
+    align-items: center;
+    margin: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 400px;
+}
+
+div.talk img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    font-size: 12px;
+    text-align: center;
+}
+    
+div.issue {
+    border: 1px solid #ccc;
+    float: left;
+    width: 200px;
+    margin: 20px;
+}
+    
+div.suda {
+    border: 1px solid #ccc;
+    float: left;
+    width: 400px;
+    margin: 45px;
+}
+
+body { 
+    margin: 0;
+    border: 3px;
+}
+
+.s-horizon { 
+    float: left;
+}
+.s-horizon_wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.content1_wrap { 
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+    
+.content2_wrap { 
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content3_wrap { 
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }

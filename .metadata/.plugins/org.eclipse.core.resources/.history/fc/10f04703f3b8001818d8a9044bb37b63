@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.sql.*"%>    
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.List"%>
+<%@ page import="moviedam.board.BoardDBBean" %>
+<%@ page import="moviedam.board.BoardDataBean" %>
+<%@ page import="moviedam.board.ArticleDBBean" %>
+<%@ page import="moviedam.board.ArticleDataBean" %>
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "자유게시판";	
+	String id = request.getParameter("id");
+	id = (String) session.getAttribute("id");
+	
+	BoardDBBean board_db = BoardDBBean.getInstance(); 
+	BoardDataBean board =  board_db.getBoard(1);
+	int read_allow = board.getRead_allow();
+	int write_allow = board.getWrite_allow();
+	int modify_allow = board.getModify_allow();
+	int remove_allow = board.getRemove_allow();
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false"/>
+
+<div class="container">
+	<h3>
+		<%=title %>
+		<small class="text-muted">Free board</small>
+	</h3>
+	<div class="list_serch form-inline" align="center">
+    	<form>
+        <select class="form-control" name="option">
+	        <option value="all">전체글</option>
+	        <option value="subject">제목</option>
+	        <option value="content">내용</option>
+	        <option value="writer">작성자</option>
+        </select>
+            <input class="form-control" type="text" name="search" size="30" placeholder="궁금한 것을 검색해보세요">
+            <input class="btn btn-outline-secondary" type="submit" value="검색"/> 
+        </form>   
+    </div>  
+	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<label class="btn btn-primary active"> <input type="radio" name="options" id="option2" autocomplete="off" checked="checked"> 전체</label> 
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off"> 사담</label> 
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off"> 영화감상문</label>
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off"> 스포일러</label>
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off"> 예고편</label>
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off"> 포스터</label>
+	</div>
+	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<label class="btn btn-primary active"> <input type="radio" name="options" id="option1" autocomplete="off" checked="checked">최신순</label> 
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option2" autocomplete="off">댓글순</label> 
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option3" autocomplete="off">추천순</label> 
+		<label class="btn btn-primary"> <input type="radio" name="options" id="option4" autocomplete="off"> 조회순</label>
+	</div>
+
+	<div class="row">
+		
+	</div>
+</div>
+
+
+<jsp:include page="/module/footer.jsp" flush="false" />
+
+</body>
+</html>

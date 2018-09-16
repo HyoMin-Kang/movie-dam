@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="movie.member.MemberDBBean"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="moviedam.member.MemberDataBean"/>
 <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+<fullyQualifiedTypeName name="moviedam.board.RestaurantDBBean"/>
+<fullyQualifiedTypeName name="moviedam.board.RestaurantDataBean"/>
 </qualifiedTypeNameHistroy>

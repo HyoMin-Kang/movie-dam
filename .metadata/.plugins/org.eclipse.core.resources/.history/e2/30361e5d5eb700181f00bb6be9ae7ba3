@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="moviedam.member.MemberDBBean" %>
+<%@ page import="moviedam.member.MemberDataBean" %>
+
+<%
+	request.setCharacterEncoding("utf-8");
+	String mem_userid = request.getParameter("mem_userid");
+	
+	try{
+		MemberDBBean mem_db = MemberDBBean.getInstance(); 
+		MemberDataBean profile =  mem_db.getProfile(mem_userid);
+
+		String title = profile.getMem_nickname()+"님의 프로필";
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title%>" />
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false" />
+
+<div class="container">
+	<div class="row">
+		<div class="card bg-secondary mb-3" style="max-width: 20rem;">
+  			<h3 class="card-header"><%=profile.getMem_nickname() %></h3>
+    		<img style="height: 200px; width: 100%; display: block;" src="/movie-dam/assets/images/user_profile.png" alt="Card image cap">
+  			<div class="card-body">
+	    		<h4 class="card-title">Secondary card title</h4>
+	    		<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+			<div class="list-group list-group-flush">
+				<a href="#" class="list-group-item list-group-item-action active">Cras justo odio </a>
+				<a href="#" class="list-group-item list-group-item-action">Dapibusac facilisis in </a>
+				<a href="#" class="list-group-item list-group-item-action disabled">Morbileo risus </a>
+			</div>
+			<div class="card-footer text-muted">
+    			최근 접속 시간 : 
+  			</div>
+		</div>
+  		<div class="col-lg-8">
+  		
+  		</div>
+	</div>
+</div>
+
+<%
+	} catch(Exception e){
+		
+	}
+%>
+
+<jsp:include page="/module/footer.jsp" flush="false" />
+
+</body>
+</html>

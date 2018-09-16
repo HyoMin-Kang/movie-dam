@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;movie-dam/WebContent/board/map.jsp&apos; to &apos;getMap.jsp&apos;" description="Rename resource &apos;map.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/board/map.jsp" name="getMap.jsp" stamp="1537113720758" updateReferences="true"/>
+</session>

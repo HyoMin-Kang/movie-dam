@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=a19c59ff51a6a8f37d37e30cd7e64bb9&curPage=1&itemPerPage=12',
+		contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		success: function(data) {
+			console.log(data);
+			for(var i=0; i<result['movieListResult']['movieList'].length; i++) {
+				var rs = [];
+				document.write("");
+			}
+		}
+	});
+});
+</script>
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=a19c59ff51a6a8f37d37e30cd7e64bb9&curPage=1&itemPerPage=12',
+		contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		success: function(data) {
+			console.log(data);
+			for(var i=0; i<data['movieListResult']['movieList'].length; i++) {
+				var rs = [];
+				document.write("");
+			}
+		}
+	});
+});$(document).ready(function() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/code/searchCodeList.json?key=a19c59ff51a6a8f37d37e30cd7e64bb9&comCode=2201',
+		contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		success: function(data) {
+			console.log(data);
+		}
+	});
+});
+</script>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="movie.board.BoardDBBean" %>
-<%@ page import="movie.board.BoardDataBean" %>
-<%@ page import="movie.board.CommentDBBean" %>
-<%@ page import="movie.board.CommentDataBean" %>
+<%@ page import="moviedam.board.ArticleDBBean" %>
+<%@ page import="moviedam.board.ArticleDataBean" %>
+<%@ page import="moviedam.board.CommentDBBean" %>
+<%@ page import="moviedam.board.CommentDataBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
@@ -41,9 +41,9 @@
     int ccount =0;
     int number = 0;
     int total_page = 0;
-    List<BoardDataBean> articleList = null; 
+    List<ArticleDataBean> articleList = null; 
     
-    BoardDBBean dbPro = BoardDBBean.getInstance();
+    ArticleDBBean dbPro = ArticleDBBean.getInstance();
     count = dbPro.getArticleCount(option,search); //전체 글 수
     
     CommentDBBean dbPro2 = CommentDBBean.getInstance();
@@ -170,33 +170,23 @@
 	<% }
 	
    for (int i = 0 ; i < articleList.size() ; i++) {
-       BoardDataBean article = articleList.get(i);
+	   ArticleDataBean article = articleList.get(i);
 %>
    <tr>
     <td> <%=number--%></td>
     <td> <%=select%></td>
-<%
-	int wid=0; 
-	if(article.getRe_level()>0){
-	   wid = 10 * (article.getRe_level());
-%>
-	<td style="text-indent:<%=wid%>px">
-	  <i class="fab fa-replyd"></i>
-<%  } else {%>
-	<td style="text-indent:<%=wid%>px">
-<%  }%>
+
            
-      <a href="content.jsp?num=<%=article.getNum()%>&pageNum=<%=currentPage%>">
-           <%=article.getSubject()%></a> 
-<% if(article.getReadcount()>=20){%>
+      <a href="content.jsp?num=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>">
+           <%=article.getArticle_title()%></a> 
+<% if(article.getArticle_gets()>=20){%>
          <span class="badge badge-danger">N</span><%}%> </td>
     <td> 
-       <a href="mailto:<%=article.getEmail()%>">
-                     <%=article.getWriter()%></a></td>
+       <%=article.getArticle_writer()%></a></td>
     <td class="text-center"><%=sdf.format(article.getReg_date())%></td>
      <td class="text-center"><%=ccount%></td>
       <td class="text-center">a</td>
-    <td class="text-right"><%=article.getReadcount()%></td>
+    <td class="text-right"><%=article.getArticle_gets()%></td>
     
   </tr>
 <%}%>

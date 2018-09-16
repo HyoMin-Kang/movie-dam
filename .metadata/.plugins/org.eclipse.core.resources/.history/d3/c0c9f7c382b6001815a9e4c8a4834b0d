@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	response.setContentType("text/html; charset=utf-8");
+	String title = "박스오피스";
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false"/>
+
+<div class="container">
+	<div class="col align-self-center">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-primary">
+				<input type="radio" name="options" id="option1" autocomplete="off" checked=""> 주간
+			</label>
+			<label class="btn btn-primary">
+				<input type="radio" name="options" id="option2" autocomplete="off"> 월간
+			</label>
+			<label class="btn btn-primary active">
+				<input type="radio" name="options" id="option3" autocomplete="off"> 연간
+			</label>
+		</div>
+	</div>
+	
+	
+	<div class="row">
+	
+	</div>
+</div>
+
+<jsp:include page="/module/footer.jsp" flush="false"/>

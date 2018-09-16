@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=a19c59ff51a6a8f37d37e30cd7e64bb9&targetDt=20180909',
+		contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		success: function(result) {
+			var rs = [];
+			for(var i=0; i<3; i++) {
+				rs.push('<div class="col card mb-3">');
+				rs.push('<h4 class="card-header"><span class="badge badge-pill badge-dark">'+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['rank']+'위</span> '+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['movieNm']+'</h4>');
+				rs.push('</div>');
+ 				rs.push('<ul class="list-group list-group-flush">');
+ 				rs.push('<li class="list-group-item">개봉일 '+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['openDt']+'</li>');
+ 				rs.push('<li class="list-group-item">누적관객수 '+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['audiAcc']+'</li>');
+ 				rs.push('<li class="list-group-item">누적매출액 '+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['salesAcc']+'</li></ul>');
+ 				rs.push('<div class="card-body">');
+ 				rs.push('<a href="#" class="card-link">예매하기</a>');
+ 				rs.push('<a href="#" class="card-link">상세 보기</a>');
+ 				rs.push('<a href="#" class="card-link">통계 보기</a>');
+ 				rs.push('</div></div>');
+			}
+			$('#resultBoxOffice').html(rs.join(''));
+		}
+	});
+});
+</script>

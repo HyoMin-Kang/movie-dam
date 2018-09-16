@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "ㅇㅇㅇ님의 프로필";
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title%>" />
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false" />
+
+<div id="main">
+	<div class="container">
+		<div class="row">
+
+			<!-- About Me (Left Sidebar) Start -->
+			<div class="col-md-3">
+				<div class="about-fixed">
+
+					<div class="my-pic">
+						<img src="/movie-dam/assets/images/pic/my-pic.png" alt="">
+						<a href="javascript:void(0)" class="collapsed" data-target="#menu" data-toggle="collapse"><i class="icon-menu menu"></i></a>
+
+						<div id="menu" class="collapse">
+							<ul class="menu-link">
+								<li><a href="#">프로필</a></li>
+								<li><a href="#">활동</a></li>
+								<li><a href="#">메시지</a></li>
+								<li><a href="#">설정</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="my-detail">
+						<div class="white-spacing">
+							<h1>Nick Name</h1>
+							<h5>
+								<a href="./profile_follower.jsp">팔로워 00명</a>&nbsp;/&nbsp;
+								<a href="./profile_following.jsp">팔로잉 00명</a>
+							</h5>
+							<span><a class="btn btn-default" href="#" role="button">팔로우</a></span> 
+							<span><a class="btn btn-default" href="#" role="button">팔로우 해제</a></span> 
+						</div>
+						<ul class="social-icon">
+							<li><a href="#" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank" class="github"><i class="fa fa-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- About Me (Left Sidebar) End -->
+			
+			
+			
+		</div> <!-- /.row -->
+	</div> <!-- /.container -->
+</div> <!-- /.main -->
+
+<jsp:include page="/module/footer.jsp" flush="false" />

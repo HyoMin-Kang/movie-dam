@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<jsp:include page="/module/header.jsp" flush="false"/>
+
+<div id="div1"></div>
+<jsp:include page="/module/footer.jsp" flush="false"/>
+
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=a19c59ff51a6a8f37d37e30cd7e64bb9&targetDt=20120101',
+		contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		success: function(result) {
+			//영화 제목과 순위 출력
+			for(var i=0; i<result['boxOfficeResult']['weeklyBoxOfficeList'].length; i++) {
+				$('#div1').append(result['boxOfficeResult']['weeklyBoxOfficeList'][i]['rank']+'위 : '+result['boxOfficeResult']['weeklyBoxOfficeList'][i]['movieNm']+"<br>");
+			}
+		}
+	});
+});
+</script>
+
+</body>
+
+</html>

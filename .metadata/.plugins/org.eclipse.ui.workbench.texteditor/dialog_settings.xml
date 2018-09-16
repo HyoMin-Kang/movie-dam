@@ -2,11 +2,26 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
+		<item value="searchLo" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="searchLo"/>
+			<item value="keywordSearch"/>
+			<item value="var ps = new daum.maps.services.Places();"/>
+			<item value="select"/>
+			<item value="num"/>
+			<item value="board_num"/>
+			<item value="tegory"/>
+			<item value="category"/>
+			<item value="if (pageNum == null) {"/>
+			<item value="   int pageSize = 10;"/>
+			<item value="Awesome"/>
+			<item value="&lt;!-- Default panel contents --&gt;"/>
+			<item value="main"/>
+			<item value="&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;"/>
 			<item value="miso"/>
 		</list>
 		<list key="replacehistory">
@@ -16,7 +31,7 @@
 		<item value="288" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="390" key="DIALOG_HEIGHT"/>
-		<item value="513" key="DIALOG_X_ORIGIN"/>
-		<item value="181" key="DIALOG_Y_ORIGIN"/>
+		<item value="8" key="DIALOG_X_ORIGIN"/>
+		<item value="52" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

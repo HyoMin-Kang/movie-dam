@@ -126,6 +126,7 @@
 
       
       
+      
       <Context docBase="D:\_server\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\_server\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\movie-dam" path="/movie-dam" reloadable="true" source="org.eclipse.jst.jee.server:movie-dam">
       	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxWait="5000" name="jdbc/miso" password="misoadmin" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/miso" username="miso"/>
       </Context>

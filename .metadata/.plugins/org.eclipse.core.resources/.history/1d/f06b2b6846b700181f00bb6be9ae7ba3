@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="moviedam.member.MemberDBBean" %>
+
+<% request.setCharacterEncoding("utf-8");%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "회원 가입 완료";
+%>
+
+<jsp:useBean id="member" class="moviedam.member.MemberDataBean">
+     <jsp:setProperty name="member" property="*"/>
+</jsp:useBean>
+
+<%
+	member.setMem_status(0); //0:회원, 1:탈퇴회원
+	member.setJoin_date(new Timestamp(System.currentTimeMillis()));
+	member.setMem_type(0); //0:회원, 1:관리자
+	
+	MemberDBBean mem_insert = MemberDBBean.getInstance();
+	mem_insert.insertMember(member);
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
