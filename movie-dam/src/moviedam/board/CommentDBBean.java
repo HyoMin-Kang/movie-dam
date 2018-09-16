@@ -27,84 +27,47 @@ private Connection getConnection() throws Exception {
     return ds.getConnection();
 }
 
-public void insertComment(CommentDataBean dto) {
+public void insertComment(CommentDataBean cmt) {
 	Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-	int num = dto.getNum();
-	int number = 0;
+	
+	String sql = "";
 	
 	try {
-		conn = getConnection();		
-		pstmt = conn.prepareStatement("select max(num) from comment");
-		rs = pstmt.executeQuery();
-		if(rs.next()) {
-			number = rs.getInt(1)+1;
-		} else {
-			number = 1;
-		}
-		String sql = "insert into comment(id,content,reg,ref) values(?,?,?,?)";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, dto.getId());
-		pstmt.setString(2, dto.getContent());
-		pstmt.setTimestamp(3, dto.getReg());
-		pstmt.setInt(4, dto.getRef());
-		pstmt.executeUpdate();
-	}catch(Exception ex) {
-    	ex.printStackTrace();
-    } finally {
-    	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-
-    }
-}
-
-//board테이블에 저장된 전체글의 수를 얻어냄(select문)<=list.jsp에서 사용
-	public int getCommentCount()
-           throws Exception {
-      Connection conn = null;
-      PreparedStatement pstmt = null;
-      ResultSet rs = null;
-      
-
-      int x=0;
-      
-
-      try {
-          conn = getConnection();
-          
-          
-          	pstmt = conn.prepareStatement("select b.* ,(select count(*) from comment c where b.num = c.ref)as ccount from board b");
+		conn = getConnection();	
+    
+        sql="insert into comment(cmt_writer,cmt_content,cmt_date,cmt_ref,cmt_parent) values(?,?,?,?,?)";
+        pstmt =conn.prepareStatement(sql);
+        pstmt.setString(1,cmt.getCmt_writer());
+        pstmt.setString(2, cmt.getCmt_content());
+        pstmt.setTimestamp(3, cmt.getCmt_date());
+        pstmt.setInt(4, cmt.getCmt_ref());
+        pstmt.setInt(5, cmt.getCmt_parent());
+        pstmt.executeUpdate();
        
-         
-          rs = pstmt.executeQuery();
+    }catch(Exception e) {
+       e.printStackTrace();
+    }finally {
+        if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+         if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+         if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+    }
+    } 
 
-          if (rs.next()) {
-             x= rs.getInt(1);
-			}
-      } catch(Exception ex) {
-          ex.printStackTrace();
-      } finally {
-          if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-          if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-          if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-      }
-		return x;
-  }
 
-public ArrayList<CommentDataBean> getContentlist(int ref) 
+
+public ArrayList<CommentDataBean> getContentlist(int cmt_ref) 
         throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ArrayList<CommentDataBean> contentList = null;
 			
-			     
 			try{
 			conn = getConnection();
 			
-			String sql = "select * from comment where ref like '"+ref+"'order by reg desc" ;
+			String sql = "select * from comment where cmt_ref like '"+cmt_ref+"'order by cmt_date desc" ;
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -113,9 +76,9 @@ public ArrayList<CommentDataBean> getContentlist(int ref)
 			 contentList = new ArrayList<CommentDataBean>();
 			  do {
 				  CommentDataBean content = new CommentDataBean();
-			  content.setId(rs.getString("id"));
-			  content.setContent(rs.getString("content"));
-			  content.setReg(rs.getTimestamp("reg"));
+			  content.setCmt_writer(rs.getString("cmt_writer"));
+			  content.setCmt_content(rs.getString("cmt_content"));
+			  content.setCmt_date(rs.getTimestamp("cmt_date"));
 			
 			
 			  contentList.add(content);

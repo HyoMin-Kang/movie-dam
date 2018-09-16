@@ -12,19 +12,19 @@
     
     
     <%
-    	cmtdto.setReg(new Timestamp(System.currentTimeMillis()) );
-    
-    	String num = request.getParameter("ref");
+    	cmtdto.setCmt_date(new Timestamp(System.currentTimeMillis()) );
+    		
+        int article_id = Integer.parseInt(request.getParameter("cmt_ref"));
     	String pageNum = request.getParameter("pagenum");
     	
-    	CommentDBBean dao = CommentDBBean.getInstance();
-    	dao.insertComment(cmtdto);
+    	
+    	CommentDBBean cmt = CommentDBBean.getInstance();
+    	cmt.insertComment(cmtdto);
     %>
 
 <html>
 <head>
-<meta http-equiv="Refresh"
-  content="0;url=content.jsp?num=<%=num%>&book_kind=<%=pageNum%>">
+<meta http-equiv="Refresh" content="0;url=content.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>">
 
 </head>
 <body>

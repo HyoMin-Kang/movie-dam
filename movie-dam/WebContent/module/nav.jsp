@@ -37,8 +37,8 @@
       	<div class="dropdown-menu" aria-labelledby="navbarDropdown3">
       		<a class="dropdown-item" href="/movie-dam/board/free_board.jsp">자유게시판</a>
       		<a class="dropdown-item" href="/movie-dam/board/movie_quiz.jsp">영화퀴즈</a>
-      		<a class="dropdown-item" href="/movie-dam/board/cinema_restaurant.jsp">극장맛집</a>
-      		<a class="dropdown-item" href="#">굿즈정보</a>
+      		<a class="dropdown-item" href="/movie-dam/board/cinema_restaurant.jsp">영화관 맛집</a>
+      		<a class="dropdown-item" href="#">영화굿즈 정보</a>
       	</div>
       </li>
       <li class="nav-item dropdown">
@@ -46,7 +46,7 @@
       	<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
       		<a class="dropdown-item" href="/movie-dam/board/movie_preview.jsp">시사회</a>
       		<a class="dropdown-item" href="/movie-dam/board/movie_stage.jsp">무대인사</a>
-      		<a class="dropdown-item" href="/movie-dam/board/movie_issue.jsp">영화이슈</a>
+      		<a class="dropdown-item" href="/movie-dam/board/movie_issue.jsp">영화 이슈</a>
       	</div>
       </li>
     </ul>
