@@ -12,7 +12,6 @@
 	request.setCharacterEncoding("utf-8");
 	String title = "게시글 작성";
 	int board_id = Integer.parseInt(request.getParameter("board_id"));
-/* 	int article_id = Integer.parseInt(request.getParameter("article_id")); */
 	String userid = request.getParameter("article_writer");
 	BoardDBBean board_db = BoardDBBean.getInstance();
 	BoardDataBean board = board_db.getBoard(board_id);
@@ -66,7 +65,7 @@
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="searchLoc" name="searchLoc" placeholder="위치를 입력하세요.">
+						<input type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요.">
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="button" onclick="searchLocation();">검색</button>
 						</div>

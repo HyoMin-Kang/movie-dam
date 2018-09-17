@@ -36,16 +36,18 @@ public class RestaurantDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into restaurant values(?,?,?,?,?,?,?)";
+			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, article.getArticle_writer());
-			pstmt.setString(2, article.getArticle_title());
-			pstmt.setString(3, article.getArticle_content());
-			pstmt.setTimestamp(4, article.getReg_date());
-			pstmt.setInt(5, article.getArticle_hits());
-			pstmt.setInt(6, article.getArticle_gets());
-			pstmt.setString(7, article.getSearch_loc());
+			pstmt.setInt(1, article.getArticle_id());
+			pstmt.setString(2, article.getArticle_writer());
+			pstmt.setString(3, article.getArticle_title());
+			pstmt.setString(4, article.getArticle_content());
+			pstmt.setTimestamp(5, article.getReg_date());
+			pstmt.setInt(6, article.getArticle_hits());
+			pstmt.setInt(7, article.getArticle_gets());
+			pstmt.setString(8, article.getArticle_file());
+			pstmt.setString(9, article.getSearch_loc());
 			
 			pstmt.executeUpdate();
 		} catch (Exception ex) {

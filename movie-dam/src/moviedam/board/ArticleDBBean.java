@@ -37,17 +37,18 @@ public class ArticleDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into article(article_writer,article_title,reg_date,article_content,article_hits,article_gets,article_file,category) values(?,?,?,?,?,?,?,?)";
+			sql = "insert into article values(?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, article.getArticle_writer());
-			pstmt.setString(2, article.getArticle_title());
-			pstmt.setTimestamp(3, article.getReg_date());
+			pstmt.setInt(1, article.getArticle_id());
+			pstmt.setString(2, article.getArticle_writer());
+			pstmt.setString(3, article.getArticle_title());
 			pstmt.setString(4, article.getArticle_content());
-			pstmt.setInt(5, article.getArticle_hits());
-			pstmt.setInt(6, article.getArticle_gets());
-			pstmt.setString(7, article.getArticle_file());
-			pstmt.setString(8, article.getCategory());
+			pstmt.setTimestamp(5, article.getReg_date());
+			pstmt.setInt(6, article.getArticle_hits());
+			pstmt.setInt(7, article.getArticle_gets());
+			pstmt.setString(8, article.getArticle_file());
+			pstmt.setString(9, article.getCategory());
 
 			pstmt.executeUpdate();
 		} catch (Exception ex) {

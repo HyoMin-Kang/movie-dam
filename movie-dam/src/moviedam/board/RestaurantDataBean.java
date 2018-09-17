@@ -9,6 +9,7 @@ public class RestaurantDataBean {
 	private Timestamp reg_date;
 	private int article_hits;
 	private int article_gets;
+	private String article_file;
 	private String search_loc;
 	
 	public int getArticle_id() {
@@ -58,6 +59,12 @@ public class RestaurantDataBean {
 	}
 	public void setSearch_loc(String search_loc) {
 		this.search_loc = search_loc;
+	}
+	public String getArticle_file() {
+		return article_file;
+	}
+	public void setArticle_file(String article_file) {
+		this.article_file = article_file;
 	}
 	
 }

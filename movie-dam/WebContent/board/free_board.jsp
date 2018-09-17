@@ -4,6 +4,7 @@
 <%@ page import="java.sql.*"%>    
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="moviedam.board.CommentDBBean" %>
 <%@ page import="moviedam.board.CommentDataBean" %>
 <%@ page import="moviedam.board.ArticleDBBean" %>
@@ -32,19 +33,19 @@
 	int ccount = 0;
 	int number = 0;
 	int total_page = 0;
-	List<ArticleDataBean> articleList = null;
-
-	ArticleDBBean dbPro = ArticleDBBean.getInstance();
-	count = dbPro.getArticleCount(option, search); //전체 글 수
-
-	CommentDBBean dbPro2 = CommentDBBean.getInstance();
-	ccount = dbPro.getCommentCount();
-
-	if (count > 0) {
-		articleList = dbPro.getArticles(startRow, pageSize, option, search);
-	}
-
-	number = count - (currentPage - 1) * pageSize;
+	List<ArticleDataBean> articleList = null; 
+    
+    ArticleDBBean article_db = ArticleDBBean.getInstance();
+    count = article_db.getArticleCount(option,search); //전체 글 수
+    
+    ArrayList<CommentDataBean> commentList = null;
+	CommentDBBean comment_db = CommentDBBean.getInstance();
+	
+    if (count > 0) {
+        articleList = article_db.getArticles(startRow, pageSize, option, search);
+    }
+    
+	number = count-(currentPage-1)*pageSize;
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -58,6 +59,9 @@
 		<%=title %>
 		<small class="text-muted">Free board</small>
 	</h3>
+	<p>
+		검색된 글 : <%=count%>개
+	</p>
 	<div class="list_serch form-inline" align="center">
     	<form>
         <select class="form-control" name="option">
@@ -130,13 +134,15 @@
 	
    for (int i = 0 ; i < articleList.size() ; i++) {
 	   ArticleDataBean article = articleList.get(i);
+	   
+       ccount = comment_db.getCommentCount(article.getArticle_id());
 %>
    <tr>
     <td> <%=number--%></td>
     <td> <%=article.getCategory()%></td>
 
            
-      <td><a href="content.jsp?num=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>"><%=article.getArticle_title()%></a> </td>
+      <td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>"><%=article.getArticle_title()%></a> </td>
 <% if(article.getArticle_gets()>=20){%>
          <span class="badge badge-danger">N</span><%}%> </td>
     <td> 
