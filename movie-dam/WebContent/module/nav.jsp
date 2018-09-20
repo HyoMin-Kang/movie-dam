@@ -35,7 +35,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">영화 수다</a>
       	<div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-      		<a class="dropdown-item" href="/movie-dam/board/free_board.jsp">자유게시판</a>
+      		<a class="dropdown-item" href="/movie-dam/board/free_board.jsp?category=all">자유게시판</a>
       		<a class="dropdown-item" href="/movie-dam/board/movie_quiz.jsp">영화퀴즈</a>
       		<a class="dropdown-item" href="/movie-dam/board/cinema_restaurant.jsp">영화관 맛집</a>
       		<a class="dropdown-item" href="#">영화굿즈 정보</a>

@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class ArticleDBBean {
-
+	
 	private static ArticleDBBean instance = new ArticleDBBean();
 
 	public static ArticleDBBean getInstance() {
@@ -71,9 +71,9 @@ public class ArticleDBBean {
 				}
 		}
 	}
-
+	
 	// board테이블에 저장된 전체글의 수를 얻어냄(select문)<=list.jsp에서 사용
-	public int getArticleCount(String option, String search) throws Exception {
+	public int getArticleCount(String option, String search, String category) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -82,18 +82,93 @@ public class ArticleDBBean {
 
 		try {
 			conn = getConnection();
-
-			if (option == null) {
-				pstmt = conn.prepareStatement("select count(*) from article");
-			} else if (option.equals("all")) {
-				pstmt = conn.prepareStatement("select count(*) from article");
-			} else if (option.equals("writer")) {
-				pstmt = conn.prepareStatement("select count(*) from article where writer LIKE '%" + search + "%'");
-			} else if (option.equals("subject")) {
-				pstmt = conn.prepareStatement("select count(*) from article where subject LIKE '%" + search + "%'");
-			} else if (option.equals("content")) {
-				pstmt = conn.prepareStatement("select count(*) from article where content LIKE '%" + search + "%'");
+			
+			if (category.equals("all")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("talk")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '사담'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '사담' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '사담' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '사담' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '사담' and article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("movietalk")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화후기'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화후기' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화후기' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화후기' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화후기' and article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("spoiler")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '스포일러'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '스포일러' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '스포일러' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '스포일러' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '스포일러' and article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("movietmi")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화TMI'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화TMI' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화TMI' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화TMI' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '영화TMI' and article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("boast")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '자랑하기'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '자랑하기' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '자랑하기' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '자랑하기' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '자랑하기' and article_writer LIKE '%" + search + "%'");
+				}
+			} else if (category.equals("hobby")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '덕질공간'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '덕질공간' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '덕질공간' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '덕질공간' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from article where category = '덕질공간' and article_writer LIKE '%" + search + "%'");
+				}
 			}
+			
 
 			rs = pstmt.executeQuery();
 
@@ -121,40 +196,185 @@ public class ArticleDBBean {
 		}
 		return x;
 	}
-
+	
 	// 글의 목록을 가져옴
-	public List<ArticleDataBean> getArticles(int start, int end, String option, String search) throws Exception {
-		Connection conn = null;
+	public List<ArticleDataBean> getArticles(int start, int end, String option, String search, String category) throws Exception {
 		PreparedStatement pstmt = null;
+		Connection conn = null;
 		ResultSet rs = null;
 		List<ArticleDataBean> articleList = null;
 		try {
 			conn = getConnection();
 			String sql = "select * from article ";
-
-			if (option == null) {
-				pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("all")) {
-				pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("writer")) {
-				pstmt = conn.prepareStatement(
-						sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("subject")) {
-				pstmt = conn.prepareStatement(
-						sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("content")) {
-				pstmt = conn.prepareStatement(
-						sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
+			
+			if (category.equals("all")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("talk")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '사담' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '사담' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '사담' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '사담' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '사담' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("movietalk")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화후기' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화후기' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화후기' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '영화후기' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '영화후기' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("spoiler")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '스포일러' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '스포일러' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '스포일러' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '스포일러' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '스포일러' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("movietmi")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화TMI' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화TMI' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '영화TMI' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '영화TMI' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '영화TMI' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("boast")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '자랑하기' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '자랑하기' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '자랑하기' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '자랑하기' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '자랑하기' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (category.equals("hobby")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where category = '덕질공간' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where category = '덕질공간' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where category = '덕질공간' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '덕질공간' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where category = '덕질공간' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
 			}
 
 			rs = pstmt.executeQuery();
