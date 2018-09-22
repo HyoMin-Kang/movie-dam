@@ -100,13 +100,27 @@
 	<div class="row">
 		<div class="col-lg-2">
 			<div class="list-group">
-				<a href="free_board.jsp?category=all" class="list-group-item list-group-item-action">전체<span class="badge badge-primary badge-pill" style="float:right">14</span></a> 
-				<a href="free_board.jsp?category=talk" class="list-group-item list-group-item-action">사담<span class="badge badge-primary badge-pill" style="float:right">14</span></a> 
-				<a href="free_board.jsp?category=movietalk" class="list-group-item list-group-item-action">영화후기<span class="badge badge-primary badge-pill" style="float:right">14</span></a>
-				<a href="free_board.jsp?category=spoiler" class="list-group-item list-group-item-action">스포일러<span class="badge badge-primary badge-pill" style="float:right">14</span></a>
-				<a href="free_board.jsp?category=movietmi" class="list-group-item list-group-item-action">영화TMI<span class="badge badge-primary badge-pill" style="float:right">14</span></a>
-				<a href="free_board.jsp?category=boast" class="list-group-item list-group-item-action">자랑하기<span class="badge badge-primary badge-pill" style="float:right">14</span></a>
-				<a href="free_board.jsp?category=hobby" class="list-group-item list-group-item-action">덕질공간<span class="badge badge-primary badge-pill" style="float:right">14</span></a>
+				<a href="free_board.jsp?category=all" class="list-group-item list-group-item-action">전체
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a> 
+				<a href="free_board.jsp?category=talk" class="list-group-item list-group-item-action">사담
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a> 
+				<a href="free_board.jsp?category=movietalk" class="list-group-item list-group-item-action">영화후기
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a>
+				<a href="free_board.jsp?category=spoiler" class="list-group-item list-group-item-action">스포일러
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a>
+				<a href="free_board.jsp?category=movietmi" class="list-group-item list-group-item-action">영화TMI
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a>
+				<a href="free_board.jsp?category=boast" class="list-group-item list-group-item-action">자랑하기
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a>
+				<a href="free_board.jsp?category=hobby" class="list-group-item list-group-item-action">덕질공간
+					<span class="badge badge-primary badge-pill" style="float:right">14</span>
+				</a>
 			</div>
 		</div>
 		
@@ -236,7 +250,7 @@
 	</ul>
 </nav>
 
-	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=1&article_writer=${sessionScope.userid}" role="button" ><i class="fas fa-edit"></i>글쓰기</a>
+	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=1&article_writer=${sessionScope.userid}" role="button" >글쓰기</a>
 		
 	</div>
 </div>

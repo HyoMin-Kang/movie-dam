@@ -1,131 +1,160 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화 퀴즈";
+	String userid = request.getParameter("userid");
+%>
+<%
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+	String today = sdf.format(new java.util.Date());
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
-	<jsp:param name="title" value="<%=title %>"/>
+	<jsp:param name="title" value="<%=title%>" />
 </jsp:include>
 
-<jsp:include page="/module/nav.jsp" flush="false"/>
+<jsp:include page="/module/nav.jsp" flush="false" />
 
-<div id="main">
-	<div class="container">
-		<div class="row">
-			<!--Post Start -->
-			<div class="col-md-15">
-				<div class="col-md-12 page-body">
-					<div class="row">
-						<div class="col-md-12 content-page">
+<div class="container">
+	<h3>
+		<%=title%>
+		<small class="text-muted">Movie Quiz</small>
+	</h3>
 
-							<!-- Default panel contents -->
-
-							<h2>
-								<u>영화퀴즈</u>
-							</h2>
-							<br> <small>매주 새로운 퀴즈가 여러분을 기다립니다. 퀴즈를 푼 뒤 응모하기 버튼을 눌러주세요. 정답을 맞추신 한 명의 당첨자께 소정의 선물을 드립니다.</small>
-							<h3 align="center">2018년 8월 31일</h3>
-							<form>
-								<div class="form-group">
-									<label>1. 다음 영화에서 삼차사의 세 번째 귀인이 된 인물은 누구인가?</label>
-								</div>
-								<div style="float: left">
-									<img src="/movie-dam/assets/images/pic/god.jpg" class="img-responsive"
-										alt="Responsive image" width="150" height="300">
-								</div>
-								<div style="float: left; margin-left: 100px;">
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio1" value="option1">
-											차태현
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											디오
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											김동욱
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											하정우
-										</label>
-									</p>
-								</div>
-								<div style="clear: both;"></div>
-							</form>
-
-							<div class="form-group margin-top-50">
-								<label for="InputGender">2. 신과 함께: 인과 연은 2018년 8월 1일에
-									개봉했다.</label>
-							</div>
-							<label class="radio-inline"> <input type="radio"
-								name="inlineRadioOptions" id="inlineRadio1" value="option1">
-								O
-							</label> <label class="radio-inline"> <input type="radio"
-								name="inlineRadioOptions" id="inlineRadio2" value="option2">
-								X
-							</label>
-
-							<form>
-								<div class="form-group margin-top-50">
-									<label>3. 신과 함께에서 염라대왕 역을 맡은 인물은?</label>
-								</div>
-
-								<div style="float: left;">
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio1" value="option1">
-											윤재영
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											김선희
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											임수민
-										</label>
-									</p>
-									<p>
-										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											이정재
-										</label>
-									</p>
-								</div>
-								<div style="clear: both;"></div>
-							</form>
-							<div align="center">
-								<button type="button" class="btn btn-default btn-md"
-									style="width: 100px">응모하기</button>
-							</div>
+	<div class="row">
+		<form name="movieQuiz" method="post" action="movie_quiz_pro.jsp">
+			<p><%=today %></p>
+			<table class="table">
+				<tr>
+					<th>회차정보</th>
+					<td align="left"><input type="text" size="3"
+						class="form-control" name="episode" placeholder="회차"
+						required="required">회</td>
+				</tr>
+				<tr>
+					<th>문제 1.</th>
+					<td align="left"><input type="text" size="50"
+						class="form-control" name="question1" placeholder="문제를 입력하세요."
+						required="required"></td>
+				</tr>
+				<tr>
+					<th>정답</th>
+					<td align="left">
+						<div class="form-group row">
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio1" value="1"> 
+								<input type="text" name="answer1" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio1" value="2"> 
+								<input type="text" name="answer2" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio1" value="3"> 
+								<input type="text" name="answer3" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio1" value="4"> 
+								<input type="text" name="answer4" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
 						</div>
-
-					</div>
-					<!-- Post End -->
-
+					</td>
+				<tr>
+					<th>문제 2.</th>
+					<td align="left">
+						<input type="text" size="50" class="form-control" name="question2" placeholder="문제를 입력하세요." required="required">
+					</td>
+				</tr>
+				<tr>
+					<th>정답</th>
+					<td align="left">
+						<div class="form-group row">
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio2" value="1" disabled="disabled"> 
+								<input type="text" name="answer5" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio2" value="2" disabled="disabled"> 
+								<input type="text" name="answer6" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio2" value="3" disabled="disabled">  
+								<input type="text" name="answer7" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio2" value="4" disabled="disabled"> 
+								<input type="text" name="answer8" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+						</div>
+					</td>
+				<tr>
+					<th>문제 3.</th>
+					<td align="left">
+						<input type="text" size="50" class="form-control" name="question3" placeholder="문제를 입력하세요." required="required">
+					</td>
+				</tr>
+				<tr>
+					<th>정답</th>
+					<td align="left">
+						<div class="form-group row">
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio3" value="1" disabled="disabled"> 
+								<input type="text" name="answer9" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio3" value="2" disabled="disabled"> 
+								<input type="text" name="answer10" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio3" value="3" disabled="disabled"> 
+								<input type="text" name="answer11" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+							<p>
+								<label class="radio-inline"> 
+								<input type="radio" name="radio3" value="4" disabled="disabled"> 
+								<input type="text" name="answer12" placeholder="답을 입력하세요." required="required">
+								</label>
+							</p>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-2 col-xs-4">
+					<button type="submit">제출하기</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
 
-<jsp:include page="/module/footer.jsp" flush="false"/>
+<jsp:include page="/module/footer.jsp" flush="false" />
 
 </body>
 </html>

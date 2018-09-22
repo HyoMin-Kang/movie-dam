@@ -57,7 +57,7 @@
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 48px, 0px);">
 				<a class="dropdown-item" href="movie_list.jsp?sort=vote_count">인기순</a>
 				<a class="dropdown-item" href="movie_list.jsp?sort=release_date">최근 개봉순</a>
-				<a class="dropdown-item" href="movie_list.jsp?sort=revenue">수익 높은순</a>
+				<a class="dropdown-item" href="movie_list.jsp?sort=revenue">최고 흥행순</a>
 			</div>
 		</div>
 	</div>
