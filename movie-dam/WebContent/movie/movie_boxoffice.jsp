@@ -29,8 +29,38 @@
 	
 	<div class="row" id="resultBoxOffice">
 		
-		
 	</div>
+<% 
+	for(int i=0; i<10; i++) {
+%>
+	<div class="modal showChart<%=i %>" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">통계 보기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="h5 modalTitle"><span class="oldOrNew"></span> </div>
+					<p>순위 증감분</p>
+					<div class="modalRankInten"></div>
+					<p>매출액 증감분</p>
+					<div class="modalSalesInten"></div>
+					<p>관객수 증감분</p>
+					<div class="modalAudiInten"></div>
+					<span id='colchart_diff' style='width: 450px; height: 250px; display: inline-block'></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<%
+	}
+%>
 </div>
 
 <jsp:include page="/module/footer.jsp" flush="false"/>

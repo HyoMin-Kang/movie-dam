@@ -100,25 +100,25 @@
 	<div class="row">
 		<div class="col-lg-2">
 			<div class="list-group">
-				<a href="free_board.jsp?category=all" class="list-group-item list-group-item-action">전체
+				<a href="free_board.jsp?category=all" id="all" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">전체
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a> 
-				<a href="free_board.jsp?category=talk" class="list-group-item list-group-item-action">사담
+				<a href="free_board.jsp?category=talk" id="talk" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">사담
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a> 
-				<a href="free_board.jsp?category=movietalk" class="list-group-item list-group-item-action">영화후기
+				<a href="free_board.jsp?category=movietalk" id="movietalk" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">영화후기
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a>
-				<a href="free_board.jsp?category=spoiler" class="list-group-item list-group-item-action">스포일러
+				<a href="free_board.jsp?category=spoiler" id="spoiler" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">스포일러
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a>
-				<a href="free_board.jsp?category=movietmi" class="list-group-item list-group-item-action">영화TMI
+				<a href="free_board.jsp?category=movietmi" id="movietmi" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">영화TMI
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a>
-				<a href="free_board.jsp?category=boast" class="list-group-item list-group-item-action">자랑하기
+				<a href="free_board.jsp?category=boast" id="boast" class="list-group-item list-group-item-action">자랑하기
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a>
-				<a href="free_board.jsp?category=hobby" class="list-group-item list-group-item-action">덕질공간
+				<a href="free_board.jsp?category=hobby" id="hobby" class="list-group-item list-group-item-action">덕질공간
 					<span class="badge badge-primary badge-pill" style="float:right">14</span>
 				</a>
 			</div>
@@ -174,24 +174,22 @@
 	   
        ccount = comment_db.getCommentCount(article.getArticle_id());
 %>
-   <tr>
-    <td> <%=number--%></td>
-    <td> <%=article.getCategory()%></td>
+		<tr>
+		    <td><%=number--%></td>
+		    <td><%=article.getCategory()%></td>
 
            
-      <td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>"><%=article.getArticle_title()%></a> </td>
-<% if(article.getArticle_gets()>=20){%>
-         <span class="badge badge-danger">N</span><%}%> </td>
-    <td> 
-       <%=article.getArticle_writer()%></a></td>
-    <td class="text-center"><%=sdf.format(article.getReg_date())%></td>
-     <td class="text-center"><%=ccount%></td>
-      <td class="text-center"><%=article.getArticle_gets() %></td>
-    <td class="text-right"><%=article.getArticle_hits()%></td>
-    
-  </tr>
-<%}%>
-</tbody>
+      		<td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=1&category=<%=category%>"><%=article.getArticle_title()%></a>
+<% 		if(article.getArticle_hits()<=20){%> <span class="badge badge-info">N</span><%}%>
+			</td>
+    		<td><%=article.getArticle_writer()%></td>
+			<td class="text-center"><%=sdf.format(article.getReg_date())%></td>
+			<td class="text-center"><%=ccount%></td>
+			<td class="text-center"><%=article.getArticle_gets() %></td>
+			<td class="text-right"><%=article.getArticle_hits()%></td>
+  		</tr>
+<%	} %>
+		</tbody>
 </table>
 </div>
 <%}%>
@@ -256,5 +254,10 @@
 </div>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
+<script>
+$(document).ready(function() {
+	$('#<%=category%>').addClass('active');
+});
+</script>
 </body>
 </html>

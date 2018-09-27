@@ -24,14 +24,23 @@ $(document).ready(function() {
 
 	var request = new Request();
 	var sort = request.getParameter("sort");
-
+	
 	var settings = {
-	  "async": true,
-	  "crossDomain": true,
-	  "url": "https://api.themoviedb.org/3/discover/movie?page=1&include_video=false&include_adult=false&sort_by="+sort+".desc&region=KR&language=ko-KR&api_key=9dd279523f7113a4103a8f1e9ef6abe3",
-	  "method": "GET",
-	  "headers": {},
-	  "data": "{}"
+	  	async: true,
+	  	crossDomain: true,
+	  	url: 'https://api.themoviedb.org/3/discover/movie',
+		method: 'GET',
+	  	data: {
+			'page': '1',
+		  	'include_video': 'false',
+		  	'include_adult': 'false',
+		  	'sort_by': sort+'.desc',
+		  	'region': 'KR',
+		  	'language': 'ko-KR',
+		  	'api_key': '9dd279523f7113a4103a8f1e9ef6abe3'
+	  	},
+	  	dataType: 'json',
+	  	headers: {}
 	}
 
 	$.ajax(settings).done(function (response) {
@@ -52,38 +61,36 @@ $(document).ready(function() {
 		$.ajax(settings2).done(function (response2) {
 		  console.log(response2);
 		});
-  		
+  
   		for(var i=0; i<response['results'].length; i++) {
+  			
   			var data = new Object();
   			data.index = i;
   			data.overview = response['results'][i]['overview'];
   			data.popularity = response['results'][i]['popularity'];
   			hoverList.push(data);
-  			
-  			var genres = [];
-  			genres.push(response['results'][i]['genre_ids']);
-  			
-  			rs.push('<div class="card mb-3 col-lg-4 hvr-fade">');
+  			  			
+  			rs.push('<div class="card mb-3 col-lg-4">');
   			rs.push('<h4 class="card-header">'+response['results'][i]['title']+'</h4>');
   			if(response['results'][i]['poster_path'] == null) {
-  		  		rs.push('<img style="width: 100%; display: block;" src="https://via.placeholder.com/350x500?text=dont+find+poster" alt="Card image">');
+  		  		rs.push('<img class="hvr-fade" style="width: 100%; display: block;" src="https://via.placeholder.com/350x500?text=dont+find+poster" alt="Card image">');
   			} else {
-  		  		rs.push('<img style="width: 100%; display: block;" src="https://image.tmdb.org/t/p/original/'+response['results'][i]['poster_path']+'" alt="Card image">');
+  		  		rs.push('<img class="hvr-fade" style="width: 100%; display: block;" src="https://image.tmdb.org/t/p/'+response['results'][i]['poster_path']+'" alt="Card image">');
   			}
   		  	rs.push('<ul class="list-group list-group-flush">');
-			rs.push('<li class="list-group-item" id="genre"></li>');
+			rs.push('<li class="list-group-item" id="genre">장르 '+response['results'][i]['genre_ids']+'</li>');
 			rs.push('<li class="list-group-item">개봉일 '+response['results'][i]['release_date']+'</li>');
 			rs.push('</ul>');
-/* 			rs.push('<div class="card-body">');
+			rs.push('<div class="card-body">');
 			rs.push('<a href="#" class="card-link">예매하기</a>');
 			rs.push('<a href="#" class="card-link">상세보기</a>');
-			rs.push('</div>'); */
 			rs.push('</div>');
+			rs.push('</div>');
+  	  		$('.row').html(rs.join(''));
 			
-			$.each(genres, function(index, item) {
+			/* $.each(genresArray, function(index, item) {
 				$('#genre').html(item.join(','));
-			});
-			console.log(genres);
+			}); */
 
   			$('.hvr-fade').hover(function() {
   				//
@@ -91,12 +98,11 @@ $(document).ready(function() {
   				//
   			});
 
-  	  		$('.row').html(rs.join(''));
   		}
   		
   		var jsonData = JSON.stringify(hoverList);
   		console.log(jsonData);
-  		
+
 	});
 });
 </script>

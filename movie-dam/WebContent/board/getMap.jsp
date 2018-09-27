@@ -1,38 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f393c76a0b2985e070ae327f42034c70&libraries=services"></script>
-<script>
-$('.map_wrap').css({
-	'position': 'relative', 
-	'width': '100%', 
-	'height': '350px'
-});
-$('.title').css({
-	'font-weight': 'bold', 
-	'display': 'block'
-});
-$('.hAddr').css({
-	'position': 'absolute',
-	'left': '10px',
-	'top': '10px',
-	'border-radius': '2px',
-	'background': 'rgba(255,255,255,0.8)',
-	'z-index': '1',
-	'padding': '5px'
-});
-$('#centerAddr').css({
-	'display': 'block',
-	'margin-top': '2px',
-	'font-weight': 'normal'
-});
-$('.bAddr').css({
-	'padding': '5px',
-	'text-overflow': 'ellipsis',
-	'overflow': 'hidden', 
-	'white-space': 'nowrap'
-});
-</script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f393c76a0b2985e070ae327f42034c70&libraries=services"></script>
 <script>
 var ps = new daum.maps.services.Places();
 //마커를 클릭하면 장소명을 표출할 인포윈도우 입니다

@@ -76,7 +76,7 @@
 	    
 	    ArticleDBBean article_db = ArticleDBBean.getInstance();
 	    article_db.insertArticle(article); 
-	    response.sendRedirect("./free_board.jsp");
+	    response.sendRedirect("./free_board.jsp?pageNum=1&category=all");
 	} else if(board_id == 2) { //맛집게시판
 		String search_loc = multi.getParameter("search_loc");
 		String article_content = multi.getParameter("article_content");

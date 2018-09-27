@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- Button -->
-<!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-<a href="/movie-dam/member/profile.jsp" class="btn btn-default" role="button">마이페이지</a> -->
-
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="/movie-dam/main.jsp">영화담</a>
@@ -23,6 +19,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
         	<a class="dropdown-item" href="/movie-dam/movie/movie_list.jsp">영화목록</a>
         	<a class="dropdown-item" href="/movie-dam/movie/movie_boxoffice.jsp">박스오피스</a> 
+        	<a class="dropdown-item" href="/movie-dam/movie/movie_search.jsp">영화 검색</a> 
         </div>
       </li>
       <li class="nav-item dropdown">
