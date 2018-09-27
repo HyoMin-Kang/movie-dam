@@ -1,0 +1,5 @@
+package moviedam.board;
+
+public class IssueDBBean {
+
+}

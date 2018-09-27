@@ -1,0 +1,17 @@
+127.0.0.1 - - [28/Sep/2018:00:03:18 +0900] "GET /movie-dam/board/free_board.jsp?category=talk HTTP/1.1" 200 10487
+127.0.0.1 - - [28/Sep/2018:00:03:19 +0900] "GET /movie-dam/board/free_board.jsp?category=movietmi HTTP/1.1" 200 10508
+127.0.0.1 - - [28/Sep/2018:00:03:20 +0900] "GET /movie-dam/board/free_board.jsp?category=boast HTTP/1.1" 200 10146
+127.0.0.1 - - [28/Sep/2018:00:03:20 +0900] "GET /movie-dam/board/free_board.jsp?category=hobby HTTP/1.1" 200 9093
+127.0.0.1 - - [28/Sep/2018:00:03:21 +0900] "GET /movie-dam/board/free_board.jsp?category=spoiler HTTP/1.1" 200 9097
+127.0.0.1 - - [28/Sep/2018:00:03:22 +0900] "GET /movie-dam/board/free_board.jsp?category=movietalk HTTP/1.1" 200 10168
+127.0.0.1 - - [28/Sep/2018:00:03:22 +0900] "GET /movie-dam/board/free_board.jsp?category=talk HTTP/1.1" 200 10487
+127.0.0.1 - - [28/Sep/2018:00:03:22 +0900] "GET /movie-dam/board/free_board.jsp?category=all HTTP/1.1" 200 11967
+127.0.0.1 - - [28/Sep/2018:00:03:29 +0900] "GET /movie-dam/board/content.jsp?article_id=20&pageNum=1&board_id=1&category=all HTTP/1.1" 200 9687
+127.0.0.1 - - [28/Sep/2018:00:03:31 +0900] "GET /movie-dam/board/content.jsp?article_id=19&pageNum=1&board_id=1&category=all HTTP/1.1" 200 9666
+127.0.0.1 - - [28/Sep/2018:00:03:34 +0900] "POST /movie-dam/board/content_like_pro.jsp?board_id=1&article_id=19&mem_id=aa HTTP/1.1" 200 22
+127.0.0.1 - - [28/Sep/2018:00:03:36 +0900] "GET /movie-dam/board/content.jsp?article_id=19&pageNum=1&board_id=1&category=all HTTP/1.1" 200 9666
+127.0.0.1 - - [28/Sep/2018:00:03:37 +0900] "GET /movie-dam/assets/images/favicon/favicon.ico HTTP/1.1" 200 1150
+127.0.0.1 - - [28/Sep/2018:00:03:41 +0900] "GET /movie-dam/board/movie_issue.jsp HTTP/1.1" 200 9497
+127.0.0.1 - - [28/Sep/2018:00:03:44 +0900] "GET /movie-dam/movie/movie_list.jsp HTTP/1.1" 200 12200
+127.0.0.1 - - [28/Sep/2018:00:03:50 +0900] "GET /movie-dam/movie/movie_search.jsp HTTP/1.1" 200 260
+127.0.0.1 - - [28/Sep/2018:00:03:52 +0900] "GET /movie-dam/movie/movie_boxoffice.jsp HTTP/1.1" 200 19250

@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String title = "영화 상세";
+	String id = request.getParameter("id");
+%>
+
+<jsp:include page="/module/header.jsp" flush="false">
+	<jsp:param name="title" value="<%=title %>"/>
+</jsp:include>
+
+<jsp:include page="/module/nav.jsp" flush="false"/>
+
+<div class="container">
+	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#home">기본 정보</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#credit">출연·제작</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#similar">관련 영화</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#debate">토론</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade active show" id="home">
+			<div class="home">홈</div>
+		</div>
+		<div class="tab-pane fade" id="credit">
+			<div class="credit">출연제작</div>
+		</div>
+		<div class="tab-pane fade" id="similar">
+			<div class="similar">관련 영화</div>
+		</div>
+		<div class="tab-pane fade" id="debate">
+			<div class="debate">토론</div>
+		</div>
+	</div>
+	<div class="row">
+
+	</div>
+
+</div>
+
+<jsp:include page="/module/footer.jsp" flush="false"/>
+
+<script>
+$(document).ready(function() {
+	var settings = {
+		async: true,
+	  	crossDomain: true,
+	  	url: 'https://api.themoviedb.org/3/movie/'+<%=id%>+'',
+		method: 'GET',
+	  	data: {
+		  	'language': 'ko-KR',
+		  	'api_key': '9dd279523f7113a4103a8f1e9ef6abe3'
+	  	},
+	  	dataType: 'json',
+	  	headers: {}
+	}
+	
+	$.ajax(settings).done(function (response) {
+		var rs = [];
+	 	console.log(response);
+	 	$('.nav-tabs').before('<a href="#"><img src="https://image.tmdb.org/t/p/original'+response['backdrop_path']+'" alt="cover" class="cover"></a>');
+	  	rs.push('<h3>'+response['title']+'<small>(개봉년도)</small></h3>');
+	  	rs.push('<p class="lead">'+response['overview']+'</p>');
+	  	
+	  
+	 	$('#home').html(rs.join(''));
+	});	
+});
+</script>
+<script>
+$('.cover').css({
+	'background-size': 'cover'
+});
+</script>
+</body>
+</html>

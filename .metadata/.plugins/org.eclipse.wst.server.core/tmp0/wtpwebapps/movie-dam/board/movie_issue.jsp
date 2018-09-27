@@ -81,6 +81,7 @@
 			</div>
 		</div>
 	</div>
+	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=5&article_writer=${sessionScope.userid}" role="button" >글쓰기</a>
 </div>
 
 

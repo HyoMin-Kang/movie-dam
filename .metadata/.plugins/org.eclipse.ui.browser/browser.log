@@ -20,3 +20,39 @@
 9월 12, 2018 23:48:35.17 Unable to read VR Path Registry from C:\Users\win7_64\AppData\Local\openvr\openvrpaths.vrpath
 9월 12, 2018 23:59:56.41 
 9월 12, 2018 23:59:56.41 KLIB_SelfTest return : KLR_OK
+
+9월 17, 2018 19:37:18.65 NEW SESSION
+9월 17, 2018 19:37:18.65 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.66 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.67 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.67 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.67 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.67 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.68 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:37:18.69 [12332:12940:0917/193718.636:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+9월 17, 2018 19:38:03.07 Unable to read VR Path Registry from C:\Users\win7_64\AppData\Local\openvr\openvrpaths.vrpath
+9월 17, 2018 22:13:57.53 [12332:12940:0917/221357.534:ERROR:gcm_channel_status_request.cc(127)] GCM channel request failed.
+9월 17, 2018 22:54:51.50 
+9월 17, 2018 22:54:51.50 KLIB_SelfTest return : KLR_OK

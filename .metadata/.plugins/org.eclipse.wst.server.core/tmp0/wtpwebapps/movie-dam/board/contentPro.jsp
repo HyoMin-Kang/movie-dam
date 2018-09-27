@@ -15,16 +15,17 @@
     	cmtdto.setCmt_date(new Timestamp(System.currentTimeMillis()) );
     		
         int article_id = Integer.parseInt(request.getParameter("cmt_ref"));
-    	String pageNum = request.getParameter("pagenum");
+    	String pageNum = request.getParameter("pageNum");
+    	int board_id = Integer.parseInt(request.getParameter("board_id"));
+    	String category = request.getParameter("category");
     	
     	
     	CommentDBBean cmt = CommentDBBean.getInstance();
     	cmt.insertComment(cmtdto);
     %>
 
-<html>
 <head>
-<meta http-equiv="Refresh" content="0;url=content.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>">
+<meta http-equiv="Refresh" content="0;url=content.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>">
 
 </head>
 <body>

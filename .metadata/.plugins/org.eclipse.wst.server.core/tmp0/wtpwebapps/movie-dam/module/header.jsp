@@ -19,8 +19,11 @@
 <!-- <link rel="stylesheet" href="/movie-dam/assets/bootstrap-4.1.3/css/bootstrap.min.css"> -->
 <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/lux/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
-<link href="/movie-dam/assets/bootstrap-4.1.3/custom.css" rel="stylesheet">
+<!-- Font awesome -->
+<link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"rel="stylesheet" >
+
+<!-- Custom styles -->
+<link href="/movie-dam/assets/css/custom.css" rel="stylesheet">
 
 <!-- Google Web Fonts  -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
