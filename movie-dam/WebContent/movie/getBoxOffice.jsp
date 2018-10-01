@@ -33,7 +33,7 @@ $(document).ready(function() {
  				rs.push('<div class="card-body">');
  				rs.push('<a href="#" class="card-link">예매하기</a>');
  				rs.push('<a href="#" class="card-link">상세 보기</a>');
- 				rs.push('<a href="#" data-toggle="modal" data-target=".showChart'+i+'" class="card-link">통계 보기</a>');
+ 				rs.push('<a href="#" data-toggle="modal" id="chart'+i+'" data-target=".showChart'+i+'" class="card-link">통계 보기</a>');
  				rs.push('</div></div>');
  				$('#resultBoxOffice').html(rs.join(''));
  				
@@ -53,6 +53,10 @@ $(document).ready(function() {
  					$('.showChart'+i+'').find('.oldOrNew').addClass('badge badge-info');
  				}
  				
+ 				
+ 				$('#chart'+i+'').click(function() {
+ 					console.log(i+'번째 차트');
+ 				});
 			}		
 
 		}

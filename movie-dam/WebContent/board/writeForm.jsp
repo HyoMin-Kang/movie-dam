@@ -111,17 +111,6 @@
 				        <span id="centerAddr"></span>
 			    	</div>
 			    </div>
-				<div class="map_wrap">
-					<div id="map" style="width: 1100px; height: 600px; position: relative; overflow: hidden;"></div>
-					<ul id="category">
-						<li id="BK9" data-order="0"><span class="category_bg bank"></span> 은행</li>
-						<li id="SW8" data-order="1"><span class="category_bg subway"></span> 지하철</li>
-						<li id="PM9" data-order="2"><span class="category_bg pharmacy"></span> 약국</li>
-						<li id="FD6" data-order="3"><span class="category_bg restaurant"></span> 음식점</li>
-						<li id="CE7" data-order="4"><span class="category_bg cafe"></span> 카페</li>
-						<li id="CS2" data-order="5"><span class="category_bg store"></span> 편의점</li>
-					</ul>
-				</div>
 			</div>
 </c:if>
 			<div class="form-group col">

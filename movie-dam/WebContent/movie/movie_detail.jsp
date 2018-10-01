@@ -13,7 +13,7 @@
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
 <div class="backdrop-container">
-	<a href="#"><img src="#" class="cover" alt="cover"></a>
+	<img src="#" class="cover" alt="cover">
 </div>
 
 <div class="container">

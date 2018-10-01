@@ -20,18 +20,30 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- ***** Breadcumb Area End ***** -->
+
+<!-- ***** Listing Destinations Area Start ***** -->
+<section class="dorne-listing-destinations-area section-padding-100-50">
 <div class="container">
-	<h3>
-		<%=title%>
-		<small class="text-muted">Movie List</small>
-	</h3>
-	<p class="lead"></p>
-	<div class="btn-group" role="group">
-		<button type="button" class="btn btn-primary">장르</button>
-		<div class="btn-group show" role="group">
-			<button id="selectGenre" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-			<div class="dropdown-menu" aria-labelledby="selectGenre" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 48px, 0px);">
-				<a class="dropdown-item" href="#">전체</a> 
+	<div class="row">
+        <div class="col-12">
+            <div class="section-heading dark text-center">
+                <span></span>
+                <h4>Movie list</h4>
+                <p id="lead"></p>
+            </div>
+        </div>
+    </div>	
+
+	<div class="row">
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    	장르
+			</button>
+	  		<div class="dropdown-menu" aria-labelledby="dropdownGenre">
+			    <a class="dropdown-item" href="#">전체</a> 
 				<a class="dropdown-item" href="#">액션</a>
 				<a class="dropdown-item" href="#">모험</a>
 				<a class="dropdown-item" href="#">애니메이션</a>
@@ -51,22 +63,22 @@
 				<a class="dropdown-item" href="#">스릴러</a>
 				<a class="dropdown-item" href="#">전쟁</a>
 				<a class="dropdown-item" href="#">서부</a>
-			</div>
+	  		</div>
 		</div>
-	</div>
-	<div class="btn-group" role="group">
-		<button type="button" class="btn btn-primary">정렬</button>
-		<div class="btn-group show" role="group">
-			<button id="selectSort" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-			<div class="dropdown-menu" aria-labelledby="btnGroupDrop2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 48px, 0px);">
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count">인기순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date">최근 개봉순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue">최고 흥행순</a>
-			</div>
+		
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				정렬
+		  	</button>
+		  	<div class="dropdown-menu" aria-labelledby="dropdownSort">
+		    	<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count">인기순</a>
+					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date">최근 개봉순</a>
+					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue">최고 흥행순</a>
+		  	</div>
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row" id="showMovieList">
 		
 	</div>
 
@@ -86,15 +98,15 @@
 		</ul>
 	</div>
 </div>
-
+</section>
 
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
+var page = '<%=resultPage%>';
+var sort = '<%=sort%>';
 $(document).ready(function() {
-	var page = '<%=resultPage%>';
-	var sort = '<%=sort%>';
 	
 	var settings = {
 	  	async: true,
@@ -116,7 +128,7 @@ $(document).ready(function() {
 
 	$.ajax(settings).done(function (response) {
 		console.log(response);
-  		$('.lead').html('총 '+response.total_results+'개의 작품 검색');
+  		$('#lead').html('총 '+response.total_results+'개의 작품 검색');
   		var rs = [];
   		var hoverList = new Array();
   		
@@ -162,26 +174,11 @@ $(document).ready(function() {
 				$('#genre').html(item.join(','));
 			}); */
 
-  	  		$('.row').html(rs.join(''));
+  	  		$('#showMovieList').html(rs.join(''));
   		}
   		
 /*   		var jsonData = JSON.stringify(hoverList);
   		console.log(jsonData); */
-
-  			
-  		/*
-		.pagination : 페이징 태그가 그려질 div
-		#pageIndex : 현재 페이지 위치 저장
-		recordCount : 페이지당 레코드 수
-		total_pages : 전체 페이지 수
-		totl_results : 전체 결과 수
-		eventName : 페이징 하단의 숫자 등의 버튼이 클릭되었을 때 호출될 함수 이름
-  		*/
-  		var pageIndex = null;
-  		var eventName = null;
-  		$('li.page-item').click(function() {
-  	  		var pagination = $('.pagination'); //그려질 div
-  		});
   		
 	});
 });
