@@ -12,11 +12,22 @@
 
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- ***** Breadcumb Area End ***** -->
+
+<!-- ***** Listing Destinations Area Start ***** -->
+<section class="dorne-listing-destinations-area section-padding-100-50">
 <div class="container">
-	<h3>
-		<%=title %>
-		<small class="text-muted">Sign Up</small>
-	</h3>
+	<div class="row">
+        <div class="col-12">
+            <div class="section-heading dark text-center">
+                <span></span>
+                <h4>Sign up</h4>
+                <p>영화담 회원 가입</p>
+            </div>
+        </div>
+    </div>
 	
 	<div class="row">
 		<form name="insertMember" method="post" action="signup_pro.jsp" onsubmit="return formSubmit();">
@@ -154,9 +165,9 @@
     		</div>
 		</form>
 	</div>
-	
 </div>
-
+</section>
+	
 <jsp:include page="/module/footer.jsp" flush="false"/>
 
 <!-- address api -->

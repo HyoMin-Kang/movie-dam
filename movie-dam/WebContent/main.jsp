@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="moviedam.board.ArticleDBBean" %>
+<%@ page import="moviedam.board.ArticleDataBean" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화담";
 %>
-
+<%
+	ArrayList<ArticleDataBean> articleList = null; 
+	ArticleDBBean article_db = ArticleDBBean.getInstance();
+	articleList = article_db.getTopArticles(); 
+%>
 <jsp:include page="/module/header.jsp" flush="false">
 	<jsp:param name="title" value="<%=title %>" />
 </jsp:include>
@@ -470,20 +478,24 @@
 
 <!-- ***** Features Events Area Start ***** -->
 <section class="dorne-features-events-area bg-img bg-overlay-9 section-padding-100-50" style="background-image: url(/movie-dam/assets/img/bg-img/hero-3.jpg)">
-    <div class="container">
+    <div class="container">  
         <div class="row">
             <div class="col-12">
                 <div class="section-heading text-center">
                     <span></span>
-                    <h4>Featured events</h4>
-                    <p>Editor’s pick</p>
+                    <h4>Best articles</h4>
+                    <p>추천 수가 가장 많았던 게시글</p>
                 </div>
             </div>
         </div>
-
         <div class="row">
+<%
+double delay = 0.1;
+for (int i = 0 ; i < articleList.size() ; i++) {
+	   ArticleDataBean article = articleList.get(i);
+%>
             <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay+0.1 %>s">
                     <div class="feature-events-thumb">
                         <img src="/movie-dam/assets/img/bg-img/event-1.jpg" alt="">
                         <div class="date-map-area d-flex">
@@ -492,112 +504,18 @@
                         </div>
                     </div>
                     <div class="feature-events-content">
-                        <h5>Jazz Concert</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
+                        <h5><%=article.getArticle_title()%></h5>
+                        <h6><%=article.getArticle_writer()%></h6>
+                        <p><%=article.getArticle_content()%></p>
                     </div>
                     <div class="feature-events-details-btn">
                         <a href="#">+</a>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s">
-                    <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-2.jpg" alt="">
-                        <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="feature-events-content">
-                        <h5>DeeJay in the house</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
-                    </div>
-                    <div class="feature-events-details-btn">
-                        <a href="#">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s">
-                    <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-3.jpg" alt="">
-                        <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="feature-events-content">
-                        <h5>Theatre Night outside</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
-                    </div>
-                    <div class="feature-events-details-btn">
-                        <a href="#">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s">
-                    <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-4.jpg" alt="">
-                        <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="feature-events-content">
-                        <h5>Wine tasting</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
-                    </div>
-                    <div class="feature-events-details-btn">
-                        <a href="#">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.6s">
-                    <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-5.jpg" alt="">
-                        <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="feature-events-content">
-                        <h5>New Moon Party</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
-                    </div>
-                    <div class="feature-events-details-btn">
-                        <a href="#">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.7s">
-                    <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-6.jpg" alt="">
-                        <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="feature-events-content">
-                        <h5>Happy hour at pub</h5>
-                        <h6>Manhathan</h6>
-                        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
-                    </div>
-                    <div class="feature-events-details-btn">
-                        <a href="#">+</a>
-                    </div>
-                </div>
-            </div>
+<%	} %>
         </div>
-    </div>
+	</div>	
 </section>
 <!-- ***** Features Events Area End ***** -->
 

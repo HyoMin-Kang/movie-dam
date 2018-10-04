@@ -84,7 +84,7 @@
 	</div>
 	
 	<div class="row justify-content-center">
-		<div class="col-lg-8">
+		<div class="col-12">
 			<form>
 				<input type="hidden" name="category" value="<%=category %>">
 				<label class="control-label">게시글 검색</label>
@@ -100,21 +100,12 @@
 						</div>
 						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요">
 						<div class="input-group-append">
-							<input class="btn btn-outline-secondary" type="submit" value="검색"/> 
+							<input class="btn btn-outline-secondary" type="submit" value="검색"> 
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-	    <div class="col-lg-2">
-			<label class="control-label">정렬</label>
-			<select class="form-control" name="sort">
-				<option value="sort_recent">최신순</option>
-	        	<option value="sort_comment">댓글순</option>
-	        	<option value="sort_gets">추천순</option>
-	        	<option value="sort_hits">조회순</option>
-	      	</select>
-	    </div>
 	</div>
 		
 

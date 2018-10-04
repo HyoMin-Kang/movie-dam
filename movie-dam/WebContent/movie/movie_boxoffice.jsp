@@ -3,6 +3,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "박스오피스";
+	String api_key = "a19c59ff51a6a8f37d37e30cd7e64bb9";
+	String api_key2 = "9dd279523f7113a4103a8f1e9ef6abe3";
 	String selectedDate = request.getParameter("targetDate");
 %>
 
@@ -44,19 +46,34 @@
 			</div>
 		</form>
 	</div>
-
-	
-	<div class="row" id="resultBoxOffice">
-		
-	</div>
+	<div class="row">
 <% 
 	for(int i=0; i<10; i++) {
 %>
+		<div class="col-12 col-sm-6 col-lg-4" id="resultBoxOffice<%=i %>">
+			<div class="single-features-area mb-50">
+			<a href="movie_detail.jsp" class="detail_link"><img src="#" alt="" class="poster_path"></a>
+				<div class="price-start"></div>
+				<div class="feature-content d-flex align-items-center justify-content-between">
+					<div class="feature-title">
+						
+					</div>
+					<div class="feature-favourite">
+						<a href="#" data-toggle="modal" onclick="openModal(<%=i %>)" data-target=".showChart<%=i %>" class="card-link"><i class="fas fa-chart-bar"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+<%	} %>
+	</div>
+<%	
+	for(int i=0; i<10; i++) {
+%>
 	<div class="modal showChart<%=i %>" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<div class="h5 modal-title modalTitle"><span class="oldOrNew"></span> </div>
+					<div class="h5 modal-title modalTitle"> </div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -71,9 +88,7 @@
 			</div>
 		</div>
 	</div>
-<%
-	}
-%>
+<%	} %>
 </div>
 </section>
 
@@ -88,7 +103,7 @@ $(function() {
 </script>
 
 <script>
-var audiAcc = [], title = [], rankOldAndNew = [], rank = [], rankInten = [], salesAmt = [], salesAcc = [], salesInten = [], audiCnt = [], audiAcc = [], audiInten = [];
+var audiAcc = [], title = [], openDt = [], rankOldAndNew = [], rank = [], rankInten = [], salesAmt = [], salesAcc = [], salesInten = [], audiCnt = [], audiAcc = [], audiInten = [];
 var targetDate = '<%=selectedDate%>';
 if (targetDate == 'null') {
 	var now = new Date();
@@ -110,8 +125,8 @@ function openModal(i) {
 	var audiCntNumber = audiCnt.map(Number);
 	var audiIntenNumber = audiInten.map(Number);
 	
-	$('.showChart'+i+'').find('.modalTitle').append(title[i]);
-	$('.showChart'+i+'').find('.oldOrNew').append(rankOldAndNew[i]);
+	$('.showChart'+i+'').find('.modalTitle').html(title[i]);
+	$('.showChart'+i+'').find('.modalTitle').append(' <span class="oldOrNew">'+rankOldAndNew[i]+'</span>');
 	if(rankOldAndNew[i]=='OLD') {
 		$('.showChart'+i+'').find('.oldOrNew').addClass('badge badge-dark');
 	} else {
@@ -165,53 +180,67 @@ function openModal(i) {
         colChartDiff2.draw(diffData2, options2);
       }
 }
-
 $(document).ready(function() {
-	$.ajax({
+	var settings = {
 		type: 'GET',
 		url: 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json',
 		data: {
-			'key': 'a19c59ff51a6a8f37d37e30cd7e64bb9',
+			'key': '<%=api_key%>',
 			'targetDt': targetDate
-		},
-		success: function(response) {
-			console.log(response);
+		}
+	}
+	$.ajax(settings).done(function (response) {
+		console.log(response);
+		var rs = [];
+		for(var i=0; i<response['boxOfficeResult']['dailyBoxOfficeList'].length; i++) {
+			var settings2 = {
+				async: false,
+				crossDomain: true,
+				url: 'https://api.themoviedb.org/3/search/movie',
+				method: 'GET',
+				headers: {},
+				data: {
+					'region': 'KR',
+				  	'include_adult': false,
+					'page': 1,
+					'query': response['boxOfficeResult']['dailyBoxOfficeList'][i]['movieNm'],
+					'language': 'ko-KR',
+					'api_key': '<%=api_key2%>'
+			  	}
+			}
 
-			var rs = [];
-			for(var i=0; i<response['boxOfficeResult']['dailyBoxOfficeList'].length; i++) {
- 				title.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['movieNm']);
+			$.ajax(settings2).done(function (response2) {
+				title.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['movieNm']);
 				rank.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['rank']);
- 				rankInten.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['rankInten']);
- 				rankOldAndNew.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['rankOldAndNew']);
- 				audiCnt.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['audiCnt']);
+				rankInten.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['rankInten']);
+				rankOldAndNew.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['rankOldAndNew']);
+				audiCnt.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['audiCnt']);
 				audiAcc.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['audiAcc']);
 				audiInten.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['audiInten']);
 				salesAmt.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['salesAmt']);
 				salesAcc.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['salesAcc']);
- 				salesInten.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['salesInten']);
-
-				rs.push('<div class="col-12 col-sm-6 col-lg-4">');
-				rs.push('<div class="single-features-area mb-50">');
-				rs.push('<img src="/movie-dam/assets/img/bg-img/feature-1.jpg" alt="">');
+				salesInten.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['salesInten']);
+				openDt.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['openDt']);
+				
+				console.log(response2);
+/* 				if(response2['results'].length != 0) { */
+					$('#resultBoxOffice'+i+'').find('.detail_link').attr('href', 'movie_detail.jsp?id='+response2['results'][0]['id']+'');
+					$('#resultBoxOffice'+i+'').find('.poster_path').attr('src', 'https://image.tmdb.org/t/p/original'+response2['results'][0]['poster_path']+'');
+/* 				} */
 				if(rankInten[i] > 0) {
-					rs.push('<div class="price-start"><p>'+rank[i]+'위 (<i class="fas fa-caret-up" style="color:blue"></i>'+rankInten[i]+')</p></div>');
- 				} else if(rankInten[i] == 0) {
-					rs.push('<div class="price-start"><p>'+rank[i]+'위 (<i class="fas fa-minus fa-xs" style="color:black"></i>'+rankInten[i]+')</p></div>');
- 				} else {
-					rs.push('<div class="price-start"><p>'+rank[i]+'위 (<i class="fas fa-caret-down" style="color:red"></i>'+Math.abs(rankInten[i])+')</p></div>');
- 				}
-				rs.push('<div class="feature-content d-flex align-items-center justify-content-between">');
-				rs.push('<div class="feature-title"><h5>'+title[i]+'</h5>');
- 				rs.push('<p>개봉일 '+response['boxOfficeResult']['dailyBoxOfficeList'][i]['openDt']+'</p>');
- 				rs.push('<p>누적관객수 '+numberWithCommas(audiAcc[i])+'명</p>');
- 				rs.push('<p>누적매출액 '+numberWithCommas(salesAcc[i])+'원</p></div>');
- 				rs.push('<div class="feature-favourite">');
- 				rs.push('<a href="#" data-toggle="modal" onclick="openModal('+i+')" data-target=".showChart'+i+'" class="card-link"><i class="fas fa-chart-bar"></i></a>');
- 				rs.push('</div></div></div></div>');			
-			}
-			$('#resultBoxOffice').html(rs.join('')); 			
+					$('#resultBoxOffice'+i+'').find('.price-start').html('<p>'+rank[i]+'위 (<i class="fas fa-caret-up" style="color:blue"></i>'+rankInten[i]+')</p>');
+				} else if(rankInten[i] == 0) {
+					$('#resultBoxOffice'+i+'').find('.price-start').html('<p>'+rank[i]+'위 (<i class="fas fa-minus fa-xs" style="color:black"></i>'+rankInten[i]+')</p>');
+				} else {
+					$('#resultBoxOffice'+i+'').find('.price-start').html('<p>'+rank[i]+'위 (<i class="fas fa-caret-down" style="color:red"></i>'+Math.abs(rankInten[i])+')</p>');
+				}
+				$('#resultBoxOffice'+i+'').find('.feature-title').html('<h5>'+title[i]+'</h5><p>누적관객수 '+numberWithCommas(audiAcc[i])+'명</p><p>누적매출액 '+numberWithCommas(salesAcc[i])+'원</p>');
+				
+			});	
+			
 		}
 	});
+		
 });
 </script>
 

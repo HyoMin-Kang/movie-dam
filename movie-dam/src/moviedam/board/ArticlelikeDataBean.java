@@ -5,7 +5,7 @@ public class ArticlelikeDataBean {
 	private int board_id;
 	private int article_id;
 	private String mem_id;
-	private int like_type;
+	private String like_type;
 	
 	public int getArticle_like_id() {
 		return article_like_id;
@@ -31,10 +31,10 @@ public class ArticlelikeDataBean {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
-	public int getLike_type() {
+	public String getLike_type() {
 		return like_type;
 	}
-	public void setLike_type(int like_type) {
+	public void setLike_type(String like_type) {
 		this.like_type = like_type;
 	}
 	

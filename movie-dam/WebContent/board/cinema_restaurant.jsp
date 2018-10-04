@@ -12,52 +12,48 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- ***** Breadcumb Area End ***** -->
+
+<section class="dorne-single-listing-area section-padding-100">
 <div class="container">
-	<h3>
-		<%=title%>
-		<small class="text-muted">Cinema Restaurant</small>
-	</h3>
-	<div class="list_serch form-inline" align="center">
-		<form>
-			<select class="form-control" name="option">
-				<option value="all">전체글</option>
-				<option value="subject">제목</option>
-				<option value="content">내용</option>
-				<option value="writer">작성자</option>
-			</select> 
-			<input class="form-control" type="text" name="search" size="30" placeholder="궁금한 것을 검색해보세요"> 
-			<input class="btn btn-outline-secondary" type="submit" value="검색" />
-		</form>
-	</div>
 	<div class="row">
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="selectRegion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역 선택</button>
-			<div class="dropdown-menu" aria-labelledby="selectRegion">
-				<a class="dropdown-item" href="#">서울</a> 
-				<a class="dropdown-item" href="#">경기도</a> 
-				<a class="dropdown-item" href="#">경상도</a>
+		<div class="col-12">
+		    <div class="section-heading dark text-center">
+		    	<span></span>
+				<h4>Cinema restaurant</h4>
+				<p>검색된 글 : 개</p>
 			</div>
 		</div>
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="selectCinema" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">영화관 선택</button>
-			<div class="dropdown-menu" aria-labelledby="selectCinema">
-				<a class="dropdown-item" href="#">CGV</a> 
-				<a class="dropdown-item" href="#">롯데시네마</a> 
-				<a class="dropdown-item" href="#">메가박스</a>
-			</div>
-		</div>
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="selectCinema" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">정렬 순서</button>
-			<div class="dropdown-menu" aria-labelledby="selectCinema">
-				<a class="dropdown-item" href="#">최신순</a> 
-				<a class="dropdown-item" href="#">댓글순</a> 
-				<a class="dropdown-item" href="#">추천순</a>
-				<a class="dropdown-item" href="#">조회순</a>
-			</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-12">
+			<form>
+				<label class="control-label">게시글 검색</label>
+				<div class="form-group">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<select class="form-control" name="option">
+						        <option value="all">전체글</option>
+						        <option value="article_title">제목</option>
+						        <option value="article_content">내용</option>
+						        <option value="article_writer">작성자</option>
+					        </select>
+						</div>
+						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요">
+						<div class="input-group-append">
+							<input class="btn btn-outline-secondary" type="submit" value="검색"> 
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	
-	<div class="row">
+	
+	<div class="row justify-content-center">
 		<div class="col-sm-6 col-md-4">
 			<div class="thumbnail">
 				<img src="/movie-dam/assets/images/pic/my-pic.png">
@@ -72,6 +68,7 @@
 
 	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=2&article_writer=${sessionScope.userid}" role="button" ><i class="fas fa-edit"></i>글쓰기</a>
 </div>
+</section>
 
 
 <jsp:include page="/module/footer.jsp" flush="false" />

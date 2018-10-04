@@ -12,6 +12,7 @@
 	if (sort == null || sort.length() == 0) {
 		sort = "vote_count";
 	}
+	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -106,8 +107,12 @@
 <script>
 var page = '<%=resultPage%>';
 var sort = '<%=sort%>';
+var api_key = '<%=api_key%>';
+var response2 = [];
+
+
 $(document).ready(function() {
-	
+	var rs = [];
 	var settings = {
 	  	async: true,
 	  	crossDomain: true,
@@ -129,57 +134,52 @@ $(document).ready(function() {
 	$.ajax(settings).done(function (response) {
 		console.log(response);
   		$('#lead').html('총 '+response.total_results+'개의 작품 검색');
-  		var rs = [];
-  		var hoverList = new Array();
   		
   		var settings2 = {
-		  "async": true,
-		  "crossDomain": true,
-		  "url": "https://api.themoviedb.org/3/genre/movie/list?language=ko-KR&api_key=9dd279523f7113a4103a8f1e9ef6abe3",
-		  "method": "GET",
-		  "headers": {},
-		  "data": "{}"
+		  async: true,
+		  crossDomain: true,
+		  url: 'https://api.themoviedb.org/3/genre/movie/list',
+		  method: 'GET',
+		  headers: {},
+		  data: {
+			  'language': 'ko-KR',
+			  'api_key': api_key
+		  },
+		  dataTypa: 'json'
 		}
 
 		$.ajax(settings2).done(function (response2) {
 		  console.log(response2);
-		});
+		  function getGenreName(genre_ids) {
+				var genreName = [];
+				for(var i=0; i<genre_ids.length; i++) {
+					for(var j=0; j<response2['genres'].length; j++) {
+						if(response2['genres'][j].id == genre_ids[i]) {
+							genreName.push(response2['genres'][j].name);
+						}
+					}
+				}
+				return genreName;
+			}
   
-  		for(var i=0; i<response['results'].length; i++) {
-  			
-  /* 			var data = new Object();
-  			data.index = i;
-  			data.overview = response['results'][i]['overview'];
-  			data.popularity = response['results'][i]['popularity'];
-  			hoverList.push(data); */
-  			  			
-  			rs.push('<div class="card mb-3 col-lg-3">');
-  			rs.push('<h4 class="card-header">'+response['results'][i]['title']+'</h4>');
-  			if(response['results'][i]['poster_path'] == null) {
-  		  		rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'" class="hvr-fade"><img style="width: 100%; display: block;" src="https://via.placeholder.com/350x500?text=dont+find+poster" alt="Card image"></a>');
-  			} else {
-  		  		rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'" class="hvr-fade"><img class="hvr-fade" style="width: 100%; display: block;" src="https://image.tmdb.org/t/p/original'+response['results'][i]['poster_path']+'" alt="Card image"></a>');
-  			}
-  		  	rs.push('<ul class="list-group list-group-flush">');
-			rs.push('<li class="list-group-item" id="genre">장르 '+response['results'][i]['genre_ids']+'</li>');
-			rs.push('<li class="list-group-item">개봉일 '+response['results'][i]['release_date']+'</li>');
-			rs.push('</ul>');
-			rs.push('<div class="card-body">');
-			rs.push('<a href="#" class="card-link">예매하기</a>');
-			rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'" class="card-link">상세보기</a>');
-			rs.push('</div>');
-			rs.push('</div>');
-			
-			/* $.each(genresArray, function(index, item) {
-				$('#genre').html(item.join(','));
-			}); */
-
+	  		for(var i=0; i<response['results'].length; i++) {
+	  			rs.push('<div class="col-12 col-sm-6 col-lg-4">');
+	  			rs.push('<div class="single-features-area mb-50">');
+	  			if(response['results'][i]['poster_path'] == null) {
+	  		  		rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'"><img style="width: 100%; display: block;" src="https://via.placeholder.com/350x500?text=dont+find+poster" alt="Card image"></a>');
+	  			} else {
+	  		  		rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'"><img style="width: 100%; display: block;" src="https://image.tmdb.org/t/p/original'+response['results'][i]['poster_path']+'" alt="Card image"></a>');
+	  			}
+	  			rs.push('<div class="feature-content d-flex align-items-center justify-content-between">');
+	  			rs.push('<div class="feature-title"><h5>'+response['results'][i]['title']+'</h5>');
+	  			rs.push('<p>장르 | '+getGenreName(response['results'][i]['genre_ids'])+'</p>');
+	  			rs.push('<p>개봉일 | '+response['results'][i]['release_date']+'</p></div>');
+				rs.push('<div class="feature-favourite"><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>');
+				rs.push('</div></div></div>');
+	  		}
   	  		$('#showMovieList').html(rs.join(''));
-  		}
-  		
-/*   		var jsonData = JSON.stringify(hoverList);
-  		console.log(jsonData); */
-  		
+
+		});
 	});
 });
 </script>

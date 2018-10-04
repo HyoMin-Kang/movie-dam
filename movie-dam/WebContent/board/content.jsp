@@ -19,7 +19,8 @@
 	String category = request.getParameter("category");
 	int board_id = Integer.parseInt(request.getParameter("board_id"));
 	int count = 0;
-	int likecount = 0;
+	int like_count = 0;
+	String like_type = "";
 %>
 
 <%
@@ -36,8 +37,8 @@
 		ArticleDBBean article_db = ArticleDBBean.getInstance();
 		ArticleDataBean article = article_db.getArticle(article_id);
 
-		ArticleDBBean like_db = ArticleDBBean.getInstance();
-		likecount = like_db.getlikeCount(userid, article_id);
+		like_type = article_db.getLike_type(board_id, article_id, userid);
+		like_count = article_db.getlikeCount(board_id,article_id);
 %>
 
 <%
@@ -62,138 +63,137 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- ***** Breadcumb Area End ***** -->
+
+<section class="dorne-single-listing-area section-padding-100">
 <div class="container">
-	<h3>
-		게시판명
-		<small class="text-muted">Detail View</small>
-	</h3>
 	<div class="row">
-		<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='free_board.jsp?pageNum=<%=pageNum%>&category=<%=category%>'">글목록</button>
-		<table class="table table-bordered">
-			<tr>
-				<td>글번호</td>
-				<td><%=article.getArticle_id() %></td>
-				<td>조회수</td>
-				<td><%=article.getArticle_hits() %></td>
-				<td>추천수</td>
-				<td><%=article.getArticle_gets() %></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td><%=article.getArticle_writer()%>님</td>
-				<td>작성일</td>
-				<td><%=sdf.format(article.getReg_date())%></td>
-				<td>카테고리</td>
-				<td><%=article.getCategory()%></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td colspan="5"><%=article.getArticle_title()%></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td colspan="5"><%=article.getArticle_content().replace("\r\n", "<br>") %></td>
-			</tr>
+		<div class="col-12">
+		    <div class="section-heading dark text-center">
+		    	<span></span>
+				<h4>Free board</h4>
+				<p></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row justify-content-center">
+		<div class="col-12 col-lg-8">
+			<div class="single-listing-content">
+				<a href="#"><span class="badge badge-dark"><%=article.getCategory()%></span></a>
+				<div class="listing-title">
+	                <h4><%=article.getArticle_title()%></h4>
+	                <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=article.getArticle_writer()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)</span>
+	                <span><i class="fas fa-eye"></i> <%=article.getArticle_hits() %></span>
+	            </div>
+	            
+	            <div class="overview-content mt-50" id="overview">
+	            	<p><%=article.getArticle_content().replace("\r\n", "<br>") %></p>
+				</div>
+				
+				<table class="table table-bordered">
+
+	
 <%
 if(article.getArticle_file() != null) {
 %>
-			<tr>
-				<td colspan="6"><img src="/movie-dam/imageFolder/<%=article.getArticle_file()%>" width="250px"></td>
-			</tr>
-			<tr>
-				<td colspan="6">첨부된 파일 : <a href="#"><%=article.getArticle_file() %></a></td>
-			</tr>
+					<tr>
+						<td colspan="6"><img src="/movie-dam/imageFolder/<%=article.getArticle_file()%>" width="250px"></td>
+					</tr>
+					<tr>
+						<td colspan="6">첨부된 파일 : <a href="#"><%=article.getArticle_file() %></a></td>
+					</tr>
+<% } %>		
+				</table>
+				
+				<div>
+
+<% if (like_type.equals("N")) { %>
+					<a id="like" href=""><i id="likeIcon" class="far fa-heart fa-lg"></i></a><span id="likeCount"><%=like_count %>개</span>
+<% } else if (like_type.equals("Y")) {%>
+					<a id="like" href=""><i id="likeIcon" class="fas fa-heart fa-lg" style="color:red;"></i></a><span id="likeCount"><%=like_count %>개</span>
+<% } %>
+				</div>
+			</div>
 <%
-}
 if(userid.equals("not")) {
 %>
-			<tr>
-				<td colspan="6">
-				<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
-				<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">삭제</button>
-				</td>
-			</tr>
+			<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
+			<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">삭제</button>
 <%}else{ %>			
-			<tr>
-				<td colspan="6">
-				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">수정</button>
-				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='deletePro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">삭제</button>
-				</td>
-			</tr>
-<%} %>			
-		</table>
-		
-		<div>
-			<a id="like" href="#" onclick="clickLike();"><i id="likeIcon" class="far fa-heart fa-2x"></i></a><span id="likeCount"><%=likecount %>개</span>
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">수정</button>
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='deletePro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">삭제</button>
+<%} %>	
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='free_board.jsp?pageNum=<%=pageNum%>&category=<%=category%>'">글목록</button>
 		</div>
-	</div>
-
-	<div class="row">
-
-		<form action="contentPro.jsp?article_id=<%=article_id%>">
-			<input type="hidden" name="cmt_ref" value="<%=article.getArticle_id()%>"> 
-			<input type="hidden" name="pageNum" value="<%=pageNum%>">
-			<input type="hidden" name="cmt_writer" value="<%=userid %>">
-			<input type="hidden" name="board_id" value="<%=board_id %>">
-			<input type="hidden" name="category" value="<%=category %>">
-			
-			<table class="table">
-				<tr>
-					<td colspan="3" align="center"></td>
-				</tr>
-
-				<tr>
-					<td colspan="3" align="center">comment(<%=count%>)
-					</td>
-				</tr>
-
-				<tr>
-					<td height="100" align="center"><%=userid%></td>
-					<td colspan="2" align="right" style="font-size: 14px;">
-						<textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
-						<input class="btn btn-outline-secondary btn-sm" type="submit" name="register" value="댓글 작성"> 
-						<input class="btn btn-outline-secondary btn-sm" type="reset" value="다시쓰기">
-					</td>
-				</tr>
-			</table>
-		</form>	
-				<%
-					if (commentList != null && commentList.size() > 0) {
-							for (int i = 0; i < commentList.size(); i++) {
-								CommentDataBean comment = commentList.get(i);
-				%>
-		<form name="updatecomment" method="post" action="updateCommentPro.jsp"> 
 		
-			<table class="table">		
-				<tr>
-					<td rowspan=2 align="center">img</td>
-					<td colspan=2 align="left" style="font-size: 14px;">
-						<b><%=comment.getCmt_writer()%></b> (<%=comment.getCmt_date()%>)
-					</td>
-				</tr>
-				<tr height="75">
-					<td colspan=2 style="font-size: 14px;"><%=comment.getCmt_content()%></td>
-				</tr>
+		<div class="row">
+	
+			<form action="contentPro.jsp?article_id=<%=article_id%>">
+				<input type="hidden" name="cmt_ref" value="<%=article.getArticle_id()%>"> 
+				<input type="hidden" name="pageNum" value="<%=pageNum%>">
+				<input type="hidden" name="cmt_writer" value="<%=userid %>">
+				<input type="hidden" name="board_id" value="<%=board_id %>">
+				<input type="hidden" name="category" value="<%=category %>">
+				
+				<table class="table">
+					<tr>
+						<td colspan="3" align="center"></td>
+					</tr>
+	
+					<tr>
+						<td colspan="3" align="center">comment(<%=count%>)
+						</td>
+					</tr>
+	
+					<tr>
+						<td height="100" align="center"><%=userid%></td>
+						<td colspan="2" align="right" style="font-size: 14px;">
+							<textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
+							<input class="btn btn-outline-secondary btn-sm" type="submit" name="register" value="댓글 작성"> 
+							<input class="btn btn-outline-secondary btn-sm" type="reset" value="다시쓰기">
+						</td>
+					</tr>
+				</table>
+			</form>	
+					<%
+						if (commentList != null && commentList.size() > 0) {
+								for (int i = 0; i < commentList.size(); i++) {
+									CommentDataBean comment = commentList.get(i);
+					%>
+			<form name="updatecomment" method="post" action="updateCommentPro.jsp"> 
+			
+				<table class="table">		
+					<tr>
+						<td rowspan=2 align="center">img</td>
+						<td colspan=2 align="left" style="font-size: 14px;">
+							<b><%=comment.getCmt_writer()%></b> (<%=comment.getCmt_date()%>)
+						</td>
+					</tr>
+					<tr height="75">
+						<td colspan=2 style="font-size: 14px;"><%=comment.getCmt_content()%></td>
+					</tr>
 <% 
 	if(userid.equals(comment.getCmt_writer())) {
 %>					
-				<tr>
-					<td colspan=3 align="right">
-						<button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, <%=category%>);">수정</button>
-						<button type="button" class="btn btn-sm btn-outline-danger" 
-							onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
-					</td>
-				</tr>	
+					<tr>
+						<td colspan=3 align="right">
+							<button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, <%=category%>);">수정</button>
+							<button type="button" class="btn btn-sm btn-outline-danger" 
+								onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
+						</td>
+					</tr>	
 <%
 	} else {
-	
 %>
-				<tr>
-					<td colspan=3 align="right">
-						<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
-						<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled">삭제</button>
-					</td>
-				</tr>	
+					<tr>
+						<td colspan=3 align="right">
+							<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
+							<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled">삭제</button>
+						</td>
+					</tr>	
 <%
 	}
 %>
@@ -207,12 +207,13 @@ if(userid.equals("not")) {
 					}
 				%>
 
-			</table>
-		</form>
-
+				</table>
+			</form>
+	
+		</div>
 	</div>
-
 </div>
+</section>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 
@@ -224,37 +225,42 @@ function updateOpen(cmt_id, article_id, pageNum, board_id, category) {
 </script>	
 
 <script>
-function clickLike() {
+$('#like').click(function() {
 	$.ajax({
 		type: 'POST',
-		cache: false,
-        url: 'content_like_pro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&mem_id=<%=userid%>',
-        dataType: 'xml',
-        success: function(){
-            $('#likeIcon').removeClass('far');
-            $('#likeIcon').addClass('fas');
-            $('#likeIcon').attr('style', 'color:red')
-            $('#likeCount').html(<%=likecount%>+'개');
-        }
-	});
-}
-
-function clickDelete() {
-	$.ajax({
-		type: 'POST',
-		cache: false,
-        url: 'content_delete_pro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&mem_id=<%=userid%>',
-        dataType: 'xml',
-        success: function(data) {
-        	alert('성공함');
-        	console.log(data);
+        url: 'content_like_pro.jsp',
+        dataType:'json',
+        async: false,
+        data: {
+        	'board_id': <%=board_id%>,
+        	'article_id': <%=article_id%>,
+        	'mem_id': '<%=userid%>',
+        	'like_type': '<%=like_type%>'
         },
-        error: function() {
+        success: function(response){
+        	alert(response); 
+
+        	if(response.equals('Y')) {
+        		$('#likeIcon').removeClass('far');
+                $('#likeIcon').addClass('fas');
+                $('#likeIcon').attr('style', 'color:red');
+        	} else if(response.equals('N')) {
+        		$('#likeIcon').removeClass('fas');
+                $('#likeIcon').addClass('far');
+                $('#likeIcon').attr('style', 'color:black');
+        	}
         	
-        	return false;
+/*             $('#likeCount').html(response+'개'); */
+        },
+        error: function(request, status, error){
+        	if (request.status == '200') {
+				alert('no data');
+			} else {
+				alert('code:' + request.status + "\n" + 'message:' + request.responseText + '\n' + 'error:' + error);
+			}
         }
-	});
-}
+	}); 
+});
 </script>
 </body>
 </html>

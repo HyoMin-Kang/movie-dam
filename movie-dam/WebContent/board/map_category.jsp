@@ -35,8 +35,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="text" size="40px" name="searchLoc" id="searchLoc" placeholder="위치를 입력하세요.">
-	<button onclick="searchLocation();">검색</button>
+	<input type="text" size="40px" name="searchTheater" id="searchTheater" placeholder="위치를 입력하세요.">
+	<button onclick="searchTheateration();">검색</button>
 	<div class="map_wrap">
     <div id="map" style="width:1100px;height:600px;position:relative;overflow:hidden;"></div>
     <ul id="category">
@@ -94,8 +94,8 @@ var ps2 = new daum.maps.services.Places();
 var infowindow = new daum.maps.InfoWindow({zIndex:1});
 
 //키워드로 장소를 검색합니다.
-function searchLocation(){				
-	var loc = $("#searchLoc").val();
+function searchTheateration(){				
+	var loc = $("#searchTheater").val();
 	ps2.keywordSearch(loc, SearchCB); 
 }
 
@@ -126,7 +126,7 @@ function displayMarker(place) {
     
     //지도에 마커를 표시합니다
     marker.setMap(map);
-    marker.setVisible(false);
+    /* marker.setVisible(false); */
     // 마커에 클릭이벤트를 등록합니다
     daum.maps.event.addListener(marker, 'click', function() {
         
@@ -312,8 +312,65 @@ function changeCategoryClass(el) {
         el.className = 'on';
     } 
 }  
-	
-	
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+    
+ // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+    daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+            if (status === daum.maps.services.Status.OK) {
+                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                
+                var content = '<div class="bAddr">' + $("#searchTheater").val() + detailAddr + '</div>';
+                // 마커를 클릭한 위치에 표시합니다 
+                marker.setPosition(mouseEvent.latLng);
+                marker.setMap(map);
+                
+                //마커를 보이지 않게 합니다.
+                marker.setVisible(false); 
+
+                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
+            }   
+        });
+    });
+
+    function searchAddrFromCoords(coords, callback) {
+        // 좌표로  주소 정보를 요청합니다
+        geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+    }
+
+    function searchDetailAddrFromCoords(coords, callback) {
+        // 좌표로 상세 주소 정보를 요청합니다
+        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    }
+    
+    
+ // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+    daum.maps.event.addListener(map, 'idle', function() {
+    	
+        searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+    });
+ 
+ // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+    function displayCenterInfo(result, status) {
+        if (status === daum.maps.services.Status.OK) {
+            var infoDiv = document.getElementById('centerAddr');
+
+            for(var i = 0; i < result.length; i++) {
+                // 행정동의 region_type 값은 'H' 이므로
+                if (result[i].region_type === 'H') {
+                    infoDiv.innerHTML = result[i].address_name;
+                    break;
+                }
+            }
+        }    
+    }	
 </script>
 </html>
 

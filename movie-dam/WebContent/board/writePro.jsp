@@ -56,7 +56,7 @@
 <jsp:useBean id="issue" scope="page" class="moviedam.board.IssueDataBean">
    <jsp:setProperty name="issue" property="*"/>
 </jsp:useBean>
- 
+
 <%	
 	//가져올 데이터
 	String article_writer = multi.getParameter("article_writer");
@@ -80,12 +80,16 @@
 	} else if(board_id == 2) { //맛집게시판
 		String search_loc = multi.getParameter("search_loc");
 		String article_content = multi.getParameter("article_content");
+		float start_lat = Float.parseFloat(request.getParameter("start_lat"));
+		float start_lon = Float.parseFloat(multi.getParameter("start_lon"));
 	
 		restaurant.setArticle_writer(article_writer);
 		restaurant.setArticle_title(article_title);
 		restaurant.setArticle_content(article_content);
 		restaurant.setReg_date(reg_date);
 		restaurant.setSearch_loc(search_loc);
+		restaurant.setStart_lat(start_lat);
+		restaurant.setStart_lon(start_lon);
 		
 		RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
 		restaurant_db.insertArticle(restaurant);

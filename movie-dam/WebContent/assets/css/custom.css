@@ -1,3 +1,22 @@
+/* MEDIA OBJECT */
+.media {
+	margin-bottom: 30px;
+}
+
+/* DEBATE */
+.pro-con-icon {
+	background-color: #f3edff;
+	padding: 25px 20px;
+}
+
+/*수정해야됨 text overflow*/
+.media-body {
+	
+}
+
+/* LOGIN FORM */
+
+
 /* MAP */
 .map_wrap {
 	position: relative;

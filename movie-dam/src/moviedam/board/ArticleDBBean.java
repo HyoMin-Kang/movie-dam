@@ -417,6 +417,54 @@ public class ArticleDBBean {
 		}
 		return articleList;
 	}
+	
+	public ArrayList<ArticleDataBean> getTopArticles() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ArticleDataBean> articleList = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from article order by article_hits desc LIMIT 0, 10 ";
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleList = new ArrayList<ArticleDataBean>();
+				do {
+					ArticleDataBean article = new ArticleDataBean();
+					article.setArticle_id(rs.getInt("article_id"));
+					article.setArticle_writer(rs.getString("article_writer"));
+					article.setArticle_title(rs.getString("article_title"));
+					article.setArticle_content(rs.getString("article_content"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setArticle_hits(rs.getInt("article_hits"));
+					article.setArticle_gets(rs.getInt("article_gets"));
+					article.setArticle_file(rs.getString("article_file"));
+					article.setCategory(rs.getString("category"));
+
+					articleList.add(article);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return articleList;
+	}
 
 	// 글의 내용을 보기(1개의 글)(select문)<=content.jsp페이지에서 사용
 	public ArticleDataBean getArticle(int article_id) throws Exception {
@@ -616,20 +664,26 @@ public class ArticleDBBean {
 		return x;
 	}
 
-	public int getCommentCount() throws Exception {
+	public String getLike_type (int board_id, int article_id, String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		int x = 0;
-
+		String sql = "";
+		String type = "";
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select count(*) from comment");
+			
+			sql = "select like_type from article_like where board_id = ? and article_id = ? and mem_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_id);
+			pstmt.setInt(2, article_id);
+			pstmt.setString(3, mem_id);
 			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				x = rs.getInt(1);
+			
+			if(rs.next()) {
+				type = rs.getString(1);
+			} else {
+				type = "N";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -650,25 +704,62 @@ public class ArticleDBBean {
 				} catch (SQLException ex) {
 				}
 		}
-		return x;
+		return type;
 	}
 	
-	public void insertLike(ArticlelikeDataBean like) throws Exception {
+	public String insertLike(ArticlelikeDataBean like) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
+		String ltype = "";
 		try {
 			
 			conn = getConnection();
-			sql = "insert into article_like values(?,?,?,?,?)";
+			
+			sql = "select * from article_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, like.getArticle_like_id());
-			pstmt.setInt(2, like.getBoard_id());
-			pstmt.setInt(3, like.getArticle_id());
-			pstmt.setString(4, like.getMem_id());
-			pstmt.setInt(5, like.getLike_type());
+			pstmt.setInt(1, like.getBoard_id());
+			pstmt.setInt(2, like.getArticle_id());
+			pstmt.setString(3, like.getMem_id());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String type = like.getLike_type();
+				if(type.equals("Y")) {
+					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'N'";
+				} else {
+					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'Y'";
+				}
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, like.getBoard_id());
+				pstmt.setInt(2, like.getArticle_id());
+				pstmt.setString(3, like.getMem_id());
+				pstmt.setString(4, like.getLike_type());
+				
+			} else {
+				sql = "insert into article_like values (?, ?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, like.getBoard_id());
+				pstmt.setInt(2, like.getArticle_id());
+				pstmt.setString(3, like.getMem_id());
+				pstmt.setString(4, "Y");
+			}			
 			pstmt.executeUpdate();
+			
+			
+			sql = "select like_type from article_like where board_id = ? and article_id = ? and mem_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, like.getBoard_id());
+			pstmt.setInt(2, like.getArticle_id());
+			pstmt.setString(3, like.getMem_id());
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				ltype = rs.getString(1);
+			} else {
+				ltype = "N";
+			}
 					
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -689,43 +780,10 @@ public class ArticleDBBean {
 				} catch (SQLException ex) {
 				}
 		}
+		return ltype;
 	}
 
-	public int updateLike(ArticlelikeDataBean like) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "";
-		try {
-			conn = getConnection();
-			sql = "update articlelike set like_type = 0 where article_like_id= ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, like.getArticle_like_id());
-			pstmt.executeUpdate();
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-		}
-		return -1;
-	}
-
-	public int getlikeCount(String Mem_id, int Article_id) throws Exception {
+	public int getlikeCount(int board_id, int article_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -735,14 +793,16 @@ public class ArticleDBBean {
 		try {
 			conn = getConnection();
 
-			sql = "select count(*) from article_like where mem_id=? and article_id=?";
+			sql = "select count(*) from article_like where board_id=? and article_id=? and like_type = 'Y'";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Mem_id);
-			pstmt.setInt(2, Article_id);
+			pstmt.setInt(1, board_id);
+			pstmt.setInt(2, article_id);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				x = rs.getInt(1);
+			} else {
+				x = 0;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -764,41 +824,6 @@ public class ArticleDBBean {
 				}
 		}
 		return x;
-	}
-
-	public void deletelike(int board_id, int article_id, String mem_id) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("delete from article_like where mem_id=? and board_id=? and article_id=?");
-			pstmt.setString(1, mem_id);
-			pstmt.setInt(2, board_id);
-			pstmt.setInt(3, article_id);
-			pstmt.executeUpdate();
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-		}
-
 	}
 
 }

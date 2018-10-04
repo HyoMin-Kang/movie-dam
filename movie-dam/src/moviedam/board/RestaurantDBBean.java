@@ -36,7 +36,7 @@ public class RestaurantDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?)";
+			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getArticle_id());
@@ -48,6 +48,8 @@ public class RestaurantDBBean {
 			pstmt.setInt(7, article.getArticle_gets());
 			pstmt.setString(8, article.getArticle_file());
 			pstmt.setString(9, article.getSearch_loc());
+			pstmt.setFloat(10, article.getStart_lat());
+			pstmt.setFloat(11, article.getStart_lon());
 			
 			pstmt.executeUpdate();
 		} catch (Exception ex) {

@@ -11,6 +11,8 @@ public class RestaurantDataBean {
 	private int article_gets;
 	private String article_file;
 	private String search_loc;
+	private float start_lat;
+	private float start_lon;
 	
 	public int getArticle_id() {
 		return article_id;
@@ -65,6 +67,18 @@ public class RestaurantDataBean {
 	}
 	public void setArticle_file(String article_file) {
 		this.article_file = article_file;
+	}
+	public float getStart_lat() {
+		return start_lat;
+	}
+	public void setStart_lat(float start_lat) {
+		this.start_lat = start_lat;
+	}
+	public float getStart_lon() {
+		return start_lon;
+	}
+	public void setStart_lon(float start_lon) {
+		this.start_lon = start_lon;
 	}
 	
 }

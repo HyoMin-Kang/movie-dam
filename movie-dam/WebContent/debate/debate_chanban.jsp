@@ -22,183 +22,36 @@
             <div class="col-12">
                 <div class="section-heading dark text-center">
                     <span></span>
-                    <h4>Featured destinations</h4>
-                    <p>Editor’s pick</p>
+                    <h4>Pro and con debate</h4>
+                    <p>영화를 주제로 한 다양한 찬반 토론들이 진행중입니다.</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-1.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Ibiza</h5>
-                            <p>Party</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12">
+                <ul class="list-unstyled">
+					<li class="media">
+					  <img class="mr-3" src="https://via.placeholder.com/128x128" alt="Generic placeholder image">
+					  <div class="media-body">
+					    <h4 class="mt-0 mb-1">통제를 거부한 캡틴아메리카의 선택은 옳은가</h4>
+					    <p>시민의 안녕과 지구의 평화를 위해 악의 무리와 싸우는 정의의 단체가 있다. 이들은 세계적 군대 규모와 병력으로도 저지할 수 없는 대규모 테러를 막기 위해 결성된 단체이다. 이 단체의 힘은 단 한 번의 전투만으로도 세계의 주요 도시들을 초토화시킬 수 있을만큼 강력하다. 실제 이들의 활약으로 수많은 시민, 어쩌면 지구 전체가 죽음을 면하기도 했다. 어쩌면 당연하게도, 세계연합기구는 이러한 힘이 ‘관리’ 되기를 원한다. 영화 캡틴 아메리카: 시빌 워는 이처럼 팀 어벤저스의 활동 방향을 두고 전개된다. 몇몇 팀원들은 그동안 통제되지 않았던 스스로의 힘에 두려움을 느끼며 팀을 UN 산하에 두고 싶어 한다. 하지만, 그동안 팀을 이끌어 온 캡틴 아메리카는 신뢰할 수 없는 통제’에 더 큰 두려움을 느낀다. 팀 내부가 스스로 합의하는 통제가 아닌 타의에 의한 통제가 그는 달갑지 않다. 팀 외부에 강력한 권한이 이양된다면, 팀의 원래 목적을 상실할 수 있다는 우려에서다. 내부의 의견 충돌은 결국 영화 제목에서 시사하듯 팀의 시빌 워(내전)까지 이어졌다. 개인의 자유의지를 신뢰한 팀 캡틴 아메리카의 선택은 과연 옳은것인가.</p>
+					  	<div class="hashtag">
+						  	<a type="buttn" class="btn btn-outline-primary btn-sm">#캡틴아메리카</a>
+						  	<a type="buttn" class="btn btn-outline-primary btn-sm">#공리주의</a>
+						  	<a type="buttn" class="btn btn-outline-primary btn-sm">#권력</a>
+						  	<a type="buttn" class="btn btn-outline-primary btn-sm">#영웅</a>
+					  	</div>
+					  	<div class="pro-con-icon">
+					  		<span id="pros"><i class="fas fa-thumbs-up"></i> 찬성 </span>
+					  		<span id="cons"><i class="fas fa-thumbs-down"></i> 반대 </span>
+					  		<span id="opinion"><i class="fas fa-comments"></i> 의견 </span>
+					  	</div>
+					  </div>
+					</li>
+				</ul>
             </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-2.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Paris</h5>
-                            <p>Luxury</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-3.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Lake Como</h5>
-                            <p>Spectacular</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-4.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Greece</h5>
-                            <p>Sunny</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-5.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Norway</h5>
-                            <p>All Year round</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-1.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Ibiza</h5>
-                            <p>Party</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-2.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Paris</h5>
-                            <p>Luxury</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-3.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Lake Como</h5>
-                            <p>Spectacular</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Features Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-features-area mb-50">
-                    <img src="img/bg-img/feature-4.jpg" alt="">
-                    <!-- Price -->
-                    <div class="price-start">
-                        <p>FROM $59/night</p>
-                    </div>
-                    <div class="feature-content d-flex align-items-center justify-content-between">
-                        <div class="feature-title">
-                            <h5>Greece</h5>
-                            <p>Sunny</p>
-                        </div>
-                        <div class="feature-favourite">
-                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </section>
