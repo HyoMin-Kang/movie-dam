@@ -80,7 +80,7 @@
 	} else if(board_id == 2) { //맛집게시판
 		String search_loc = multi.getParameter("search_loc");
 		String article_content = multi.getParameter("article_content");
-		float start_lat = Float.parseFloat(request.getParameter("start_lat"));
+		float start_lat = Float.parseFloat(multi.getParameter("start_lat"));
 		float start_lon = Float.parseFloat(multi.getParameter("start_lon"));
 	
 		restaurant.setArticle_writer(article_writer);
