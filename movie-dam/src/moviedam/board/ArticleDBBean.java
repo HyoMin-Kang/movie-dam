@@ -728,7 +728,7 @@ public class ArticleDBBean {
 				String type = like.getLike_type();
 				if(type.equals("Y")) {
 					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'N'";
-				} else {
+				} else if(type.equals("N")){
 					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
@@ -825,5 +825,4 @@ public class ArticleDBBean {
 		}
 		return x;
 	}
-
 }

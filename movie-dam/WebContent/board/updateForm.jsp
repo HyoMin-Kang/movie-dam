@@ -15,6 +15,7 @@
 	int article_id = Integer.parseInt(request.getParameter("article_id"));
 	String pageNum = request.getParameter("pageNum");
 	int board_id = Integer.parseInt(request.getParameter("board_id"));
+	String category = request.getParameter("category");
 	String userid = (String)session.getAttribute("userid");
 	
 	
@@ -34,27 +35,36 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<div class="container">
-	<h3>
-		<%=title%>
-		<small class="text-muted">Cinema Restaurant</small>
-	</h3>
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- ***** Breadcumb Area End ***** -->
 
+<section class="dorne-single-listing-area section-padding-100">
+<div class="container">
 	<div class="row">
+		<div class="col-12">
+		    <div class="section-heading dark text-center">
+		    	<span></span>
+				<h4>Article update</h4>
+				<p>게시글 수정</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
 		<form method="post" name="updateform" action="updatePro.jsp?board_id=<%=board_id%>&pageNum=<%=pageNum%>&article_id=<%=article_id %>" onsubmit="return writeSave()" enctype="multipart/form-data">
- 		<input type="hidden" name="article_id" value="<%=article_id%>"> 
+ 			<input type="hidden" name="article_id" value="<%=article_id%>"> 
 	
 <c:if test="<%=board_id == 1 %>">
 			<div class="form-group col">
 				<label for="inputCategory">카테고리</label> 
-				<select class="form-control" id="inputCategory" name="category" value="<%=article.getCategory()%>">
-					<option value="전체" selected="selected">전체</option>
-					<option value="사담">사담</option>
-					<option value="영화후기">영화후기</option>
-					<option value="스포일러">스포일러</option>
-					<option value="영화TMI">영화TMI</option>
-					<option value="자랑하기">자랑하기</option>
-					<option value="덕질공간">덕질공간</option>
+				<select class="form-control" id="inputCategory" name="category">
+					<option value="talk"<%if(article.getCategory().equals("talk")){out.print(" selected=\"selected\"");}%>>사담</option>
+					<option value="movietalk"<%if(article.getCategory().equals("movietalk")){out.print(" selected=\"selected\"");}%>>영화후기</option>
+					<option value="spoiler"<%if(article.getCategory().equals("spoiler")){out.print(" selected=\"selected\"");}%>>스포일러</option>
+					<option value="movietmi"<%if(article.getCategory().equals("movietmi")){out.print(" selected=\"selected\"");}%>>영화TMI</option>
+					<option value="boast"<%if(article.getCategory().equals("boast")){out.print(" selected=\"selected\"");}%>>자랑하기</option>
+					<option value="hobby"<%if(article.getCategory().equals("hobby")){out.print(" selected=\"selected\"");}%>>덕질공간</option>
 				</select>
 			</div>
 </c:if>
@@ -77,11 +87,24 @@
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요.">
 						<div class="input-group-append">
-							<button class="btn btn-primary" type="button" onclick="searchLocation();">검색</button>
+							<button class="btn btn-primary" type="button" onclick="search_location();">검색</button>
 						</div>
 					</div>
 				</div>
-				<div id="map" style="width: 500px; height: 400px;"></div>
+				<!-- <div id="map" style="width: 500px; height: 400px;"></div> -->
+				<p>
+					지도를 클릭해 해당 위치에 마커를 입력해주세요!
+				</p>
+				<button type="button" id="setMarker">입력 완료</button>
+			 	<div class="map_wrap">
+					<div id="map" style="width: 500px; height: 400px;"></div>
+		  			<div class="hAddr">
+				        <span class="title">지도중심기준 주소정보</span>
+				        <span id="centerAddr"></span>
+			        </div>
+		        </div>
+				<input type="hidden" id="startLat" name="start_lat" value="">
+				<input type="hidden" id="startLon" name="start_lon" value="">
 			</div>
 </c:if>
 			<div class="form-group col">
@@ -93,15 +116,20 @@
 				<input type="file" class="form-control-file" id="inputFile" name="article_file" aria-describedby="fileHelp" accept="image/*"> 
 				<small id="fileHelp" class="form-text text-muted">이미지 파일만 첨부 가능합니다.</small>
 			</div>
-
+	
 			<button type="submit" class="btn btn-primary">작성하기</button>
 			<button type="reset" class="btn btn-secondary">다시 작성</button>
+			<c:if test="<%=board_id == 1 %>">
 			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./free_board.jsp'">목록으로</button>
+			</c:if>
+			<c:if test="<%=board_id == 2 %>">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./cinema_restaurant.jsp'">목록으로</button>
+			</c:if>
 		</form>
 	</div>
 
 </div>
-
+</section>
 
 
 

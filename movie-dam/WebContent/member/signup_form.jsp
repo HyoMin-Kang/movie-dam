@@ -29,141 +29,135 @@
         </div>
     </div>
 	
-	<div class="row">
-		<form name="insertMember" method="post" action="signup_pro.jsp" onsubmit="return formSubmit();">
-			<div class="form-group col">
-				<div class="form-group">
-				<label class="control-label" for="inputUserId">아이디</label>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="inputUserId" name="mem_userid" aria-describedby="userIdHelp" placeholder="User id" required="required">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button" onClick="idConfirm(document.getElementById('inputUserId'));">중복 확인</button>
+	<div class="col-8 offset-2">
+	    <div class="contact-form">
+	        <form name="insertMember" method="post" action="signup_pro.jsp" onsubmit="return formSubmit();">
+	            <div class="row">
+	                <div class="col-12">
+	                	<div class="input-group mb-3">
+		                    <input type="text" class="form-control" id="inputUserId" name="mem_userid" aria-describedby="userIdHelp" placeholder="Your id" required="required">
+							<div class="input-group-append">
+								<button class="btn" type="button" onClick="idConfirm(document.getElementById('inputUserId'));">중복 확인</button>
+							</div>
+						</div>
+	                </div>
+	                <div class="col-12">
+	                	<input type="password" class="form-control" id="inputPassword" name="mem_pwd" placeholder="Password" required="required">
+	                </div>
+	                <div class="col-12">
+	                	<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required="required">
+	                </div>
+	                <div class="col-12">
+      					<input type="email" class="form-control" id="inputEmail" name="mem_email" placeholder="Email Address" required="required">
+	                </div>
+	                <div class="col-12">
+      					<input type="text" class="form-control" id="inputName" name="mem_name" placeholder="Your name" required="required">
+	                </div>
+	                <div class="col-12">
+		                <div class="input-group mb-3">
+							<input type="text" class="form-control" id="inputNickname" name="mem_nickname" aria-describedby="nicknameHelp" placeholder="Nickname" required="required">
+							<div class="input-group-append">
+								<button class="btn" type="button">중복 확인</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>	
-			<div class="form-group col">
-      			<label for="inputPassword">비밀번호</label>
-				<input type="password" class="form-control" id="inputPassword" name="mem_pwd" placeholder="Password" required="required">
-   			</div>
-   			<div class="form-group col">
-				<label for="inputConfirmPassword">비밀번호 확인</label>
-      			<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required="required">
-    		</div>
-    		<div class="form-group col">
-				<label for="inputName">이름</label>
-      			<input type="text" class="form-control" id="inputName" name="mem_name" placeholder="Name" required="required">
-    		</div>
-    		<div class="form-group col">
-				<label class="control-label" for="inputNickname">닉네임</label>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="inputNickname" name="mem_nickname" aria-describedby="nicknameHelp" placeholder="Nickname" required="required">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">중복 확인</button>
+					<div class="col-12">
+						<div class="form-row col">
+			    			<div class="form-group col-md-4">
+			    				<input type="text" class="form-control" id="inputYear" name="mem_year" placeholder="YYYY" maxlength="4" required="required">
+			    			</div>
+			    			<div class="form-group col-md-4">
+			    				<select class="form-control" id="inputMonth" name="mem_month">
+			    					<option value="00" selected="selected">MM</option>
+			    					<option value="01">01</option>
+			    					<option value="02">02</option>
+			    					<option value="03">03</option>
+			    					<option value="04">04</option>
+			    					<option value="05">05</option>
+			    					<option value="06">06</option>
+			    					<option value="07">07</option>
+			    					<option value="08">08</option>
+			    					<option value="09">09</option>
+			    					<option value="10">10</option>
+			    					<option value="11">11</option>
+			    					<option value="12">12</option>
+			    				</select>
+			    			</div>
+			    			<div class="form-group col-md-4">
+			    				<select class="form-control" id="inputDay" name="mem_day">
+			    					<option value="00" selected="selected">DD</option>
+			    					<option value="01">01</option>
+			    					<option value="02">02</option>
+			    					<option value="03">03</option>
+			    					<option value="04">04</option>
+			    					<option value="05">05</option>
+			    					<option value="06">06</option>
+			    					<option value="07">07</option>
+			    					<option value="08">08</option>
+			    					<option value="09">09</option>
+			    					<option value="10">10</option>
+			    					<option value="11">11</option>
+			    					<option value="12">12</option>
+			    					<option value="13">13</option>
+			    					<option value="14">14</option>
+			    					<option value="15">15</option>
+			    					<option value="16">16</option>
+			    					<option value="17">17</option>
+			    					<option value="18">18</option>
+			    					<option value="19">19</option>
+			    					<option value="20">20</option>
+			    					<option value="21">21</option>
+			    					<option value="22">22</option>
+			    					<option value="23">23</option>
+			    					<option value="24">24</option>
+			    					<option value="25">25</option>
+			    					<option value="26">26</option>
+			    					<option value="27">27</option>
+			    					<option value="28">28</option>
+			    					<option value="29">29</option>
+			    					<option value="30">30</option>
+			    					<option value="31">31</option>
+			    				</select>
+			    			</div>
+			    		</div>
+					</div>
+					<div class="col-12">
+						<div class="form-group col">
+							<div class="form-group">
+			    			<label class="control-label" for="inputGender1">성별</label>
+					    		<div class="form-check form-check-inline">
+					    			<input class="form-check-input" type="radio" id="inputGender1" name="mem_gender" value="0">
+					    			<label class="form-check-label" for="inputGender1">남성</label>
+					    		</div>
+					    		<div class="form-check form-check-inline">
+					    			<input class="form-check-input" type="radio" id="inputGender2" name="mem_gender" value="1">
+					    			<label class="form-check-label" for="inputGender2">여성</label>
+					    		</div>
+				    		</div>
+			   			</div>
+					</div>
+					<div class="col-12">
+						<div class="form-group col">
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" id="inputPostcode" name="mem_postcode" aria-describedby="postcodeHelp" placeholder="Postcode" required="required" readonly="readonly">
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button" onclick="execDaumPostcode()">우편번호 검색</button>
+									</div>
+								</div>
+			      				<input type="text" class="form-control" id="inputAddress" name="mem_address" placeholder="Detail address" required="required">
 						</div>
 					</div>
-			</div>
-			<div class="form-group col">
-				<label for="inputEmail">이메일</label>
-      			<input type="email" class="form-control" id="inputEmail" name="mem_email" placeholder="Email" required="required">
-    		</div>
-    		<div class="form-row col">
-    			<div class="form-group col-md-4">
-    				<label for="inputYear">생년</label>
-    				<input type="text" class="form-control" id="inputYear" name="mem_year" placeholder="YYYY" maxlength="4" required="required">
-    			</div>
-    			<div class="form-group col-md-4">
-    				<label for="inputMonth">월</label>
-    				<select class="form-control" id="inputMonth" name="mem_month">
-    					<option value="00" selected="selected">MM</option>
-    					<option value="01">01</option>
-    					<option value="02">02</option>
-    					<option value="03">03</option>
-    					<option value="04">04</option>
-    					<option value="05">05</option>
-    					<option value="06">06</option>
-    					<option value="07">07</option>
-    					<option value="08">08</option>
-    					<option value="09">09</option>
-    					<option value="10">10</option>
-    					<option value="11">11</option>
-    					<option value="12">12</option>
-    				</select>
-    			</div>
-    			<div class="form-group col-md-4">
-    				<label for="inputDay">일</label>
-    				<select class="form-control" id="inputDay" name="mem_day">
-    					<option value="00" selected="selected">DD</option>
-    					<option value="01">01</option>
-    					<option value="02">02</option>
-    					<option value="03">03</option>
-    					<option value="04">04</option>
-    					<option value="05">05</option>
-    					<option value="06">06</option>
-    					<option value="07">07</option>
-    					<option value="08">08</option>
-    					<option value="09">09</option>
-    					<option value="10">10</option>
-    					<option value="11">11</option>
-    					<option value="12">12</option>
-    					<option value="13">13</option>
-    					<option value="14">14</option>
-    					<option value="15">15</option>
-    					<option value="16">16</option>
-    					<option value="17">17</option>
-    					<option value="18">18</option>
-    					<option value="19">19</option>
-    					<option value="20">20</option>
-    					<option value="21">21</option>
-    					<option value="22">22</option>
-    					<option value="23">23</option>
-    					<option value="24">24</option>
-    					<option value="25">25</option>
-    					<option value="26">26</option>
-    					<option value="27">27</option>
-    					<option value="28">28</option>
-    					<option value="29">29</option>
-    					<option value="30">30</option>
-    					<option value="31">31</option>
-    				</select>
-    			</div>
-    		</div>
-    		<div class="form-group col">
-				<div class="form-group">
-    			<label class="control-label" for="inputGender1">성별</label>
-		    		<div class="form-check form-check-inline">
-		    			<input class="form-check-input" type="radio" id="inputGender1" name="mem_gender" value="0">
-		    			<label class="form-check-label" for="inputGender1">남성</label>
-		    		</div>
-		    		<div class="form-check form-check-inline">
-		    			<input class="form-check-input" type="radio" id="inputGender2" name="mem_gender" value="1">
-		    			<label class="form-check-label" for="inputGender2">여성</label>
-		    		</div>
-	    		</div>
-   			</div>
-   			<div class="form-group col">
-				<label class="control-label" for="inputNickname">주소</label>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="inputPostcode" name="mem_postcode" aria-describedby="postcodeHelp" placeholder="Postcode" required="required" readonly="readonly">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button" onclick="execDaumPostcode()">우편번호 검색</button>
-						</div>
+					<div class="col-12">
+						<div class="form-group col">
+			      			<div id="html_element"></div>
+			    		</div>
 					</div>
-      				<input type="text" class="form-control" id="inputAddress" name="mem_address" placeholder="Detail address" required="required">
-			</div>
-			<div class="form-group col">
-				<label>자동 가입 방지</label>
-      			<div id="html_element"></div>
-    		</div>
-    		<div class="form-group col">
-				<div class="input-group mb-3">
-					<button type="button" class="btn btn-primary" onclick="goMain()">취소</button>
-					<button type="submit" class="btn btn-info" id="checkId">회원가입</button>
-				</div>
-				<div class="col-sm-2 col-xs-4">
-				</div>
-    		</div>
-		</form>
+	                <div class="col-12">
+	                    <button type="submit" class="btn dorne-btn" id="checkId">Send</button>
+	                </div>
+	            </div>
+	        </form>
+	    </div>
 	</div>
 </div>
 </section>

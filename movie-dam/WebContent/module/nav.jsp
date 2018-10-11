@@ -43,7 +43,7 @@
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown3">
 									<a class="dropdown-item" href="/movie-dam/board/free_board.jsp?category=all">Free board</a> 
-									<a class="dropdown-item" href="/movie-dam/board/movie_quiz.jsp">Movie quiz</a>
+									<a class="dropdown-item" href="/movie-dam/board/map_category.jsp">Cinema map</a>
 									<a class="dropdown-item" href="/movie-dam/board/cinema_restaurant.jsp">Cinema restaurant</a>
 								</div>
 							</li>

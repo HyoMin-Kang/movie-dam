@@ -2,7 +2,7 @@ package moviedam.board;
 
 import java.sql.Timestamp;
 
-public class CommentDataBean {
+public class CommentRestDataBean {
 	private int cmt_id;
 	private String cmt_writer;//댓글 작성자
 	private String cmt_content;//댓글 내용
@@ -62,5 +62,4 @@ public class CommentDataBean {
 		this.cmt_relevel = cmt_relevel;
 	}
 	
-
 }

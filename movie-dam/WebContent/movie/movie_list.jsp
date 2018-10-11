@@ -12,6 +12,10 @@
 	if (sort == null || sort.length() == 0) {
 		sort = "vote_count";
 	}
+	String with_genres = request.getParameter("with_genres");
+	if (with_genres == null || with_genres.length() == 0) {
+		with_genres = "";
+	}
 	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
 %>
 
@@ -40,30 +44,10 @@
 
 	<div class="row">
 		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    	장르
 			</button>
-	  		<div class="dropdown-menu" aria-labelledby="dropdownGenre">
-			    <a class="dropdown-item" href="#">전체</a> 
-				<a class="dropdown-item" href="#">액션</a>
-				<a class="dropdown-item" href="#">모험</a>
-				<a class="dropdown-item" href="#">애니메이션</a>
-				<a class="dropdown-item" href="#">코미디</a>
-				<a class="dropdown-item" href="#">범죄</a>
-				<a class="dropdown-item" href="#">다큐멘터리</a>
-				<a class="dropdown-item" href="#">드라마</a>
-				<a class="dropdown-item" href="#">가족</a>
-				<a class="dropdown-item" href="#">판타지</a>
-				<a class="dropdown-item" href="#">역사</a>
-				<a class="dropdown-item" href="#">공포</a>
-				<a class="dropdown-item" href="#">음악</a>
-				<a class="dropdown-item" href="#">미스터리</a>
-				<a class="dropdown-item" href="#">로맨스</a>
-				<a class="dropdown-item" href="#">SF</a>
-				<a class="dropdown-item" href="#">TV 영화</a>
-				<a class="dropdown-item" href="#">스릴러</a>
-				<a class="dropdown-item" href="#">전쟁</a>
-				<a class="dropdown-item" href="#">서부</a>
+	  		<div class="dropdown-menu" aria-labelledby="dropdownGenre" id="dropdownGenreList">
 	  		</div>
 		</div>
 		
@@ -73,8 +57,8 @@
 		  	</button>
 		  	<div class="dropdown-menu" aria-labelledby="dropdownSort">
 		    	<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count">인기순</a>
-					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date">최근 개봉순</a>
-					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue">최고 흥행순</a>
+				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date">최근 개봉순</a>
+				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue">최고 흥행순</a>
 		  	</div>
 		</div>
 	</div>
@@ -88,12 +72,12 @@
 		<ul class="pagination">
 			<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
 			</li>
-			<li class="page-item active"><a class="page-link" href="movie_list.jsp?resultPage=1&sort=vote_count">1</a>
+			<li class="page-item active"><a class="page-link" href="movie_list.jsp?resultPage=1&sort=<%=sort%>&with_genres=<%=with_genres%>">1</a>
 			</li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=2&sort=vote_count">2</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=3&sort=vote_count">3</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=4&sort=vote_count">4</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=5&sort=vote_count">5</a></li>
+			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=2&sort=<%=sort%>&with_genres=<%=with_genres%>">2</a></li>
+			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=3&sort=<%=sort%>&with_genres=<%=with_genres%>">3</a></li>
+			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=4&sort=<%=sort%>&with_genres=<%=with_genres%>">4</a></li>
+			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=5&sort=<%=sort%>&with_genres=<%=with_genres%>">5</a></li>
 			<li class="page-item"><a class="page-link" href="#">&raquo;</a>
 			</li>
 		</ul>
@@ -107,6 +91,7 @@
 <script>
 var page = '<%=resultPage%>';
 var sort = '<%=sort%>';
+var genre = '<%=with_genres%>';
 var api_key = '<%=api_key%>';
 var response2 = [];
 
@@ -125,6 +110,7 @@ $(document).ready(function() {
 		  	'sort_by': sort+'.desc',
 		  	'region': 'KR',
 		  	'language': 'ko-KR',
+		  	'with_genres': genre, 
 		  	'api_key': '9dd279523f7113a4103a8f1e9ef6abe3'
 	  	},
 	  	dataType: 'json',
@@ -149,8 +135,15 @@ $(document).ready(function() {
 		}
 
 		$.ajax(settings2).done(function (response2) {
-		  console.log(response2);
-		  function getGenreName(genre_ids) {
+		  	console.log(response2);
+			var rs2 = [];
+			rs2.push('<a class="dropdown-item" href="movie_list.jsp">전체</a>');
+		  	for(var i=0; i<response2['genres'].length; i++) {
+		  		rs2.push('<a class="dropdown-item" href="movie_list.jsp?resultPage='+page+'&sort='+sort+'&with_genres='+response2['genres'][i].id+'">'+response2['genres'][i].name+'</a>');
+		  	}
+		  	$('#dropdownGenreList').html(rs2.join(''));
+		  
+		  	function getGenreName(genre_ids) {
 				var genreName = [];
 				for(var i=0; i<genre_ids.length; i++) {
 					for(var j=0; j<response2['genres'].length; j++) {

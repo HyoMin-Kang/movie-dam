@@ -9,11 +9,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class CommentDBBean {
+public class CommentRestDBBean {
+	private static CommentRestDBBean instance = new CommentRestDBBean();
 
-	private static CommentDBBean instance = new CommentDBBean();
-
-	public static CommentDBBean getInstance() {
+	public static CommentRestDBBean getInstance() {
 		return instance;
 	}
 
@@ -25,7 +24,7 @@ public class CommentDBBean {
 		return ds.getConnection();
 	}
 
-	public void insertComment(CommentDataBean cmt) {
+	public void insertComment(CommentRestDataBean cmt) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -39,7 +38,7 @@ public class CommentDBBean {
 
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(cmt_id) from comment");
+			pstmt = conn.prepareStatement("select max(cmt_id) from comment_rest");
 			rs = pstmt.executeQuery();
 
 			if (rs.next())
@@ -48,7 +47,7 @@ public class CommentDBBean {
 				number = 1;
 
 			if (cmt_id != 0) {
-				sql = "update comment set cmt_restep = cmt_restep + 1 ";
+				sql = "update comment_rest set cmt_restep = cmt_restep + 1 ";
 				sql += "where cmt_parent = ? and cmt_restep > ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, cmt_parent);
@@ -62,7 +61,7 @@ public class CommentDBBean {
 				cmt_relevel = 0;
 			}
 
-			sql = "insert into comment(cmt_writer,cmt_content,cmt_date,cmt_ref,";
+			sql = "insert into comment_rest(cmt_writer,cmt_content,cmt_date,cmt_ref,";
 			sql += "cmt_parent,cmt_restep,cmt_relevel) values(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, cmt.getCmt_writer());
@@ -105,7 +104,7 @@ public class CommentDBBean {
 		try {
 			conn = getConnection();
 
-			sql = "select count(*) from comment where cmt_ref=?";
+			sql = "select count(*) from comment_rest where cmt_ref=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cmt_ref);
 			rs = pstmt.executeQuery();
@@ -135,24 +134,24 @@ public class CommentDBBean {
 		return x;
 	}
 
-	public ArrayList<CommentDataBean> getComments(int cmt_ref) throws Exception {
+	public ArrayList<CommentRestDataBean> getComments(int cmt_ref) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<CommentDataBean> commentList = null;
+		ArrayList<CommentRestDataBean> commentList = null;
 
 		try {
 			conn = getConnection();
 
-			String sql = "select * from comment where cmt_ref like '" + cmt_ref + "'order by cmt_parent desc";
+			String sql = "select * from comment_rest where cmt_ref like '" + cmt_ref + "'order by cmt_parent desc";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				commentList = new ArrayList<CommentDataBean>();
+				commentList = new ArrayList<CommentRestDataBean>();
 				do {
-					CommentDataBean comment = new CommentDataBean();
+					CommentRestDataBean comment = new CommentRestDataBean();
 					comment.setCmt_id(rs.getInt("cmt_id"));
 					comment.setCmt_writer(rs.getString("cmt_writer"));
 					comment.setCmt_content(rs.getString("cmt_content"));
@@ -182,20 +181,20 @@ public class CommentDBBean {
 		return commentList;
 	}
 	
-	public CommentDataBean getComment(int cmt_id) throws Exception {
+	public CommentRestDataBean getComment(int cmt_id) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        CommentDataBean content=null;
+        CommentRestDataBean content=null;
         try {
             conn = getConnection();
 
-            pstmt = conn.prepareStatement("select * from comment where cmt_id = ?");
+            pstmt = conn.prepareStatement("select * from comment_rest where cmt_id = ?");
             pstmt.setInt(1, cmt_id);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-            	content = new CommentDataBean();
+            	content = new CommentRestDataBean();
             	content.setCmt_id(rs.getInt("cmt_id"));
             	content.setCmt_ref(rs.getInt("cmt_ref"));
             	content.setCmt_writer(rs.getString("cmt_writer"));
@@ -223,14 +222,14 @@ public class CommentDBBean {
 		try {
 			conn = getConnection();
 
-			pstmt = conn.prepareStatement("select cmt_writer from comment where cmt_id=?");
+			pstmt = conn.prepareStatement("select cmt_writer from comment_rest where cmt_id=?");
 			pstmt.setInt(1, cmt_id);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				dbwriter = rs.getString("cmt_writer");
 				if (dbwriter.equals(id)) {
-					pstmt = conn.prepareStatement("delete from comment where cmt_id=?");
+					pstmt = conn.prepareStatement("delete from comment_rest where cmt_id=?");
 					pstmt.setInt(1, cmt_id);
 					pstmt.executeUpdate();
 					x = 1; 
@@ -259,7 +258,7 @@ public class CommentDBBean {
 		return x;
 	}
 
-	public int updateComment(CommentDataBean content) throws Exception {
+	public int updateComment(CommentRestDataBean content) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -269,12 +268,12 @@ public class CommentDBBean {
 		try {
 			conn = getConnection();
 
-			pstmt = conn.prepareStatement("select * from comment where cmt_id=?");
+			pstmt = conn.prepareStatement("select * from comment_rest where cmt_id=?");
 			pstmt.setInt(1, content.getCmt_id());
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				sql = "update comment set cmt_content=? where cmt_id=?";
+				sql = "update comment_rest set cmt_content=? where cmt_id=?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, content.getCmt_content());
@@ -305,5 +304,4 @@ public class CommentDBBean {
 		}
 		return x;
 	}
-
 }
