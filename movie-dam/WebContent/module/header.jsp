@@ -36,10 +36,10 @@
 </head>
 <body>
 
-	<!-- Preloader -->
-	<!-- <div id="preloader">
-		<div class="dorne-load"></div>
-	</div> -->
+<!-- Preloader -->
+<div id="preloader">
+	<div class="dorne-load"></div>
+</div> 
 
 	<!-- ***** Search Form Area ***** -->
 	<div class="dorne-search-form d-flex align-items-center">

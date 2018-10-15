@@ -2,6 +2,8 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="moviedam.member.MemberDBBean"%>
+<%@ page import="moviedam.member.MemberDataBean"%>
 <%@ page import="moviedam.board.RestaurantDBBean"%>
 <%@ page import="moviedam.board.RestaurantDataBean"%>
 <%@ page import="moviedam.board.ArticlelikeDataBean"%>
@@ -23,6 +25,7 @@
    float lat = 0;
    float lon = 0;
    String like_type = "";
+   String search_loc = request.getParameter("search_loc");
 %>
 
 <%
@@ -45,6 +48,8 @@
 		lat = article.getStart_lat();
 		lon = article.getStart_lon();
 			
+		MemberDBBean mem_db = MemberDBBean.getInstance(); 
+		MemberDataBean profile =  mem_db.getProfile(article.getArticle_writer());
 %>
 
 <%
@@ -82,7 +87,7 @@
          <div class="col-12">
             <div class="section-heading dark text-center">
                <span></span>
-               <h4>Free board</h4>
+               <h4>Cinema restaurant</h4>
                <p></p>
             </div>
          </div>
@@ -93,27 +98,29 @@
             <div class="single-listing-content">
                <div class="listing-title">
                   <h4><%=article.getArticle_title()%></h4>
-                  <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=article.getArticle_writer()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
+                  <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
                   </span> <span><i class="fas fa-eye"></i> <%=article.getArticle_hits()%></span>
                </div>
 
                <div class="overview-content mt-50" id="overview">
                   <p><%=article.getArticle_content().replace("\r\n", "<br>")%></p>
                </div>
-                  <%
-                     if (article.getArticle_file() != null) {
-                  %>
-                  <img src="/movie-dam/imageFolder/cinema_restaurant/<%=article.getArticle_file()%>" width="250px">
-                  <%
-                     }
-                  %>
+			<%
+			  if (article.getArticle_file() != null) {
+			%>
+				<img src="/movie-dam/imageFolder/cinema_restaurant/<%=article.getArticle_file()%>" width="250px">
+			<%
+			  }
+			%>
+				<div style="height: 60px; position: relative; overflow: hidden;"></div>
+				<span>지도를 클릭하여 해당하는 음식점의 위치를 확인하세요.</span>
 				<div class="map_wrap">
-					<div id="map" style="width: 500px; height: 400px;"></div>
+					<div id="map" style="width: 500px; height: 400px; position: relative; overflow: auto; margin-bottom: 10px;"></div>
 					<div class="hAddr">
-						<span class="title">지도중심기준 주소정보</span>
-						<span id="centerAddr"></span>
+						<span class="title">지도중심기준 주소정보</span> <span id="centerAddr"></span>
 					</div>
 				</div>
+				<div style="height: 70px; position: relative; overflow: hidden;"></div>
 				<div>
 					<form id="likeForm" method="post"></form>
                	</div>
@@ -148,7 +155,7 @@
 
          <div class="row">
    
-            <form action="contentPro.jsp">
+            <form action="content_rest_pro.jsp">
                <input type="hidden" name="cmt_id" value="<%=cmt_id%>"> 
                <input type="hidden" name="cmt_parent" value="<%=cmt_parent%>"> 
                <input type="hidden" name="cmt_restep" value="<%=cmt_restep%>">
@@ -185,7 +192,7 @@
                         
                         
             %>
-            <form name="updatecomment" method="post" action="contentPro.jsp">
+            <form name="updatecomment" method="post" action="content_rest_pro.jsp">
 
                <table class="table">
 <%
@@ -197,10 +204,9 @@
                      <td colspan=2 align="left" style="font-size: 14px;"><b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)</td>
                   </tr>
 <%                   
-                  } else{
+               }else{
 %>                  
                   <tr>
-                     
                      <td rowspan=2 align="center">img</td>
                      <td colspan=2 align="left" style="font-size: 14px;"><b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)</td>
                   </tr>
@@ -211,9 +217,9 @@
                      <td colspan=2 style="font-size: 14px;"><%=comment.getCmt_content()%></td>
                   </tr>
                   
-                  <%
-                     if (userid.equals(comment.getCmt_writer()) ) {
-                  %>
+<%
+               if (userid.equals(comment.getCmt_writer()) ) {
+%>
 
 <%
                if(comment.getCmt_restep() != 0){
@@ -222,18 +228,17 @@
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>);">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>'">삭제</button>
-                        
                      </td>
                   </tr>
 <%                   
-                  } else{
+               }else{
 %>
                   <tr>
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>);">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>'">삭제</button>
                         <a class="btn btn-sm btn-outline-secondary" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display:none" >
-                     
+   
                         <input type="hidden" name="cmt_id" value="<%=comment.getCmt_id()%>"> 
                         <input type="hidden" name="cmt_parent" value="<%=comment.getCmt_parent()%>"> 
                         <input type="hidden" name="cmt_restep" value="<%=comment.getCmt_restep()%>">
@@ -246,45 +251,38 @@
                         <input type="hidden" name="board_id" value="<%=board_id%>"> 
                         
                         <table class="table">
-                           	<tr>
-                             	<td colspan="3" align="center">reply</td>
-                           	</tr>
+                           <tr>
+                              <td colspan="3" align="center">reply</td>
+                           </tr>
                         
-							<tr>
-								<td height="100" align="center"><%=userid%></td>
-	                       		<td colspan="2" align="right" style="font-size: 14px;">
-                                   <textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
-                                   <input class="btn btn-outline-secondary btn-sm" type="submit" value="댓글 작성">
-                                   <input class="btn btn-outline-secondary btn-sm" type="reset"value="다시쓰기">
-                             	</td>
-							</tr>
-						</table>
-                     
-                        
-                        </div>   
-                        
+                           <tr>
+                              <td height="100" align="center"><%=userid%></td>
+                               <td colspan="2" align="right" style="font-size: 14px;">
+                                    <textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
+                                    <input class="btn btn-outline-secondary btn-sm" type="submit" value="댓글 작성">
+                                    <input class="btn btn-outline-secondary btn-sm" type="reset"value="다시쓰기">
+                              </td>
+                          </tr>
+                        </table>
+                        </div>
                      </td>
                   </tr>   
 <%                   
-                  }
+              }
 %>
-                  <%
-                  
-                     
-                     } else {
-                  %>
+<%
+              } else {
+%>
                   <tr>
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled">삭제</button>
                      </td>
                   </tr>
-                  <%
-                     }
-                  %>
-
-                  
-               </table>
+<%
+                }
+%>
+         </table>
             
             </form>
             
@@ -410,8 +408,7 @@ $(document).ready(function() {
 	            if (status === daum.maps.services.Status.OK) {
 	                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
 	                detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-	                
-	                var content = '<div class="bAddr">' +  $('#searchLoc').val() + detailAddr + '</div>';
+	                 var content = '<div class="bAddr">' + '<%=search_loc%>' + detailAddr + '</div>';
 	                // 마커를 클릭한 위치에 표시합니다 
 	                marker.setPosition(mouseEvent.latLng);
 	                marker.setMap(map);

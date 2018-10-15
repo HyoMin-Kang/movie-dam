@@ -493,6 +493,7 @@
 double delay = 0.1;
 for (int i = 0 ; i < articleList.size() ; i++) {
 	   ArticleDataBean article = articleList.get(i);
+	   int lcount = article_db.getlikeCount(1, article.getArticle_id());
 %>
             <div class="col-12 col-lg-6">
                 <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay+0.1 %>s">
@@ -500,7 +501,7 @@ for (int i = 0 ; i < articleList.size() ; i++) {
                         <img src="/movie-dam/assets/img/bg-img/event-1.jpg" alt="">
                         <div class="date-map-area d-flex">
                             <a href="#">26 Nov</a>
-                            <a href="#"><img src="img/core-img/map.png" alt=""></a>
+                            <a href="#"><i class="fas fa-heart fa-lg"></i><%=lcount %></a>
                         </div>
                     </div>
                     <div class="feature-events-content">

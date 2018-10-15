@@ -86,6 +86,7 @@
 		restaurant.setArticle_writer(article_writer);
 		restaurant.setArticle_title(article_title);
 		restaurant.setArticle_content(article_content);
+		restaurant.setArticle_file(fileName);
 		restaurant.setReg_date(reg_date);
 		restaurant.setSearch_loc(search_loc);
 		restaurant.setStart_lat(start_lat);

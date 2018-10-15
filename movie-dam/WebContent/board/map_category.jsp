@@ -17,20 +17,40 @@
 
 <section class="dorne-single-listing-area section-padding-100">
 <div class="container">
-	<input type="text" size="40px" name="searchTheater" id="searchTheater" placeholder="위치를 입력하세요.">
-	<button onclick="searchTheateration();">검색</button>
+	<div class="row">
+		<div class="col-12">
+		    <div class="section-heading dark text-center">
+		    	<span></span>
+				<h4>Cinema Map</h4>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="input-group mb-3">
+		<input class="form-control" type="text" name="searchTheater"
+			id="searchTheater" placeholder="원하시는 주변 장소를 입력하세요.   ex)왕십리 CGV"
+			style="padding-bottom: 10px">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary"
+				onclick="searchTheateration();">검색</button>
+		</div>
+	</div>
 	<div class="map_wrap">
-		<div id="map" style="width: 1100px; height: 600px; position: relative; overflow: hidden;"></div>
+		<div id="map"
+			style="width: 100%; height: 600px; position: relative; overflow: hidden;"></div>
 		<ul id="category">
 			<li id="BK9" data-order="0"><span class="category_bg bank"></span>은행</li>
 			<li id="SW8" data-order="1"><span class="category_bg subway"></span>지하철</li>
 			<li id="PM9" data-order="2"><span class="category_bg pharmacy"></span>약국</li>
-			<li id="FD6" data-order="3"><span class="category_bg restaurant"></span> 음식점</li>
+			<li id="FD6" data-order="3"><span
+				class="category_bg restaurant"></span> 음식점</li>
 			<li id="CE7" data-order="4"><span class="category_bg cafe"></span>카페</li>
 			<li id="CS2" data-order="5"><span class="category_bg store"></span>편의점</li>
 		</ul>
 	</div>
 </div>
+<div style="height:200px; position:relative; overflow:hidden;"></div>
 </section>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
@@ -335,6 +355,7 @@ var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입�
             }
         }    
     }
+
 </script>
 </body>
 </html>

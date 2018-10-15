@@ -2,7 +2,6 @@ package moviedam.member;
 import java.sql.Timestamp;
 
 public class MemberDataBean {
-	private int mem_id;
 	private int mem_status;
 	private String mem_userid;
 	private String mem_pwd;
@@ -13,15 +12,10 @@ public class MemberDataBean {
 	private String mem_nickname;
 	private String mem_postcode;
 	private String mem_address;
+	private String mem_img;
 	private Timestamp join_date;
 	private int mem_type;
 	
-	public int getMem_id() {
-		return mem_id;
-	}
-	public void setMem_id(int mem_id) {
-		this.mem_id = mem_id;
-	}
 	public int getMem_status() {
 		return mem_status;
 	}
@@ -93,5 +87,11 @@ public class MemberDataBean {
 	}
 	public void setMem_address(String mem_address) {
 		this.mem_address = mem_address;
+	}
+	public String getMem_img() {
+		return mem_img;
+	}
+	public void setMem_img(String mem_img) {
+		this.mem_img = mem_img;
 	}
 }

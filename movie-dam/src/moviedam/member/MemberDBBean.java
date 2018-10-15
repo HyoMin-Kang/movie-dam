@@ -33,17 +33,17 @@ public class MemberDBBean {
 			conn = getConnection();
 			
 			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			pstmt.setInt(1, member.getMem_id());
-			pstmt.setInt(2, member.getMem_status());
-			pstmt.setString(3, member.getMem_userid());
-			pstmt.setString(4, member.getMem_pwd());
-			pstmt.setString(5, member.getMem_email());
-			pstmt.setString(6, member.getMem_name());
-			pstmt.setString(7, member.getMem_birth());
-			pstmt.setInt(8, member.getMem_gender());
-			pstmt.setString(9, member.getMem_nickname());
-			pstmt.setString(10, member.getMem_postcode());
-			pstmt.setString(11, member.getMem_address());
+			pstmt.setInt(1, member.getMem_status());
+			pstmt.setString(2, member.getMem_userid());
+			pstmt.setString(3, member.getMem_pwd());
+			pstmt.setString(4, member.getMem_email());
+			pstmt.setString(5, member.getMem_name());
+			pstmt.setString(6, member.getMem_birth());
+			pstmt.setInt(7, member.getMem_gender());
+			pstmt.setString(8, member.getMem_nickname());
+			pstmt.setString(9, member.getMem_postcode());
+			pstmt.setString(10, member.getMem_address());
+			pstmt.setString(11, member.getMem_img());
 			pstmt.setTimestamp(12, member.getJoin_date());
 			pstmt.setInt(13, member.getMem_type());
 			pstmt.executeUpdate();
@@ -138,7 +138,6 @@ public class MemberDBBean {
 			
 			if(rs.next()) {
 				profile = new MemberDataBean();
-				profile.setMem_id(rs.getInt("mem_id"));
 				profile.setMem_status(rs.getInt("mem_status"));
 				profile.setMem_userid(rs.getString("mem_userid"));
 				profile.setMem_pwd(rs.getString("mem_pwd"));
@@ -149,6 +148,7 @@ public class MemberDBBean {
 				profile.setMem_nickname(rs.getString("mem_nickname"));
 				profile.setMem_postcode(rs.getString("mem_postcode"));
 				profile.setMem_address(rs.getString("mem_address"));
+				profile.setMem_img(rs.getString("mem_img"));
 				profile.setJoin_date(rs.getTimestamp("join_date"));
 				profile.setMem_type(rs.getInt("mem_type"));
 			} else {

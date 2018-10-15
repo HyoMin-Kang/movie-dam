@@ -17,7 +17,6 @@
         int article_id = Integer.parseInt(request.getParameter("cmt_ref"));
     	String pageNum = request.getParameter("pageNum");
     	int board_id = Integer.parseInt(request.getParameter("board_id"));
-    	String category = request.getParameter("category");
     	
     	CommentRestDBBean cmt = CommentRestDBBean.getInstance();
     	cmt.insertComment(cmtdto);

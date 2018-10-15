@@ -62,6 +62,80 @@
 						</div>
 					</div>
 					<div class="col-12">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" id="inputImg" name="mem_img" placeholder="Profile image" required="required" readonly="readonly">
+							<div class="input-group-append">
+								<button class="btn" type="button" id="showModal">사진 선택</button>
+							</div>
+						</div>
+						<div class="modal" tabindex="-1" role="dialog" id="imgSelectModal">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">프로필 사진을 선택해 주세요.</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-0.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-0.png" width="25%">
+									</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-1.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-1.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-2.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-2.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-3.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-3.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-4.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-4.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="man-5.png">
+									  	<img src="/movie-dam/assets/img/profile-img/man-5.png" width="25%">
+									</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-0.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-0.png" width="25%">
+									</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-1.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-1.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-2.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-2.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-3.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-3.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-4.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-4.png" width="25%">
+								  	</label>
+									<label class="hide-radio">
+										<input type="radio" name="selected_img" value="woman-5.png">
+									  	<img src="/movie-dam/assets/img/profile-img/woman-5.png" width="25%">
+									</label>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+									<button type="button" id="submitBtn" class="btn btn-primary" data-toggle="modal" data-target="#imageSelectForm">선택</button>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="col-12">
 						<div class="form-row col">
 			    			<div class="form-group col-md-4">
 			    				<input type="text" class="form-control" id="inputYear" name="mem_year" placeholder="YYYY" maxlength="4" required="required">
@@ -161,9 +235,21 @@
 	</div>
 </div>
 </section>
+
+
 	
 <jsp:include page="/module/footer.jsp" flush="false"/>
 
+<script>
+$('#showModal').click(function() {
+	$('#imgSelectModal').modal('show');
+});
+$('#submitBtn').click(function() {
+	var selected = $('input[name="selected_img"]:checked').val();
+	$('#inputImg').val(selected);
+	$('#imgSelectModal').modal('hide');
+});
+</script>
 <!-- address api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>

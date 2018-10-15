@@ -2,6 +2,8 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="moviedam.member.MemberDBBean"%>
+<%@ page import="moviedam.member.MemberDataBean"%>
 <%@ page import="moviedam.board.ArticleDBBean"%>
 <%@ page import="moviedam.board.ArticleDataBean"%>
 <%@ page import="moviedam.board.ArticlelikeDataBean"%>
@@ -40,7 +42,8 @@
 		like_type = article_db.getLike_type(board_id, article_id, userid);
 		like_count = article_db.getlikeCount(board_id, article_id);
 
-			
+	  	MemberDBBean mem_db = MemberDBBean.getInstance(); 
+		MemberDataBean profile =  mem_db.getProfile(article.getArticle_writer());
 %>
 
 <%
@@ -57,8 +60,7 @@
             userid = "not";
          else
             userid = (String) session.getAttribute("userid");
-      } catch (Exception e) {
-      }
+      } catch (Exception e) {}
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -90,7 +92,7 @@
                <a href="#"><span class="badge badge-dark"><%=article.getCategory()%></span></a>
                <div class="listing-title">
                   <h4><%=article.getArticle_title()%></h4>
-                  <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=article.getArticle_writer()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
+                  <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=profile.getMem_userid()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
                   </span> <span><i class="fas fa-eye"></i> <%=article.getArticle_hits()%></span>
                </div>
 
@@ -139,7 +141,6 @@
          %>
 
          <div class="row">
-   
             <form action="contentPro.jsp">
                <input type="hidden" name="cmt_id" value="<%=cmt_id%>"> 
                <input type="hidden" name="cmt_parent" value="<%=cmt_parent%>"> 
@@ -171,15 +172,12 @@
                   </tr>
                </table>
             </form>
-            <%
-               if (commentList != null && commentList.size() > 0) {
-                     for (int i = 0; i < commentList.size(); i++) {
-                        CommentDataBean comment = commentList.get(i);
-                        
-                        
-            %>
+<%
+         if (commentList != null && commentList.size() > 0) {
+               for (int i = 0; i < commentList.size(); i++) {
+                  CommentDataBean comment = commentList.get(i);
+%>
             <form name="updatecomment" method="post" action="contentPro.jsp">
-
                <table class="table">
 <%
                if(comment.getCmt_restep() != 0){
@@ -190,10 +188,9 @@
                      <td colspan=2 align="left" style="font-size: 14px;"><b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)</td>
                   </tr>
 <%                   
-                  } else{
+               }else{
 %>                  
                   <tr>
-                     
                      <td rowspan=2 align="center">img</td>
                      <td colspan=2 align="left" style="font-size: 14px;"><b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)</td>
                   </tr>
@@ -204,9 +201,9 @@
                      <td colspan=2 style="font-size: 14px;"><%=comment.getCmt_content()%></td>
                   </tr>
                   
-                  <%
-                     if (userid.equals(comment.getCmt_writer()) ) {
-                  %>
+<%
+               if (userid.equals(comment.getCmt_writer()) ) {
+%>
 
 <%
                if(comment.getCmt_restep() != 0){
@@ -215,18 +212,17 @@
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=category%>');">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
-                        
                      </td>
                   </tr>
 <%                   
-                  } else{
+               }else{
 %>
                   <tr>
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=category%>');">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
                         <a class="btn btn-sm btn-outline-secondary" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display:none" >
-                     
+   
                         <input type="hidden" name="cmt_id" value="<%=comment.getCmt_id()%>"> 
                         <input type="hidden" name="cmt_parent" value="<%=comment.getCmt_parent()%>"> 
                         <input type="hidden" name="cmt_restep" value="<%=comment.getCmt_restep()%>">
@@ -240,47 +236,40 @@
                         <input type="hidden" name="category" value="<%=category%>">
                         
                         <table class="table">
-                           	<tr>
-                             	<td colspan="3" align="center">reply</td>
-                           	</tr>
+                           <tr>
+                              <td colspan="3" align="center">reply</td>
+                           </tr>
                         
-							<tr>
-								<td height="100" align="center"><%=userid%></td>
-	                       		<td colspan="2" align="right" style="font-size: 14px;">
-                                   <textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
-                                   <input class="btn btn-outline-secondary btn-sm" type="submit" value="댓글 작성">
-                                   <input class="btn btn-outline-secondary btn-sm" type="reset"value="다시쓰기">
-                             	</td>
-							</tr>
-						</table>
-                     
-                        
-                        </div>   
-                        
+                           <tr>
+                              <td height="100" align="center"><%=userid%></td>
+                               <td colspan="2" align="right" style="font-size: 14px;">
+                                    <textarea class="form-control" rows="3" cols="160" name="cmt_content"></textarea>
+                                    <input class="btn btn-outline-secondary btn-sm" type="submit" value="댓글 작성">
+                                    <input class="btn btn-outline-secondary btn-sm" type="reset"value="다시쓰기">
+                              </td>
+                          </tr>
+                        </table>
+                        </div>
                      </td>
                   </tr>   
 <%                   
-                  }
+              }
 %>
-                  <%
-                  
-                     
-                     } else {
-                  %>
+<%
+              } else {
+%>
                   <tr>
                      <td colspan=3 align="right">
                         <button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled">삭제</button>
                      </td>
                   </tr>
-                  <%
-                     }
-                  %>
+<%
+                }
+%>
+         </table>
+         </form>
 
-                  
-               </table>
-            
-            </form>
             
             
             <%
@@ -317,7 +306,7 @@ $(document).ready(function() {
    var article_id = '<%=article_id%>';
    var mem_id = '<%=userid%>';
    if(like_type=='N') {
-      rs.push('<button class="btn btn-link" type="submit" id="like" ><i id="likeIcon" class="far fa-heart fa-lg" style="color:black;"></i></button><span id="likeCount">'+like_count+'개</span>');
+      rs.push('<button class="btn btn-link" type="submit" id="like"><i id="likeIcon" class="far fa-heart fa-lg" style="color:black;"></i></button><span id="likeCount">'+like_count+'개</span>');
       rs.push('<input type="hidden" name="currentLike" value="N">');
       rs.push('<input type="hidden" name="board_id" value="'+board_id+'">');
       rs.push('<input type="hidden" name="article_id" value="'+article_id+'">');
@@ -353,13 +342,13 @@ $(document).ready(function() {
          $('#likeForm').find('input[name="currentLike"]').val(data.ltype);
          
          if(data.ltype == 'Y') {
-            $('#likeIcon').removeClass('far');
-              $('#likeIcon').addClass('fas');
-              $('#likeIcon').attr('style', 'color:red');
+			$('#likeIcon').removeClass('far');
+            $('#likeIcon').addClass('fas');
+            $('#likeIcon').attr('style', 'color:red');
          } else if(data.ltype == 'N') {
             $('#likeIcon').removeClass('fas');
-              $('#likeIcon').addClass('far');
-              $('#likeIcon').attr('style', 'color:black');
+            $('#likeIcon').addClass('far');
+            $('#likeIcon').attr('style', 'color:black');
          }
           
          $('#likeCount').html(data.lcount+'개');

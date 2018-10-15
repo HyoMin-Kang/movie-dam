@@ -44,5 +44,10 @@
 <script src="/movie-dam/assets/js/active.js"></script>
 <script src="/movie-dam/assets/js/jquery/jquery-ui.min.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 
 

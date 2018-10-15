@@ -83,7 +83,7 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("select count(*) from article");
+			pstmt = conn.prepareStatement("select count(*) from restaurant");
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {

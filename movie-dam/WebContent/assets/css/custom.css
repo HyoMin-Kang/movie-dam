@@ -14,8 +14,25 @@
 	
 }
 
-/* LOGIN FORM */
+/* FORM */
+label.hide-radio { 
+	width: 150px;
+	display: inline;	
+}
 
+label.hide-radio>input { /* HIDE RADIO */
+	visibility: hidden; /* Makes input not-clickable */
+	position: absolute; /* Remove input from document flow */
+}
+
+label.hide-radio>input+img { /* IMAGE STYLES */
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+label.hide-radio>input:checked+img { /* (RADIO CHECKED) IMAGE STYLES */
+	border: 2px solid #000;
+}
 
 /* MAP */
 .map_wrap {
