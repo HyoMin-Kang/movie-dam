@@ -32,7 +32,7 @@ public class MemberDBBean {
 		try{
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, member.getMem_status());
 			pstmt.setString(2, member.getMem_userid());
 			pstmt.setString(3, member.getMem_pwd());
@@ -41,11 +41,9 @@ public class MemberDBBean {
 			pstmt.setString(6, member.getMem_birth());
 			pstmt.setInt(7, member.getMem_gender());
 			pstmt.setString(8, member.getMem_nickname());
-			pstmt.setString(9, member.getMem_postcode());
-			pstmt.setString(10, member.getMem_address());
-			pstmt.setString(11, member.getMem_img());
-			pstmt.setTimestamp(12, member.getJoin_date());
-			pstmt.setInt(13, member.getMem_type());
+			pstmt.setString(9, member.getMem_img());
+			pstmt.setTimestamp(10, member.getJoin_date());
+			pstmt.setInt(11, member.getMem_type());
 			pstmt.executeUpdate();
 			rs = "ok";
 			
@@ -146,8 +144,6 @@ public class MemberDBBean {
 				profile.setMem_birth(rs.getString("mem_birth"));
 				profile.setMem_gender(rs.getInt("mem_gender"));
 				profile.setMem_nickname(rs.getString("mem_nickname"));
-				profile.setMem_postcode(rs.getString("mem_postcode"));
-				profile.setMem_address(rs.getString("mem_address"));
 				profile.setMem_img(rs.getString("mem_img"));
 				profile.setJoin_date(rs.getTimestamp("join_date"));
 				profile.setMem_type(rs.getInt("mem_type"));

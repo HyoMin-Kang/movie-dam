@@ -10,7 +10,7 @@
 				<nav class="h-100 navbar navbar-expand-lg">
 					<a class="navbar-brand" href="/movie-dam/main.jsp"><img src="/movie-dam/assets/img/core-img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="fa fa-bars"></span>
+						<span class="fas fa-bars"></span>
 					</button>
 					<!-- Nav -->
 					<div class="collapse navbar-collapse" id="dorneNav">
@@ -20,7 +20,6 @@
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movie info 
-									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="/movie-dam/movie/movie_list.jsp">Movie List</a> 
@@ -30,7 +29,6 @@
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Debate 
-									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
 									<a class="dropdown-item" href="/movie-dam/debate/debate_chanban.jsp">Pro-con debate</a> 
@@ -39,7 +37,6 @@
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Playground 
-									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown3">
 									<a class="dropdown-item" href="/movie-dam/board/free_board.jsp?category=all">Free board</a> 
@@ -49,7 +46,6 @@
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">News 
-									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
 									<a class="dropdown-item" href="/movie-dam/board/movie_preview.jsp">Preview</a> 
@@ -60,7 +56,7 @@
 						</ul>
 						<!-- Search btn -->
 						<div class="dorne-search-btn">
-							<a id="search-btn" href="#"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+							<a id="search-btn" href="#"><i class="fas fa-search" aria-hidden="true"></i> Search</a>
 						</div>
 						<!-- Signin btn -->
 						<c:if test="${sessionScope.userid eq null }"> <!-- 비로그인 상태 -->

@@ -15,6 +15,10 @@
 }
 
 /* FORM */
+form#followForm {
+	position: relative;
+}
+
 label.hide-radio { 
 	width: 150px;
 	display: inline;	

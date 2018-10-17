@@ -101,11 +101,11 @@
             <span></span>
         </div>
         <div class="social-btns">
-            <a href="#"><i class="fa fa-linkedin" aria-haspopup="true"></i></a>
-            <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter" aria-haspopup="true"></i></a>
-            <a href="#"><i class="fa fa-facebook" aria-haspopup="true"></i></a>
+            <a href="#"><i class="fab fa-linkedin" aria-haspopup="true"></i></a>
+            <a href="#"><i class="fab fa-behance" aria-hidden="true"></i></a>
+            <a href="#"><i class="fab fa-dribbble" aria-hidden="true"></i></a>
+            <a href="#"><i class="fab fa-twitter" aria-haspopup="true"></i></a>
+            <a href="#"><i class="fab fa-facebook" aria-haspopup="true"></i></a>
         </div>
     </div>
 </section>

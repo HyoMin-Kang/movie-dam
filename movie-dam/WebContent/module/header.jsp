@@ -16,23 +16,20 @@
 
 <!-- Core Stylesheet -->
 <link rel="stylesheet" href="/movie-dam/assets/style.css">
+<link rel="stylesheet" href="/movie-dam/assets/css/argon.min.css">
 
 <!-- Responsive CSS -->
 <link rel="stylesheet" href="/movie-dam/assets/css/responsive/responsive.css">
 
-<!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="/movie-dam/assets/css/bootstrap/bootstrap.min.css"> -->
-<!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/lux/bootstrap.min.css" rel="stylesheet"> -->
+<!-- Summernote CSS -->
+<link rel="stylesheet" href="/movie-dam/assets/css/summernote-0.8.9/summernote-lite.css" rel="stylesheet">
 
-<!-- Font awesome -->
-<link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"rel="stylesheet" >
-<link href="/movie-dam/assets/css/others/font-awesome.min.css" rel="stylesheet">
+<!-- Icon -->
+<link rel="stylesheet" href="/movie-dam/assets/css/vender/nucleo/css/nucleo.css">
 
 <!-- Custom styles -->
 <link href="/movie-dam/assets/css/custom.css" rel="stylesheet">
 
-<!-- Google Web Fonts  -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
 </head>
 <body>
 

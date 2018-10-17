@@ -22,47 +22,60 @@
 
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
-<!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
-
-<!-- ***** Listing Destinations Area Start ***** -->
-<section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Log in</h4>
-                <p>서비스 이용을 위해 로그인해 주세요.</p>
-            </div>
-        </div>
-    </div>
-	
-	<div class="row">
-		<form name="loginForm" method="post" action="login_pro.jsp">
-			<div class="form-group col">
-				<label for="inputUserId">아이디</label>
-				<input type="text" class="form-control" id="inputUserId" name="mem_userid" placeholder="User id" required="required" value="<%=userid %>">
-			</div>
-			<div class="form-group col">
-      			<label for="inputPassword">비밀번호</label>
-				<input type="password" class="form-control" id="inputPassword" name="mem_pwd" placeholder="Password" required="required">
-   			</div>
-   			<div class="custom-control custom-checkbox">
-		      	<input type="checkbox" class="custom-control-input" id="idCheck" name="saveId"<% if(userid.isEmpty()==false) out.print(" checked=\"checked\"");%>>
-		      	<label class="custom-control-label" for="idCheck">아이디 기억하기</label>
-		    </div>
-			<div class="form-group col">
-				<button type="submit" class="btn btn-block dorne-btn mt-50">로그인</button>
-				<button type="button" class="btn btn-block dorne-btn bg-white text-dark" onclick="history.go(-1);">이전 화면으로 돌아가기</button>
-			</div>
-			<span class="text-muted">아직 회원이 아니신가요? </span><a href="signup_form.jsp" target="_blank">회원 가입하기 <i class="fas fa-external-link-alt fas-sm"></i></a>
-		</form>
+<main>
+<section class="section section-shaped section-lg">
+	<div class="shape shape-style-1 bg-gradient-default">
+		<span></span> <span></span> <span></span> <span></span> <span></span>
+		<span></span> <span></span> <span></span>
 	</div>
-	
-</div>
+	<div class="container pt-lg-md">
+		<div class="row justify-content-center">
+			<div class="col-lg-5">
+				<div class="card bg-secondary shadow border-0">
+					<div class="card-body px-lg-5 py-lg-5">
+						<div class="text-center text-muted mb-4">
+							<small>Sign in with credentials</small>
+						</div>
+						<form role="form" name="loginForm" method="post" action="login_pro.jsp">
+							<div class="form-group mb-3">
+								<div class="input-group input-group-alternative">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-email-83"></i></span>
+									</div>
+									<input class="form-control" placeholder="User id" type="text" id="inputUserId" name="mem_userid" required="required" value="<%=userid %>">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+									</div>
+									<input class="form-control" placeholder="Password" type="password" id="inputPassword" name="mem_pwd" placeholder="Password" required="required">
+								</div>
+							</div>
+							<div class="custom-control custom-control-alternative custom-checkbox">
+								<input class="custom-control-input" type="checkbox" id="idCheck" name="saveId"<% if(userid.isEmpty()==false) out.print(" checked=\"checked\"");%>> 
+								<label class="custom-control-label" for="idCheck"> <span>Remember me</span></label>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary my-4">Sign in</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-6">
+						<a href="#" class="text-light" onclick="history.go(-1);"> <small>Return to previous</small></a>
+					</div>
+					<div class="col-6 text-right">
+						<a href="signup_form.jsp" class="text-light"> <small>Create new account</small></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+</main>
 
 <jsp:include page="/module/footer.jsp" flush="false"/>
 

@@ -109,7 +109,7 @@
 		int check = restaurant_db.updateArticle(restaurant,article_writer);
 		if(check==1){
 %>
-			<meta http-equiv="Refresh" content="0;url=content.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>" >
+			<meta http-equiv="Refresh" content="0;url=content_rest.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>" >
 <% 		} else { %>
 			<script>   
 				alert("작성자만 수정할 수 있습니다.");

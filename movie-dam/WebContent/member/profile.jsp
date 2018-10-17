@@ -27,103 +27,87 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
-
-<!-- ***** Listing Destinations Area Start ***** -->
-<section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-12 col-sm-6 col-lg-4">
-	        <div class="single-features-area mb-50">
-	            <img src="/movie-dam/assets/img/profile-img/<%=profile.getMem_img() %>" alt="">
-	            <div class="price-start">
-	            	<p>최근 접속시간</p>
-	            </div>
-	            <div class="feature-content d-flex align-items-center justify-content-between">
-	                <div class="feature-title">
-	                    <h5><%=profile.getMem_nickname() %></h5>
-	                    <p><%=profile.getMem_email() %></p>
-	                </div>
-	                <div class="feature-favourite">
-	                <% if(profile.getMem_userid().equals(userid)) { %>
-	                    <a href="profile_setting.jsp" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정"><i class="fas fa-cog fa-sm" aria-hidden="true"></i></a>
-                    <% } else { %>
-                    	<form id="followForm" method="post"></form>
-                    <% } %>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-		
-  		<!-- Single Listing Content -->
-		<div class="col-12 col-lg-8">
-	  			<div class="single-listing-content">
-		        <div class="listing-title">
-		            <h4 id="title"></h4>
-		            <h6 id="release_date"></h6>
-		        </div>
-		        <div class="single-listing-nav">
-                    <nav>
-                        <ul id="listingNav">
-                            <li class="active"><a href="#">프로필</a></li>
-                            <li><a href="#">성향</a></li>
-                            <li><a href="#">활동</a></li>
-                            <li><a href="#">친구</a></li>
-                        </ul>
-                    </nav>
+<main class="profile-page">
+    <section class="section-profile-cover section-shaped my-0">
+      <!-- Circles background -->
+      <div class="shape shape-style-1 shape-primary alpha-4">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- SVG separator -->
+      <div class="separator separator-bottom separator-skew">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="card card-profile shadow mt--300">
+          <div class="px-4">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="/movie-dam/assets/img/profile-img/<%=profile.getMem_img() %>" width="800" height="800" class="rounded-circle">
+                  </a>
                 </div>
-                <div class="listing-menu-area mt-100" id="profile">
-                	<h4>Profile</h4>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>아이디</h6>
-                            <p><%=profile.getMem_userid() %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>닉네임</h6>
-                            <p><%=profile.getMem_nickname() %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>이메일</h6>
-                            <p><%=profile.getMem_email() %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>이름</h6>
-                            <p><%=profile.getMem_name() %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>생년월일</h6>
-                            <p><%=profile.getMem_birth() %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>성별</h6>
-                            <p><%if (profile.getMem_gender() == 0) {out.print("남성");} else {out.print("여성");} %></p>
-                        </div>
-                    </div>
-                    <div class="single-listing-menu d-flex justify-content-between">
-                        <div class="listing-menu-title">
-                            <h6>가입일</h6>
-                            <p><%=profile.getJoin_date() %></p>
-                        </div>
-                    </div>
-             	</div>
-    		</div>
-   		</div>
-	</div>
-</div>
-</section>
+              </div>
+              <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
+                <div class="card-profile-actions py-4 mt-lg-0">
+                  	<a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                <% if(profile.getMem_userid().equals(userid)) { %>
+                	<a href="profile_setting.jsp" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">설정</a>
+                <% } else { %>
+                	<form id="followForm" method="post"></form>
+                <% } %>
+                </div>
+              </div>
+              <div class="col-lg-4 order-lg-1">
+                <div class="card-profile-stats d-flex justify-content-center">
+                  <div>
+                    <span class="heading">22</span>
+                    <span class="description">팔로우</span>
+                  </div>
+                  <div>
+                    <span class="heading">42</span>
+                    <span class="description">팔로워</span>
+                  </div>
+                  <div>
+                    <span class="heading">26</span>
+                    <span class="description">???</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-5">
+              <h3><%=profile.getMem_nickname() %>
+                <span class="font-weight-light">, 27</span>
+              </h3>
+              <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i><%=profile.getMem_email() %></div>
+            </div>
+            <div class="mt-5 py-5 border-top text-center">
+              <div class="row justify-content-center">
+                <div class="col-lg-9">
+					<ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
+						<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="tabs-text-1" aria-selected="true">프로필</a></li>
+						<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="#tendency" role="tab" aria-controls="tabs-text-2" aria-selected="false">성향</a></li>
+						<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-toggle="tab" href="#activiry" role="tab" aria-controls="tabs-text-3" aria-selected="false">활동</a></li>
+					</ul>
+					
+				</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
 <%
 	} catch(Exception e){
@@ -144,13 +128,13 @@ $(document).ready(function() {
     var target_mem_id = '<%=mem_userid%>';
     var fol_type = '<%=fol_type%>';
     if(fol_type=='N') {
-    	rs.push('<button type="submit" class="btn btn-link" id="following" data-toggle="tooltip" data-placement="bottom" title="팔로우"><i id="followIcon" class="fas fa-user-plus fa-sm" aria-hidden="true"></i></button>');
+    	rs.push('<button type="submit" class="btn btn-sm btn-info mr-4" id="following">Follow</button>');
     	rs.push('<input type="hidden" name="mem_id" value="'+mem_id+'">');
     	rs.push('<input type="hidden" name="target_mem_id" value="'+target_mem_id+'">');
     	rs.push('<input type="hidden" name="currentFolType" value="N">');
     	$('#followForm').append(rs.join(''));
     } else if(fol_type=='Y') {
-    	rs.push('<button type="submit" class="btn btn-link" id="following" data-toggle="tooltip" data-placement="bottom" title="팔로우 해제"><i id="followIcon" class="fas fa-user-minus fa-sm" aria-hidden="true"></i></button>');
+    	rs.push('<button type="submit" class="btn btn-sm btn-danger mr-4" id="following">Unfollow</button>');
     	rs.push('<input type="hidden" name="mem_id" value="'+mem_id+'">');
     	rs.push('<input type="hidden" name="target_mem_id" value="'+target_mem_id+'">');
     	rs.push('<input type="hidden" name="currentFolType" value="Y">');
@@ -175,19 +159,17 @@ $(document).ready(function() {
         	$('#followForm').find('input[name="currentFolType"]').val(data.ftype);
         		
         	if(data.ftype == 'Y') {
-        		$('#followIcon').removeClass('fa-user-plus');
-        		$('#followIcon').addClass('fa-user-minus');
+        		$('#following').removeClass('btn-info');
+        		$('#following').addClass('btn-danger');
+        		$('#following').text('Unfollow');
         	} else if(data.ftype == 'N') {
-        		$('#followIcon').removeClass('fa-user-minus');
-        		$('#followIcon').addClass('fa-user-plus');
+        		$('#following').removeClass('btn-danger');
+        		$('#following').addClass('btn-info');
+        		$('#following').text('Follow');
         	}
         });
     });
-    
 });
-</script>
-<script>
-$('#following').tooltip('show');
 </script>
 </body>
 </html>

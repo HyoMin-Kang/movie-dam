@@ -12,232 +12,237 @@
 
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
-<!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
-
-<!-- ***** Listing Destinations Area Start ***** -->
-<section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Sign up</h4>
-                <p>영화담 회원 가입</p>
-            </div>
-        </div>
-    </div>
-	
-	<div class="col-8 offset-2">
-	    <div class="contact-form">
-	        <form name="insertMember" method="post" action="signup_pro.jsp" onsubmit="return formSubmit();">
-	            <div class="row">
-	                <div class="col-12">
-	                	<div class="input-group mb-3">
-		                    <input type="text" class="form-control" id="inputUserId" name="mem_userid" aria-describedby="userIdHelp" placeholder="Your id" required="required">
-							<div class="input-group-append">
-								<button class="btn" type="button" onClick="idConfirm(document.getElementById('inputUserId'));">중복 확인</button>
-							</div>
+<main>
+<section class="section section-shaped section-lg">
+	<div class="shape shape-style-1 bg-gradient-default">
+		<span></span> <span></span> <span></span> <span></span> <span></span>
+		<span></span> <span></span> <span></span>
+	</div>
+	<div class="container pt-lg-md">
+		<div class="row justify-content-center">
+			<div class="col-lg-5">
+				<div class="card bg-secondary shadow border-0">
+					<div class="card-body px-lg-5 py-lg-5">
+						<div class="text-center text-muted mb-4">
+							<small>Sign up with credentials</small>
 						</div>
-	                </div>
-	                <div class="col-12">
-	                	<input type="password" class="form-control" id="inputPassword" name="mem_pwd" placeholder="Password" required="required">
-	                </div>
-	                <div class="col-12">
-	                	<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required="required">
-	                </div>
-	                <div class="col-12">
-      					<input type="email" class="form-control" id="inputEmail" name="mem_email" placeholder="Email Address" required="required">
-	                </div>
-	                <div class="col-12">
-      					<input type="text" class="form-control" id="inputName" name="mem_name" placeholder="Your name" required="required">
-	                </div>
-	                <div class="col-12">
-		                <div class="input-group mb-3">
-							<input type="text" class="form-control" id="inputNickname" name="mem_nickname" aria-describedby="nicknameHelp" placeholder="Nickname" required="required">
-							<div class="input-group-append">
-								<button class="btn" type="button">중복 확인</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" id="inputImg" name="mem_img" placeholder="Profile image" required="required" readonly="readonly">
-							<div class="input-group-append">
-								<button class="btn" type="button" id="showModal">사진 선택</button>
-							</div>
-						</div>
-						<div class="modal" tabindex="-1" role="dialog" id="imgSelectModal">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">프로필 사진을 선택해 주세요.</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-0.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-0.png" width="25%">
-									</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-1.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-1.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-2.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-2.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-3.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-3.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-4.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-4.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="man-5.png">
-									  	<img src="/movie-dam/assets/img/profile-img/man-5.png" width="25%">
-									</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-0.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-0.png" width="25%">
-									</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-1.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-1.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-2.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-2.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-3.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-3.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-4.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-4.png" width="25%">
-								  	</label>
-									<label class="hide-radio">
-										<input type="radio" name="selected_img" value="woman-5.png">
-									  	<img src="/movie-dam/assets/img/profile-img/woman-5.png" width="25%">
-									</label>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-									<button type="button" id="submitBtn" class="btn btn-primary" data-toggle="modal" data-target="#imageSelectForm">선택</button>
-								</div>
-							</div>
-						</div>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="form-row col">
-			    			<div class="form-group col-md-4">
-			    				<input type="text" class="form-control" id="inputYear" name="mem_year" placeholder="YYYY" maxlength="4" required="required">
-			    			</div>
-			    			<div class="form-group col-md-4">
-			    				<select class="form-control" id="inputMonth" name="mem_month">
-			    					<option value="00" selected="selected">MM</option>
-			    					<option value="01">01</option>
-			    					<option value="02">02</option>
-			    					<option value="03">03</option>
-			    					<option value="04">04</option>
-			    					<option value="05">05</option>
-			    					<option value="06">06</option>
-			    					<option value="07">07</option>
-			    					<option value="08">08</option>
-			    					<option value="09">09</option>
-			    					<option value="10">10</option>
-			    					<option value="11">11</option>
-			    					<option value="12">12</option>
-			    				</select>
-			    			</div>
-			    			<div class="form-group col-md-4">
-			    				<select class="form-control" id="inputDay" name="mem_day">
-			    					<option value="00" selected="selected">DD</option>
-			    					<option value="01">01</option>
-			    					<option value="02">02</option>
-			    					<option value="03">03</option>
-			    					<option value="04">04</option>
-			    					<option value="05">05</option>
-			    					<option value="06">06</option>
-			    					<option value="07">07</option>
-			    					<option value="08">08</option>
-			    					<option value="09">09</option>
-			    					<option value="10">10</option>
-			    					<option value="11">11</option>
-			    					<option value="12">12</option>
-			    					<option value="13">13</option>
-			    					<option value="14">14</option>
-			    					<option value="15">15</option>
-			    					<option value="16">16</option>
-			    					<option value="17">17</option>
-			    					<option value="18">18</option>
-			    					<option value="19">19</option>
-			    					<option value="20">20</option>
-			    					<option value="21">21</option>
-			    					<option value="22">22</option>
-			    					<option value="23">23</option>
-			    					<option value="24">24</option>
-			    					<option value="25">25</option>
-			    					<option value="26">26</option>
-			    					<option value="27">27</option>
-			    					<option value="28">28</option>
-			    					<option value="29">29</option>
-			    					<option value="30">30</option>
-			    					<option value="31">31</option>
-			    				</select>
-			    			</div>
-			    		</div>
-					</div>
-					<div class="col-12">
-						<div class="form-group col">
+						<form role="form" name="insertMember" method="post" action="signup_pro.jsp" onsubmit="return formSubmit();">
 							<div class="form-group">
-			    			<label class="control-label" for="inputGender1">성별</label>
-					    		<div class="form-check form-check-inline">
-					    			<input class="form-check-input" type="radio" id="inputGender1" name="mem_gender" value="0">
-					    			<label class="form-check-label" for="inputGender1">남성</label>
-					    		</div>
-					    		<div class="form-check form-check-inline">
-					    			<input class="form-check-input" type="radio" id="inputGender2" name="mem_gender" value="1">
-					    			<label class="form-check-label" for="inputGender2">여성</label>
-					    		</div>
-				    		</div>
-			   			</div>
-					</div>
-					<div class="col-12">
-						<div class="form-group col">
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="inputPostcode" name="mem_postcode" aria-describedby="postcodeHelp" placeholder="Postcode" required="required" readonly="readonly">
+								<div class="input-group input-group-alternative mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+									</div>
+									<input class="form-control" placeholder="User id" type="text" id="inputUserId" name="mem_userid" >
 									<div class="input-group-append">
-										<button class="btn btn-primary" type="button" onclick="execDaumPostcode()">우편번호 검색</button>
+										<button type="button" class="btn btn-sm btn-outline-secondary"  onClick="idConfirm(document.getElementById('inputUserId'));">중복확인</button>
 									</div>
 								</div>
-			      				<input type="text" class="form-control" id="inputAddress" name="mem_address" placeholder="Detail address" required="required">
-						</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+									</div>
+									<input class="form-control" placeholder="Password" type="password"  id="inputPassword" name="mem_pwd" >
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+									</div>
+									<input class="form-control" placeholder="Nickname" type="text" id="inputNickname" name="mem_nickname" >
+									<div class="input-group-append">
+										<button type="button" class="btn btn-sm btn-outline-secondary">중복확인</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-email-83"></i></span>
+									</div>
+									<input class="form-control" placeholder="Email" type="email" id="inputEmail" name="mem_email" required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-email-83"></i></span>
+									</div>
+									<input class="form-control" placeholder="Name" type="text" id="inputName" name="mem_name" required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="inputGender1" name="mem_gender" value="0" class="custom-control-input">
+								  	<label class="custom-control-label" for="inputGender1">남성</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+								  	<input type="radio" id="inputGender2" name="mem_gender" value="1" class="custom-control-input">
+								  	<label class="custom-control-label" for="inputGender2">여성</label>
+								</div>
+							</div>
+							<div class="form-row col">
+				    			<div class="form-group col-md-4">
+				    				<input type="text" class="form-control" id="inputYear" name="mem_year" placeholder="YYYY" maxlength="4" required="required">
+				    			</div>
+				    			<div class="form-group col-md-4">
+				    				<select class="form-control" id="inputMonth" name="mem_month">
+				    					<option value="00" selected="selected">MM</option>
+				    					<option value="01">01</option>
+				    					<option value="02">02</option>
+				    					<option value="03">03</option>
+				    					<option value="04">04</option>
+				    					<option value="05">05</option>
+				    					<option value="06">06</option>
+				    					<option value="07">07</option>
+				    					<option value="08">08</option>
+				    					<option value="09">09</option>
+				    					<option value="10">10</option>
+				    					<option value="11">11</option>
+				    					<option value="12">12</option>
+				    				</select>
+				    			</div>
+				    			<div class="form-group col-md-4">
+				    				<select class="form-control" id="inputDay" name="mem_day">
+				    					<option value="00" selected="selected">DD</option>
+				    					<option value="01">01</option>
+				    					<option value="02">02</option>
+				    					<option value="03">03</option>
+				    					<option value="04">04</option>
+				    					<option value="05">05</option>
+				    					<option value="06">06</option>
+				    					<option value="07">07</option>
+				    					<option value="08">08</option>
+				    					<option value="09">09</option>
+				    					<option value="10">10</option>
+				    					<option value="11">11</option>
+				    					<option value="12">12</option>
+				    					<option value="13">13</option>
+				    					<option value="14">14</option>
+				    					<option value="15">15</option>
+				    					<option value="16">16</option>
+				    					<option value="17">17</option>
+				    					<option value="18">18</option>
+				    					<option value="19">19</option>
+				    					<option value="20">20</option>
+				    					<option value="21">21</option>
+				    					<option value="22">22</option>
+				    					<option value="23">23</option>
+				    					<option value="24">24</option>
+				    					<option value="25">25</option>
+				    					<option value="26">26</option>
+				    					<option value="27">27</option>
+				    					<option value="28">28</option>
+				    					<option value="29">29</option>
+				    					<option value="30">30</option>
+				    					<option value="31">31</option>
+				    				</select>
+				    			</div>
+				    		</div>
+							<div class="form-group">
+								<div class="input-group input-group-alternative mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+									</div>
+									<input class="form-control" placeholder="Profile image" type="text" id="inputImg" name="mem_img" required="required" readonly="readonly">
+									<div class="input-group-append">
+										<button type="button" class="btn btn-sm btn-outline-secondary" id="showModal">사진선택</button>
+									</div>
+								</div>
+							</div>
+							<div class="modal fade" tabindex="-1" role="dialog" id="imgSelectModal">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h6 class="modal-title" id="modal-title-default">프로필 사진을 선택해 주세요.</h6>
+							                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							                    <span aria-hidden="true">×</span>
+							                </button>
+										</div>
+										<div class="modal-body">
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-0.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-0.png" width="25%">
+											</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-1.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-1.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-2.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-2.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-3.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-3.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-4.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-4.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="man-5.png">
+											  	<img src="/movie-dam/assets/img/profile-img/man-5.png" width="25%">
+											</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-0.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-0.png" width="25%">
+											</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-1.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-1.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-2.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-2.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-3.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-3.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-4.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-4.png" width="25%">
+										  	</label>
+											<label class="hide-radio">
+												<input type="radio" name="selected_img" value="woman-5.png">
+											  	<img src="/movie-dam/assets/img/profile-img/woman-5.png" width="25%">
+											</label>
+										</div>
+										<div class="modal-footer">
+							                <button type="button" class="btn btn-primary" id="submitBtn" class="btn btn-primary" data-toggle="modal" data-target="#imageSelectForm">Save changes</button>
+							                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+							            </div>
+									</div>
+								</div>
+							</div>
+							<div class="row my-4">
+								<div class="col-12">
+									<div class="custom-control custom-control-alternative custom-checkbox">
+										<input class="custom-control-input" id="customCheckRegister" type="checkbox"> 
+										<label class="custom-control-label" for="customCheckRegister"> 
+											<span>I agree with the <a href="#">Privacy Policy</a></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+				      			<div id="html_element"></div>
+				    		</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary mt-4">Create account</button>
+							</div>
+						</form>
 					</div>
-					<div class="col-12">
-						<div class="form-group col">
-			      			<div id="html_element"></div>
-			    		</div>
-					</div>
-	                <div class="col-12">
-	                    <button type="submit" class="btn dorne-btn" id="checkId">Send</button>
-	                </div>
-	            </div>
-	        </form>
-	    </div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
 </section>
+</main>
 
-
-	
 <jsp:include page="/module/footer.jsp" flush="false"/>
 
 <script>
@@ -249,50 +254,6 @@ $('#submitBtn').click(function() {
 	$('#inputImg').val(selected);
 	$('#imgSelectModal').modal('hide');
 });
-</script>
-<!-- address api -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-function execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullAddr = ''; // 최종 주소 변수
-            var extraAddr = ''; // 조합형 주소 변수
-
-            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                fullAddr = data.roadAddress;
-
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                fullAddr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-            if(data.userSelectedType === 'R'){
-                //법정동명이 있을 경우 추가한다.
-                if(data.bname !== ''){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있을 경우 추가한다.
-                if(data.buildingName !== ''){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('inputPostcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('inputAddress').value = fullAddr;
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('inputAddress').focus();
-        }
-    }).open();
-}
 </script>
 
 <!-- reCaptcha -->

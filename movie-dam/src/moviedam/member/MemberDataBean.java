@@ -10,8 +10,6 @@ public class MemberDataBean {
 	private String mem_birth;
 	private int mem_gender;
 	private String mem_nickname;
-	private String mem_postcode;
-	private String mem_address;
 	private String mem_img;
 	private Timestamp join_date;
 	private int mem_type;
@@ -75,18 +73,6 @@ public class MemberDataBean {
 	}
 	public void setMem_type(int mem_type) {
 		this.mem_type = mem_type;
-	}
-	public String getMem_postcode() {
-		return mem_postcode;
-	}
-	public void setMem_postcode(String mem_postcode) {
-		this.mem_postcode = mem_postcode;
-	}
-	public String getMem_address() {
-		return mem_address;
-	}
-	public void setMem_address(String mem_address) {
-		this.mem_address = mem_address;
 	}
 	public String getMem_img() {
 		return mem_img;

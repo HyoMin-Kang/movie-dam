@@ -34,12 +34,17 @@
 	<div class="row">
 		<form action="./movie_boxoffice.jsp" onsubmit="return selectDate();">
 			<div class="form-group" id="selectTargetDate">
-			<c:if test="<%=selectedDate == null %>">
-				일자: <input type="text" class="form-control" name="targetDate" id="datepicker" placeholder="이곳을 눌러 날짜 선택">
-			</c:if>		
-			<c:if test="<%=selectedDate != null %>">
-				일자: <input type="text" class="form-control" name="targetDate" id="datepicker" value="<%=selectedDate%>">
-			</c:if>
+				<div class="input-group input-group-alternative">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+					</div>
+					<c:if test="<%=selectedDate == null %>">
+					<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="오늘 날짜">
+					</c:if>
+					<c:if test="<%=selectedDate != null %>">
+					<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="<%=selectedDate%>">
+					</c:if>
+				</div>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-dark btn-sm">찾기</button> 
@@ -96,8 +101,9 @@
 
 <script>
 $(function() {
-	$( "#datepicker" ).datepicker({
-		dateFormat: 'yy-mm-dd'
+	$('.datepicker').datepicker({ 
+        autoclose: true,
+        format: 'yyyy/mm/dd'
 	});
 });
 </script>
@@ -111,6 +117,7 @@ if (targetDate == 'null') {
 	var todayUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 	targetDate = todayUTC.toISOString().slice(0, 10).replace(/-/g, '');
 } else {
+	targetDate = targetDate.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$1-$2');
 	targetDate = targetDate.replace(/\-/g,'');
 }
 

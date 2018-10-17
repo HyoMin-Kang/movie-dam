@@ -47,8 +47,7 @@
                             <ul id="listingNav">
                                 <li class="active"><a href="#overview">기본 정보</a></li>
                                 <li><a href="#credit">출연·제작</a></li>
-                                <!-- <li><a href="#video">예고편</a></li> -->
-                                <li><a href="http://localhost:3000/player/[%EA%B7%B8%EB%9E%9C%EB%93%9C%EB%B6%80%EB%8B%A4%ED%8E%98%EC%8A%A4%ED%8A%B8%ED%98%B8%ED%85%94]%20%EC%98%88%EA%B3%A0%ED%8E%B8.mp4">예고편</a></li>
+                                <li><a href="https://peaceful-basin-13921.herokuapp.com/">예고편</a></li>
                                 <li><a href="#similar">관련 영화</a></li>
                             </ul>
                         </nav>
