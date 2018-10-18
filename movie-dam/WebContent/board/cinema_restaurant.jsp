@@ -17,7 +17,7 @@
     String search = request.getParameter("search");
 %>
 <%!
-    int pageSize = 10;
+    int pageSize = 9;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <%

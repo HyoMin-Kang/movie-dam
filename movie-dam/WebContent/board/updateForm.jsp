@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import = "moviedam.board.ArticleDBBean" %>
 <%@ page import = "moviedam.board.ArticleDataBean" %>
+<%@ page import = "moviedam.board.RestaurantDBBean" %>
+<%@ page import = "moviedam.board.RestaurantDataBean" %>
 <%@ page import="moviedam.board.BoardDBBean"%>
 <%@ page import="moviedam.board.BoardDataBean"%>
-<%@ page import="moviedam.member.MemberDBBean"%>
-<%@ page import="moviedam.member.MemberDataBean"%>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -16,17 +15,21 @@
 	String pageNum = request.getParameter("pageNum");
 	int board_id = Integer.parseInt(request.getParameter("board_id"));
 	String category = request.getParameter("category");
-	String userid = (String)session.getAttribute("userid");
+	String article_writer = request.getParameter("article_writer");
+	ArticleDataBean article = null;
+	RestaurantDataBean restaurant = null;
 	
-	
-	ArticleDBBean dbPro = ArticleDBBean.getInstance();
-	ArticleDataBean article = dbPro.updateGetArticle(article_id);
+	if(board_id == 1) {
+		ArticleDBBean dbPro = ArticleDBBean.getInstance();
+		article = dbPro.updateGetArticle(article_id);
+	} else if(board_id == 2) {
+		RestaurantDBBean dbPro = RestaurantDBBean.getInstance();
+		restaurant = dbPro.updateGetArticle(article_id);
+	}
 
 	BoardDBBean board_db = BoardDBBean.getInstance();
 	BoardDataBean board = board_db.getBoard(board_id);
 
-	MemberDBBean member_db = MemberDBBean.getInstance();
-	MemberDataBean profile = member_db.getProfile(userid);
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -67,11 +70,10 @@
 					<option value="hobby"<%if(article.getCategory().equals("hobby")){out.print(" selected=\"selected\"");}%>>덕질공간</option>
 				</select>
 			</div>
-</c:if>
 			<div class="form-group col">
 				<label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputWriter" name="article_writer" value="<%=article.getArticle_writer() %>" readonly="readonly">
+					<input type="text" class="form-control" id="inputWriter" name="article_writer" value="<%=article.getArticle_writer()%>" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group col">
@@ -80,7 +82,30 @@
 					<input type="text" class="form-control" id="inputTitle" name="article_title" value="<%=article.getArticle_title()%>" maxlength="100">
 				</div>
 			</div>
+			<div class="form-group col">
+				<label for="exampleTextarea">내용</label>
+				<textarea class="form-control" id="inputContent" name="article_content" rows="3"><%=article.getArticle_content()%></textarea>
+			</div>
+			<div class="form-group col">
+				<label for="exampleInputFile">첨부파일</label> 
+				<input type="file" class="form-control-file" id="inputFile" name="article_file" aria-describedby="fileHelp" accept="image/*"> 
+				<small id="fileHelp" class="form-text text-muted">이미지 파일만 첨부 가능합니다.</small>
+			</div>
+</c:if>
+			
 <c:if test="<%=board_id == 2 %>">
+			<div class="form-group col">
+				<label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="inputWriter" name="article_writer" value="<%=restaurant.getArticle_writer()%>" readonly="readonly">
+				</div>
+			</div>
+			<div class="form-group col">
+				<label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="inputTitle" name="article_title" value="<%=restaurant.getArticle_title()%>" maxlength="100">
+				</div>
+			</div>
 			<div class="form-group col">
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
@@ -106,16 +131,16 @@
 				<input type="hidden" id="startLat" name="start_lat" value="">
 				<input type="hidden" id="startLon" name="start_lon" value="">
 			</div>
-</c:if>
 			<div class="form-group col">
 				<label for="exampleTextarea">내용</label>
-				<textarea class="form-control" id="inputContent" name="article_content" rows="3" value="<%=article.getArticle_content()%>"><%=article.getArticle_content()%></textarea>
+				<textarea class="form-control" id="inputContent" name="article_content" rows="3"><%=restaurant.getArticle_content()%></textarea>
 			</div>
 			<div class="form-group col">
 				<label for="exampleInputFile">첨부파일</label> 
 				<input type="file" class="form-control-file" id="inputFile" name="article_file" aria-describedby="fileHelp" accept="image/*"> 
 				<small id="fileHelp" class="form-text text-muted">이미지 파일만 첨부 가능합니다.</small>
 			</div>
+</c:if>
 	
 			<button type="submit" class="btn btn-primary">작성하기</button>
 			<button type="reset" class="btn btn-secondary">다시 작성</button>

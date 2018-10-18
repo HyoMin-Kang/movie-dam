@@ -4,14 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import moviedam.board.ArticleDBBean;
-import moviedam.board.ArticleDataBean;
 
 public class FollowDBBean {
 	private static FollowDBBean instance = new FollowDBBean();
@@ -187,12 +182,12 @@ public class FollowDBBean {
 		return x;
 	}
 	
-	public List<FollowDataBean> getFollowers(String mem_id) throws Exception {
+	public ArrayList<FollowDataBean> getFollowers(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
-		List<FollowDataBean> follwerList = null;
+		ArrayList<FollowDataBean> followerList = null;
 		
 		try {
 			conn = getConnection();
@@ -202,14 +197,12 @@ public class FollowDBBean {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				follwerList = new ArrayList<FollowDataBean>();
+				followerList = new ArrayList<FollowDataBean>();
 				do {
 					FollowDataBean follower = new FollowDataBean();
 					follower.setMem_id(rs.getString("mem_id"));
-					follower.setTarget_mem_id(rs.getString("target_mem_id"));
-					follower.setFol_type(rs.getString("fol_type"));
 
-					follwerList.add(follower);
+					followerList.add(follower);
 				} while (rs.next());
 			}
 		} catch (Exception ex) {
@@ -231,7 +224,7 @@ public class FollowDBBean {
 				} catch (SQLException ex) {
 				}
 		}
-		return follwerList;
+		return followerList;
 	}
 	
 	public int getFollowingCount(String mem_id) throws Exception {
@@ -276,12 +269,12 @@ public class FollowDBBean {
 		return x;
 	}
 	
-	public List<FollowDataBean> getFollowings(String mem_id) throws Exception {
+	public ArrayList<FollowDataBean> getFollowings(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
-		List<FollowDataBean> follwerList = null;
+		ArrayList<FollowDataBean> followingList = null;
 		
 		try {
 			conn = getConnection();
@@ -291,14 +284,14 @@ public class FollowDBBean {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				follwerList = new ArrayList<FollowDataBean>();
+				followingList = new ArrayList<FollowDataBean>();
 				do {
-					FollowDataBean follower = new FollowDataBean();
-					follower.setMem_id(rs.getString("mem_id"));
-					follower.setTarget_mem_id(rs.getString("target_mem_id"));
-					follower.setFol_type(rs.getString("fol_type"));
+					FollowDataBean following = new FollowDataBean();
+					following.setMem_id(rs.getString("mem_id"));
+					following.setTarget_mem_id(rs.getString("target_mem_id"));
+					following.setFol_type(rs.getString("fol_type"));
 
-					follwerList.add(follower);
+					followingList.add(following);
 				} while (rs.next());
 			}
 		} catch (Exception ex) {
@@ -320,6 +313,6 @@ public class FollowDBBean {
 				} catch (SQLException ex) {
 				}
 		}
-		return follwerList;
+		return followingList;
 	}
 }

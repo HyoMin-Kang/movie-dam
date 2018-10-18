@@ -70,10 +70,6 @@
 								<a href="/movie-dam/member/profile.jsp?mem_userid=${sessionScope.userid }">Profile</a>
 							</div>
 						</c:if>
-						<!-- Add listings btn -->
-						<div class="dorne-add-listings-btn">
-							<a href="#" class="btn dorne-btn">+ Add Listings</a>
-						</div>
 					</div>
 				</nav>
 			</div>

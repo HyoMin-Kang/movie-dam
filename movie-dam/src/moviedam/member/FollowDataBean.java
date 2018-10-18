@@ -1,5 +1,4 @@
 package moviedam.member;
-import java.sql.Timestamp;
 
 public class FollowDataBean {
 	private String mem_id;

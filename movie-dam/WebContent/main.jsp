@@ -4,6 +4,8 @@
 <%@ page import="moviedam.board.ArticleDataBean" %>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="moviedam.board.RestaurantDBBean" %>
+<%@ page import="moviedam.board.RestaurantDataBean" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화담";
@@ -12,6 +14,9 @@
 	ArrayList<ArticleDataBean> articleList = null; 
 	ArticleDBBean article_db = ArticleDBBean.getInstance();
 	articleList = article_db.getTopArticles(); 
+	
+	ArrayList<RestaurantDataBean> article_restaurantList = null; 
+	RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
 %>
 <jsp:include page="/module/header.jsp" flush="false">
 	<jsp:param name="title" value="<%=title %>" />
@@ -20,93 +25,17 @@
 <jsp:include page="/module/nav.jsp" flush="false" />
 
 <!-- ***** Welcome Area Start ***** -->
-<section class="dorne-welcome-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg);">
+<section class="dorne-welcome-area bg-img bg-overlay"style="background-image: url(/movie-dam/assets/img/bg-img/coverlg_home.jpg);">
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-center">
             <div class="col-12 col-md-10">
                 <div class="hero-content">
-                    <h2>Discover places near you</h2>
-                    <h4>This is the best guide of your city</h4>
-                </div>
-                <!-- Hero Search Form -->
-                <div class="hero-search-form">
-                    <!-- Tabs -->
-                    <div class="nav nav-tabs" id="heroTab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-places-tab" data-toggle="tab" href="#nav-places" role="tab" aria-controls="nav-places" aria-selected="true">Places</a>
-                        <a class="nav-item nav-link" id="nav-events-tab" data-toggle="tab" href="#nav-events" role="tab" aria-controls="nav-events" aria-selected="false">Events</a>
-                    </div>
-                    <!-- Tabs Content -->
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-places" role="tabpanel" aria-labelledby="nav-places-tab">
-                            <h6>What are you looking for?</h6>
-                            <form action="#" method="get">
-                                <select class="custom-select">
-                                    <option selected>Your Destinations</option>
-                                    <option value="1">New York</option>
-                                    <option value="2">Latvia</option>
-                                    <option value="3">Dhaka</option>
-                                    <option value="4">Melbourne</option>
-                                    <option value="5">London</option>
-                                </select>
-                                <select class="custom-select">
-                                    <option selected>All Catagories</option>
-                                    <option value="1">Catagories 1</option>
-                                    <option value="2">Catagories 2</option>
-                                    <option value="3">Catagories 3</option>
-                                </select>
-                                <select class="custom-select">
-                                    <option selected>Price Range</option>
-                                    <option value="1">$100 - $499</option>
-                                    <option value="2">$500 - $999</option>
-                                    <option value="3">$1000 - $4999</option>
-                                </select>
-                                <button type="submit" class="btn dorne-btn"><i class="fa fa-search pr-2" aria-hidden="true"></i> Search</button>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
-                            <h6>What are you looking for?</h6>
-                            <form action="#" method="get">
-                                <select class="custom-select">
-                                    <option selected>Your Destinations</option>
-                                    <option value="1">New York</option>
-                                    <option value="2">Latvia</option>
-                                    <option value="3">Dhaka</option>
-                                    <option value="4">Melbourne</option>
-                                    <option value="5">London</option>
-                                </select>
-                                <select class="custom-select">
-                                    <option selected>All Catagories</option>
-                                    <option value="1">Catagories 1</option>
-                                    <option value="2">Catagories 2</option>
-                                    <option value="3">Catagories 3</option>
-                                </select>
-                                <select class="custom-select">
-                                    <option selected>Price Range</option>
-                                    <option value="1">$100 - $499</option>
-                                    <option value="2">$500 - $999</option>
-                                    <option value="3">$1000 - $4999</option>
-                                </select>
-                                <button type="submit" class="btn dorne-btn"><i class="fa fa-search pr-2" aria-hidden="true"></i> Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Hero Social Btn -->
-    <div class="hero-social-btn">
-        <div class="social-title d-flex align-items-center">
-            <h6>Follow us on Social Media</h6>
-            <span></span>
-        </div>
-        <div class="social-btns">
-            <a href="#"><i class="fab fa-linkedin" aria-haspopup="true"></i></a>
-            <a href="#"><i class="fab fa-behance" aria-hidden="true"></i></a>
-            <a href="#"><i class="fab fa-dribbble" aria-hidden="true"></i></a>
-            <a href="#"><i class="fab fa-twitter" aria-haspopup="true"></i></a>
-            <a href="#"><i class="fab fa-facebook" aria-haspopup="true"></i></a>
-        </div>
+                    <h2>라라랜드 같은 로맨스 영화</h2>
+                    <h4>최신 로맨스 영화 보러 갈래?</h4>
+                    <button type="submit" class="btn dorne-btn" onclick="location.href='/movie-dam/movie/movie_list.jsp?resultPage=1&sort=vote_count&with_genres=10749' "><i class="fa fa-search pr-2" aria-hidden="true"></i> 보러가기</button>
+				</div>
+			</div>
+		</div>
     </div>
 </section>
 <!-- ***** Welcome Area End ***** -->
@@ -122,9 +51,9 @@
                         <div class="col-12 col-sm-6 col-md">
                             <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.2s">
                                 <div class="catagory-content">
-                                    <img src="/movie-dam/assets/img/core-img/icon-1.png" alt="">
-                                    <a href="#">
-                                        <h6>Hotels</h6>
+                                    <img src="/movie-dam/assets/img/core-img/icon-5.png" alt="">
+                                    <a href="/movie-dam/movie/movie_list.jsp">
+                                        <h6>Movies</h6>
                                     </a>
                                 </div>
                             </div>
@@ -134,7 +63,7 @@
                             <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.4s">
                                 <div class="catagory-content">
                                     <img src="/movie-dam/assets/img/core-img/icon-2.png" alt="">
-                                    <a href="#">
+                                    <a href="/movie-dam/board/cinema_restaurant.jsp">
                                         <h6>Restaurants</h6>
                                     </a>
                                 </div>
@@ -145,8 +74,8 @@
                             <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.6s">
                                 <div class="catagory-content">
                                     <img src="/movie-dam/assets/img/core-img/icon-3.png" alt="">
-                                    <a href="#">
-                                        <h6>Shopping</h6>
+                                    <a href="/movie-dam/board/free_board.jsp?category=all">
+                                        <h6>Free Board</h6>
                                     </a>
                                 </div>
                             </div>
@@ -156,8 +85,8 @@
                             <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.8s">
                                 <div class="catagory-content">
                                     <img src="/movie-dam/assets/img/core-img/icon-4.png" alt="">
-                                    <a href="#">
-                                        <h6>Beauty &amp; Spa</h6>
+                                    <a href="/movie-dam/debate/debate_chanban.jsp">
+                                        <h6>Debate [Pro-Con]</h6>
                                     </a>
                                 </div>
                             </div>
@@ -166,9 +95,9 @@
                         <div class="col-12 col-md">
                             <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="1s">
                                 <div class="catagory-content">
-                                    <img src="/movie-dam/assets/img/core-img/icon-5.png" alt="">
-                                    <a href="#">
-                                        <h6>Cinema</h6>
+                                    <img src="/movie-dam/assets/img/core-img/icon-1.png" alt="">
+                                    <a href="/movie-dam/debate/debate_battle.jsp">
+                                        <h6>Debate [Battle]</h6>
                                     </a>
                                 </div>
                             </div>
@@ -203,8 +132,7 @@
             <div class="col-12">
                 <div class="section-heading text-center">
                     <span></span>
-                    <h4>Cities you must see</h4>
-                    <p>Editor’s pick</p>
+                    <h4>BOX OFFICE</h4>
                 </div>
             </div>
         </div>
@@ -212,40 +140,37 @@
         <div class="row">
             <div class="col-12 col-lg-6">
                 <div class="single-editors-pick-area wow fadeInUp" data-wow-delay="0.2s">
-                    <img src="/movie-dam/assets/img/bg-img/editor-1.jpg" alt="">
+                    <img src="/movie-dam/assets/img/bg-img/rank1.jpg" alt="">
                     <div class="editors-pick-info">
                         <div class="places-total-destinations d-flex">
-                            <a href="#">New York</a>
-                            <a href="#">1643 Destinations</a>
-                        </div>
-                        <div class="add-more">
-                            <a href="#">+</a>
+                            <a href="#">Rank 1</a>
+	                        <div class="add-more">
+	                            <a href="#">+</a>
+	                        </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="single-editors-pick-area wow fadeInUp" data-wow-delay="0.4s">
-                    <img src="/movie-dam/assets/img/bg-img/editor-2.jpg" alt="">
+                    <img src="/movie-dam/assets/img/bg-img/rank2.jpg" alt="">
                     <div class="editors-pick-info">
                         <div class="places-total-destinations d-flex">
-                            <a href="#">Barcelona</a>
-                            <a href="#">943 Destinations</a>
-                        </div>
-                        <div class="add-more">
-                            <a href="#">+</a>
+                            <a href="#">Rank 2</a>
+	                        <div class="add-more">
+	                            <a href="http://localhost:8090/movie-dam/movie/movie_detail.jsp?id=544627">+</a>
+	                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="single-editors-pick-area wow fadeInUp" data-wow-delay="0.6s">
-                    <img src="/movie-dam/assets/img/bg-img/editor-3.jpg" alt="">
+                    <img src="/movie-dam/assets/img/bg-img/rank3.jpg" alt="">
                     <div class="editors-pick-info">
                         <div class="places-total-destinations d-flex">
-                            <a href="#">paris</a>
-                            <a href="#">243 Destinations</a>
-                        </div>
-                        <div class="add-more">
-                            <a href="#">+</a>
+                            <a href="#">Rank 3</a>
+	                        <div class="add-more">
+	                            <a href="http://localhost:8090/movie-dam/movie/movie_detail.jsp?id=335983">+</a>
+	                        </div>
                         </div>
                     </div>
                 </div>
@@ -493,21 +418,18 @@
 double delay = 0.1;
 for (int i = 0 ; i < articleList.size() ; i++) {
 	   ArticleDataBean article = articleList.get(i);
-	   int lcount = article_db.getlikeCount(1, article.getArticle_id());
 %>
             <div class="col-12 col-lg-6">
                 <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay+0.1 %>s">
                     <div class="feature-events-thumb">
                         <img src="/movie-dam/assets/img/bg-img/event-1.jpg" alt="">
                         <div class="date-map-area d-flex">
-                            <a href="#">26 Nov</a>
-                            <a href="#"><i class="fas fa-heart fa-lg"></i><%=lcount %></a>
+                            <a href="#">26 Oct</a>
                         </div>
                     </div>
                     <div class="feature-events-content">
                         <h5><%=article.getArticle_title()%></h5>
                         <h6><%=article.getArticle_writer()%></h6>
-                        <p><%=article.getArticle_content()%></p>
                     </div>
                     <div class="feature-events-details-btn">
                         <a href="#">+</a>
@@ -519,24 +441,6 @@ for (int i = 0 ; i < articleList.size() ; i++) {
 	</div>	
 </section>
 <!-- ***** Features Events Area End ***** -->
-
-<!-- ***** Clients Area Start ***** -->
-<div class="dorne-clients-area section-padding-100">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="clients-logo d-md-flex align-items-center justify-content-around">
-                    <img src="/movie-dam/assets/img/clients-img/1.png" alt="">
-                    <img src="/movie-dam/assets/img/clients-img/2.png" alt="">
-                    <img src="/movie-dam/assets/img/clients-img/3.png" alt="">
-                    <img src="/movie-dam/assets/img/clients-img/4.png" alt="">
-                    <img src="/movie-dam/assets/img/clients-img/5.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ***** Clients Area End ***** -->
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 

@@ -77,11 +77,8 @@
 	    article.setArticle_file(fileName);
 	    article.setCategory(category);
 	    
-	    MemberDBBean member_db = MemberDBBean.getInstance();
-		MemberDataBean profile = member_db.getProfile(userid);
-	    
-	    ArticleDBBean dbPro = ArticleDBBean.getInstance();
-	    int check = dbPro.updateArticle(article,article_writer); 
+	    ArticleDBBean article_db = ArticleDBBean.getInstance();
+	    int check = article_db.updateArticle(article,userid); 
 	    if(check==1){
 %>
 			<meta http-equiv="Refresh" content="0;url=content.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&category=<%=category%>" >
@@ -106,7 +103,7 @@
 		restaurant.setStart_lon(start_lon);
 		
 		RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
-		int check = restaurant_db.updateArticle(restaurant,article_writer);
+		int check = restaurant_db.updateArticle(restaurant, userid);
 		if(check==1){
 %>
 			<meta http-equiv="Refresh" content="0;url=content_rest.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>" >

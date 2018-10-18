@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="moviedam.member.MemberDBBean" %>
 <%@ page import="moviedam.member.MemberDataBean" %>
@@ -11,14 +12,21 @@
 	String userid = (String)session.getAttribute("userid");
 	String mem_userid = request.getParameter("mem_userid");
 	String fol_type = "";
+	int follower_cnt = 0;
+	int following_cnt = 0;
+	String birth = "";
 	
 	try{
 		MemberDBBean mem_db = MemberDBBean.getInstance(); 
 		MemberDataBean profile =  mem_db.getProfile(mem_userid);
 		FollowDBBean fol_db = FollowDBBean.getInstance(); 
+		
 		fol_type =  fol_db.getFol_type(userid,mem_userid);
+		follower_cnt = fol_db.getFollowerCount(mem_userid);
+		following_cnt = fol_db.getFollowingCount(mem_userid);
 
 		String title = profile.getMem_nickname()+"님의 프로필";
+		birth = profile.getMem_birth();
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -62,7 +70,7 @@
                 <div class="card-profile-actions py-4 mt-lg-0">
                   	<a href="#" class="btn btn-sm btn-default float-right">Message</a>
                 <% if(profile.getMem_userid().equals(userid)) { %>
-                	<a href="profile_setting.jsp" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">설정</a>
+                	<a href="profile_setting.jsp" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">Setting</a>
                 <% } else { %>
                 	<form id="followForm" method="post"></form>
                 <% } %>
@@ -71,23 +79,29 @@
               <div class="col-lg-4 order-lg-1">
                 <div class="card-profile-stats d-flex justify-content-center">
                   <div>
-                    <span class="heading">22</span>
-                    <span class="description">팔로우</span>
+                  	<a href="profile_following.jsp?mem_userid=<%=mem_userid%>">
+	                    <span class="heading" id="followingCnt"><%=following_cnt %></span>
+	                    <span class="description">팔로우</span>
+                  	</a>
                   </div>
                   <div>
-                    <span class="heading">42</span>
-                    <span class="description">팔로워</span>
+                  	<a href="profile_follower.jsp?mem_userid=<%=mem_userid%>">
+	                    <span class="heading" id="followerCnt"><%=follower_cnt %></span>
+	                    <span class="description">팔로워</span>
+                    </a>
                   </div>
                   <div>
-                    <span class="heading">26</span>
-                    <span class="description">???</span>
+                  	<a href="#">
+	                    <span class="heading">26</span>
+	                    <span class="description">좋아요</span>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-center mt-5">
-              <h3><%=profile.getMem_nickname() %>
-                <span class="font-weight-light">, 27</span>
+              <h3><a href="profile.jsp?mem_userid=<%=mem_userid%>"><%=profile.getMem_nickname() %></a>
+                <span class="font-weight-light" id="birth"></span>
               </h3>
               <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i><%=profile.getMem_email() %></div>
             </div>
@@ -101,6 +115,14 @@
 					</ul>
 					
 				</div>
+				
+				<div class="col-lg-9">
+				<div class="tab-content" role="tabpanel">
+
+				
+	            </div>
+           		</div>	
+				
               </div>
             </div>
           </div>
@@ -123,21 +145,33 @@
 <jsp:include page="/module/footer.jsp" flush="false" />
 <script>
 $(document).ready(function() {
+	var birth = '<%=birth%>';
+	var b_year = birth.substring(0,4);
+	var b_month = birth.substring(4,6);
+	var b_date = birth.substring(6,8);
+	var birthday = new Date(b_year+'/'+b_month+'/'+b_date);
+	var today = new Date();
+	var years = today.getFullYear() - birthday.getFullYear();
+	$('#birth').text(', '+years);
+	
 	var rs = [];
     var mem_id = '<%=userid%>';
     var target_mem_id = '<%=mem_userid%>';
     var fol_type = '<%=fol_type%>';
+    var follower_cnt = <%=follower_cnt%>;
     if(fol_type=='N') {
     	rs.push('<button type="submit" class="btn btn-sm btn-info mr-4" id="following">Follow</button>');
     	rs.push('<input type="hidden" name="mem_id" value="'+mem_id+'">');
     	rs.push('<input type="hidden" name="target_mem_id" value="'+target_mem_id+'">');
     	rs.push('<input type="hidden" name="currentFolType" value="N">');
+    	rs.push('<input type="hidden" name="follower_cnt" value="'+follower_cnt+'">');
     	$('#followForm').append(rs.join(''));
     } else if(fol_type=='Y') {
     	rs.push('<button type="submit" class="btn btn-sm btn-danger mr-4" id="following">Unfollow</button>');
     	rs.push('<input type="hidden" name="mem_id" value="'+mem_id+'">');
     	rs.push('<input type="hidden" name="target_mem_id" value="'+target_mem_id+'">');
     	rs.push('<input type="hidden" name="currentFolType" value="Y">');
+    	rs.push('<input type="hidden" name="follower_cnt" value="'+follower_cnt+'">');
     	$('#followForm').append(rs.join(''));
     }
     
@@ -148,11 +182,13 @@ $(document).ready(function() {
         mem_id = $form.find('input[name="mem_id"]').val(),
         target_mem_id = $form.find('input[name="target_mem_id"]').val(),
         fol_type = $form.find('input[name="currentFolType"]').val();
+        follower_cnt = $form.find('input[name="follower_cnt"]').val();
 
         var posting = $.post('follow_pro.jsp', {
         	mem_id: mem_id,
         	target_mem_id: target_mem_id,
-        	currentFolType: fol_type
+        	currentFolType: fol_type,
+        	follower_cnt: follower_cnt
         });
         posting.done(function(data) {
         	console.log(data);
@@ -162,10 +198,12 @@ $(document).ready(function() {
         		$('#following').removeClass('btn-info');
         		$('#following').addClass('btn-danger');
         		$('#following').text('Unfollow');
+        		$('#followerCnt').text(data.follower_cnt);
         	} else if(data.ftype == 'N') {
         		$('#following').removeClass('btn-danger');
         		$('#following').addClass('btn-info');
         		$('#following').text('Follow');
+        		$('#followerCnt').text(data.follower_cnt);
         	}
         });
     });

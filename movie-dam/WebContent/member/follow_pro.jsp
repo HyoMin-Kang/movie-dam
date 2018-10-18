@@ -24,7 +24,9 @@
 		
 		FollowDBBean fol_db = FollowDBBean.getInstance();
 		String ftype = fol_db.following(follow);
+		int follower_cnt = fol_db.getFollowerCount(target_mem_id);
 		jsonobj.put("ftype", ftype);
+		jsonobj.put("follower_cnt", follower_cnt);
 		
 		response.setContentType("application/json");
     	response.setCharacterEncoding("UTF-8");
