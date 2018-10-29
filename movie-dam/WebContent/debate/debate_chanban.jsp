@@ -122,25 +122,33 @@
 							
 							for (int i = 0; i < chanbanList.size(); i++) {
 								ChanbanDataBean chanban = chanbanList.get(i);
-								String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");					
+								String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");		
+								String cb_tag = chanban.getCb_tag();
+								pageContext.setAttribute("cb_tag", cb_tag);
 								
 								ccount = cb_comment_db.getChanbanCmtCount(chanban.getCb_id());
 %>	
 					<ul class="list-unstyled">
 						<li class="media">
-							<img class="mr-3" src="https://via.placeholder.com/128x128" alt="Generic placeholder image">
+<% 
+						if (chanban.getCb_file() != null) {
+%>
+							<img class="mr-3" src="/movie-dam/imageFolder/debate_chanban/<%=chanban.getCb_file()%>" width="128" height="128" alt="Generic placeholder image">
+<%						} else { %>
+							<img class="mr-3" src="https://via.placeholder.com/128x128?text=Image+doesn't+exist." alt="Generic placeholder image">
+<%						} %>
 							<div class="media-body">
 								<h5 class="mt-0 mb-1">
 									<a href="chanban_content.jsp?cb_id=<%=chanban.getCb_id()%>&pageNum=<%=currentPage%>" style="color: black;"><%=chanban.getCb_title()%></a>
 									<% if (chanban.getCb_hits() <= 20) {%><span class="badge badge-info">H</span><%}%>
 								</h5>
 								
-								<div><%=textWithoutTag %></div>
+								<div style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;"><%=textWithoutTag %></div>
 								<div class="hashtag">
-									<a type="buttn" class="btn btn-outline-primary btn-sm">#캡틴아메리카</a>
-									<a type="buttn" class="btn btn-outline-primary btn-sm">#공리주의</a>
-									<a type="buttn" class="btn btn-outline-primary btn-sm">#권력</a> 
-									<a type="buttn" class="btn btn-outline-primary btn-sm">#영웅</a>
+									<c:set var="tags" value="${fn:split(cb_tag, '|')}"></c:set>
+									<c:forEach var="item" items="${tags}">
+									    <a type="buttn" class="btn btn-outline-primary btn-sm">#${item}</a>
+									</c:forEach>
 								</div>
 								<div class="pro-con-icon">
 									<span id="pros"><i class="fas fa-thumbs-up fa-sm"></i> 찬성 </span> 

@@ -2,6 +2,7 @@
     <wb-module deploy-name="movie-dam">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/models-full" source-path="/WebContent/models-full"/>
         <property name="context-root" value="movie-dam"/>
         <property name="java-output-path" value="/movie-dam/build/classes"/>
     </wb-module>

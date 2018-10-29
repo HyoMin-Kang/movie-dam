@@ -6,6 +6,8 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="moviedam.board.RestaurantDBBean" %>
 <%@ page import="moviedam.board.RestaurantDataBean" %>
+<%@ page import="moviedam.member.MemberDataBean" %>
+<%@ page import="moviedam.member.MemberDBBean" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화담";
@@ -17,6 +19,8 @@
 	
 	ArrayList<RestaurantDataBean> article_restaurantList = null; 
 	RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
+	
+	MemberDBBean mem_db = MemberDBBean.getInstance(); 
 %>
 <jsp:include page="/module/header.jsp" flush="false">
 	<jsp:param name="title" value="<%=title %>" />
@@ -418,11 +422,12 @@
 double delay = 0.1;
 for (int i = 0 ; i < articleList.size() ; i++) {
 	   ArticleDataBean article = articleList.get(i);
+	   MemberDataBean writer_profile = mem_db.getProfile(article.getArticle_writer());
 %>
             <div class="col-12 col-lg-6">
                 <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay+0.1 %>s">
                     <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/bg-img/event-1.jpg" alt="">
+                        <img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="128">
                         <div class="date-map-area d-flex">
                             <a href="#">26 Oct</a>
                         </div>

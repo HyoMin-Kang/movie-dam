@@ -6,6 +6,7 @@ public class ChanbanDataBean {
     private String cb_writer;
     private String cb_title;
     private String cb_content;
+    private String cb_tag; //해시태그
     private Timestamp reg_date;
     private int cb_hits; //조회수
     private String cb_file;
@@ -64,6 +65,12 @@ public class ChanbanDataBean {
 	}
 	public void setCb_type(String cb_type) {
 		this.cb_type = cb_type;
+	}
+	public String getCb_tag() {
+		return cb_tag;
+	}
+	public void setCb_tag(String cb_tag) {
+		this.cb_tag = cb_tag;
 	}
  
  

@@ -5,10 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import com.mysql.fabric.xmlrpc.base.Param;
+
+import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
+import kr.co.shineware.util.common.model.Pair;
 
 public class ChanbanDBBean {
 	
@@ -28,6 +41,134 @@ public class ChanbanDBBean {
 		return ds.getConnection();
 	}
 
+	String path = this.getClass().getResource("models-full").getPath();
+	Komoran komoran = new Komoran(path);
+	List<String> doc = null;
+	List<List<String>> docs = null;
+	
+/*	//저장되어 있는 토론 글 본문을 분석하여 docs안에 추가
+	public List<List<String>> getDocs() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		String content = "";		
+		docs = new ArrayList<List<String>>();
+		try {
+			conn = getConnection();
+			
+			sql = "select cb_content from chanban";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				doc = new ArrayList<String>();
+				content = rs.getString(1);
+				content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				List<List<Pair<String,String>>> result = komoran.analyze(content);
+				for (List<Pair<String, String>> eojeolResult : result) {
+					for (Pair<String, String> wordMorph : eojeolResult) {
+						if(wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
+							doc.add(wordMorph.getFirst());
+					}
+				}
+				docs.add(doc);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return docs;
+	}*/
+	
+	public HashMap<String, Double> analyzeContent(String content) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";	
+		String docsContent = "";
+		docs = new ArrayList<List<String>>();
+		Analyze analyze = new Analyze();
+		HashMap<String, Double> map = new HashMap<String, Double>();
+		try {
+			conn = getConnection();
+			
+			sql = "select cb_content from chanban";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				List<String>docsDoc = new ArrayList<String>();
+				docsContent = rs.getString(1);
+				docsContent = docsContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				List<List<Pair<String,String>>> result = komoran.analyze(docsContent);
+				for (List<Pair<String, String>> eojeolResult : result) {
+					for (Pair<String, String> wordMorph : eojeolResult) {
+						if(wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
+							docsDoc.add(wordMorph.getFirst());
+					}
+				}
+				docs.add(docsDoc);
+			}
+			doc = new ArrayList<String>();
+			content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			List<List<Pair<String,String>>> result = komoran.analyze(content);
+			for (List<Pair<String, String>> eojeolResult : result) {
+				for (Pair<String, String> wordMorph : eojeolResult) {
+					System.out.println(wordMorph);
+					if(wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
+						doc.add(wordMorph.getFirst());
+				}
+					System.out.println();
+			}
+			docs.add(doc);
+/*			System.out.println("doc:"+doc);
+			System.out.println("docs:"+docs);*/
+			for(String term : doc) {
+				double tfidf = analyze.tfIdf(doc, docs, term);
+				map.put(term, tfidf);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	public static boolean ASC = true;
+    public static boolean DESC = false;
+	public static HashMap<String,Double> sortByValue(HashMap<String,Double> unsortedMap, final boolean order) {
+		List<Entry<String, Double>> list = new LinkedList<Entry<String, Double>>(unsortedMap.entrySet());
+		// Sorting the list based on values
+		Collections.sort(list, new Comparator<Entry<String,Double>>() {
+			public int compare(Entry<String,Double> comp1, Entry<String,Double> comp2) {
+				if(order) {
+					return comp1.getValue().compareTo(comp2.getValue());
+				} else {
+					return comp2.getValue().compareTo(comp1.getValue());
+				}
+			}
+		});
+		// Maintaining insertion order with the help of LinkedList
+		HashMap<String,Double> sortedMap = new LinkedHashMap<String,Double>();
+		for(Entry<String,Double> entry : list) {
+			sortedMap.put(entry.getKey(), entry.getValue());
+		}
+		return sortedMap;
+	}
+	
 	// chanban테이블에 글을 추가(insert문)<=writePro.jsp페이지에서 사용
 	public void insertChanban(ChanbanDataBean cb) throws Exception {
 		Connection conn = null;
@@ -35,19 +176,33 @@ public class ChanbanDBBean {
 		ResultSet rs = null;
 		String sql = "";
 
-		try {
+		try {	
+			HashMap<String, Double> analyzedMap = analyzeContent(cb.getCb_content());
+			System.out.println(analyzedMap);
+			HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
+			System.out.println(sortedMap);
+			List<String> top7List = new ArrayList<String>();
+			List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
+			List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
+			for(Entry<String,Double> entry : topTags) {
+				top7List.add(entry.getKey());
+			}
+			System.out.println(top7List);
+			String cb_tag = String.join("|", top7List);
+			
 			conn = getConnection();
-			sql = "insert into chanban values(?,?,?,?,?,?,?,?)";
+			sql = "insert into chanban values(?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cb.getCb_id());
 			pstmt.setString(2, cb.getCb_writer());
 			pstmt.setString(3, cb.getCb_title());
 			pstmt.setString(4, cb.getCb_content());
-			pstmt.setTimestamp(5, cb.getReg_date());
-			pstmt.setInt(6, cb.getCb_hits());
-			pstmt.setString(7, cb.getCb_file());
-			pstmt.setString(8, cb.getCb_type());
+			pstmt.setString(5, cb_tag);
+			pstmt.setTimestamp(6, cb.getReg_date());
+			pstmt.setInt(7, cb.getCb_hits());
+			pstmt.setString(8, cb.getCb_file());
+			pstmt.setString(9, cb.getCb_type());
 
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -165,6 +320,7 @@ public class ChanbanDBBean {
 					chanban.setCb_writer(rs.getString("cb_writer"));
 					chanban.setCb_title(rs.getString("cb_title"));
 					chanban.setCb_content(rs.getString("cb_content"));
+					chanban.setCb_tag(rs.getString("cb_tag"));
 					chanban.setReg_date(rs.getTimestamp("reg_date"));
 					chanban.setCb_hits(rs.getInt("cb_hits"));
 					chanban.setCb_file(rs.getString("cb_file"));
@@ -217,6 +373,7 @@ public class ChanbanDBBean {
 					chanban.setCb_writer(rs.getString("cb_writer"));
 					chanban.setCb_title(rs.getString("cb_title"));
 					chanban.setCb_content(rs.getString("cb_content"));
+					chanban.setCb_tag(rs.getString("cb_tag"));
 					chanban.setReg_date(rs.getTimestamp("reg_date"));
 					chanban.setCb_hits(rs.getInt("cb_hits"));
 					chanban.setCb_file(rs.getString("cb_file"));
@@ -265,6 +422,7 @@ public class ChanbanDBBean {
 				chanban.setCb_writer(rs.getString("cb_writer"));
 				chanban.setCb_title(rs.getString("cb_title"));
 				chanban.setCb_content(rs.getString("cb_content"));
+				chanban.setCb_tag(rs.getString("cb_tag"));
 				chanban.setReg_date(rs.getTimestamp("reg_date"));
 				chanban.setCb_hits(rs.getInt("cb_hits"));
 				chanban.setCb_file(rs.getString("cb_file"));
@@ -311,6 +469,7 @@ public class ChanbanDBBean {
 				chanban.setCb_writer(rs.getString("cb_writer"));
 				chanban.setCb_title(rs.getString("cb_title"));
 				chanban.setCb_content(rs.getString("cb_content"));
+				chanban.setCb_tag(rs.getString("cb_tag"));
 				chanban.setReg_date(rs.getTimestamp("reg_date"));
 				chanban.setCb_hits(rs.getInt("cb_hits"));
 				chanban.setCb_file(rs.getString("cb_file"));
