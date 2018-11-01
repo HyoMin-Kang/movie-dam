@@ -108,7 +108,7 @@
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
 					<div class="input-group mb-3">
-						<input class="form-control" type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요.">
+						<input class="form-control" type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="button" onclick="search_location();">검색</button>
 						</div>

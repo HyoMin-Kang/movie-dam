@@ -47,6 +47,7 @@
 		
 		lat = article.getStart_lat();
 		lon = article.getStart_lon();
+		search_loc = article.getSearch_loc();
 			
 		MemberDBBean mem_db = MemberDBBean.getInstance(); 
 		MemberDataBean profile =  mem_db.getProfile(article.getArticle_writer());

@@ -14,7 +14,7 @@ public class Analyze {
 			if(term.equalsIgnoreCase(word))
 				result++;
 		}
-		//System.out.println(term+" tf:"+result/doc.size());
+		System.out.println(term+" tf:"+result/doc.size());
 		return result/doc.size();
 	}
 
@@ -28,7 +28,7 @@ public class Analyze {
 				}
 			}
 		}
-		//System.out.println(term+" idf:"+Math.log(docs.size() / (n+1)));
+		System.out.println(term+" idf:"+Math.log(docs.size() / n));
 		return Math.log(docs.size() / n);
 	}
 	

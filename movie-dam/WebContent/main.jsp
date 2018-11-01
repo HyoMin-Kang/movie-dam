@@ -3,6 +3,7 @@
 <%@ page import="moviedam.board.ArticleDBBean" %>
 <%@ page import="moviedam.board.ArticleDataBean" %>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="moviedam.board.RestaurantDBBean" %>
 <%@ page import="moviedam.board.RestaurantDataBean" %>
@@ -17,8 +18,9 @@
 	ArticleDBBean article_db = ArticleDBBean.getInstance();
 	articleList = article_db.getTopArticles(); 
 	
-	ArrayList<RestaurantDataBean> article_restaurantList = null; 
+	List<RestaurantDataBean> restaurantList = null;   
 	RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
+	restaurantList = restaurant_db.getTopArticles();
 	
 	MemberDBBean mem_db = MemberDBBean.getInstance(); 
 %>
@@ -114,21 +116,6 @@
 </section>
 <!-- ***** Catagory Area End ***** -->
 
-<!-- ***** About Area Start ***** -->
-<section class="dorne-about-area section-padding-0-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="about-content text-center">
-                    <h2>Discover your city with <br><span>Dorne</span></h2>
-                    <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce quis tempus elit. Sed efficitur tortor neque, vitae aliquet urna varius sit amet. Ut rhoncus, nunc nec tincidunt volutpat, ex libero.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ***** About Area End ***** -->
-
 <!-- ***** Editor Pick Area Start ***** -->
 <section class="dorne-editors-pick-area bg-img bg-overlay-9 section-padding-100" style="background-image: url(/movie-dam/assets/img/bg-img/hero-2.jpg);">
     <div class="container">
@@ -137,6 +124,7 @@
                 <div class="section-heading text-center">
                     <span></span>
                     <h4>BOX OFFICE</h4>
+                    <p>최신 박스오피스 순위</p>
                 </div>
             </div>
         </div>
@@ -149,7 +137,7 @@
                         <div class="places-total-destinations d-flex">
                             <a href="#">Rank 1</a>
 	                        <div class="add-more">
-	                            <a href="#">+</a>
+	                            <a href="/movie-dam/movie/movie_detail.jsp?id=369972">+</a>
 	                        </div>
                         </div>
                     </div>
@@ -162,7 +150,7 @@
                         <div class="places-total-destinations d-flex">
                             <a href="#">Rank 2</a>
 	                        <div class="add-more">
-	                            <a href="http://localhost:8090/movie-dam/movie/movie_detail.jsp?id=544627">+</a>
+	                            <a href="/movie-dam/movie/movie_detail.jsp?id=544627">+</a>
 	                        </div>
                         </div>
                     </div>
@@ -173,7 +161,7 @@
                         <div class="places-total-destinations d-flex">
                             <a href="#">Rank 3</a>
 	                        <div class="add-more">
-	                            <a href="http://localhost:8090/movie-dam/movie/movie_detail.jsp?id=335983">+</a>
+	                            <a href="/movie-dam/movie/movie_detail.jsp?id=335983">+</a>
 	                        </div>
                         </div>
                     </div>
@@ -300,7 +288,7 @@
                 <div class="section-heading text-center">
                     <span></span>
                     <h4>Featured Restaurants</h4>
-                    <p>Editor’s pick</p>
+                    <p>영화관 근처 음식점</p>
                 </div>
             </div>
         </div>
@@ -308,96 +296,26 @@
         <div class="row">
             <div class="col-12">
                 <div class="features-slides owl-carousel">
-                    <!-- Single Features Area -->
-                    <div class="single-features-area">
-                        <img src="/movie-dam/assets/img/bg-img/feature-6.jpg" alt="">
-                        <!-- Rating & Map Area -->
-                        <div class="ratings-map-area d-flex">
-                            <a href="#">8.5</a>
-                            <a href="#"><img src="/movie-dam/assets/img/core-img/map.png" alt=""></a>
-                        </div>
+<%
+for (int i = 0 ; i < restaurantList.size() ; i++) {
+	  RestaurantDataBean restaurant = restaurantList.get(i);
+%>
+                   <div class="single-features-area" style="width:100%; height:379px;">                    
+                        <img style="width:100%; height:250px;" src="/movie-dam/imageFolder/cinema_restaurant/<%=restaurant.getArticle_file()%>" alt="저장된 사진이 없습니다.">
                         <div class="feature-content d-flex align-items-center justify-content-between">
                             <div class="feature-title">
-                                <h5>Martha’s bar</h5>
-                                <p>Manhathan</p>
+                                <h5 style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 3em;"><%=restaurant.getArticle_title() %></h5>
+                                <p><%=restaurant.getArticle_writer() %></p>
                             </div>
+                            
                             <div class="feature-favourite">
                                 <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                             </div>
-                        </div>
+                        </div>                                                 
                     </div>
-                    <!-- Single Features Area -->
-                    <div class="single-features-area">
-                        <img src="/movie-dam/assets/img/bg-img/feature-7.jpg" alt="">
-                        <!-- Rating & Map Area -->
-                        <div class="ratings-map-area d-flex">
-                            <a href="#">9.5</a>
-                            <a href="#"><img src="/movie-dam/assets/img/core-img/map.png" alt=""></a>
-                        </div>
-                        <div class="feature-content d-flex align-items-center justify-content-between">
-                            <div class="feature-title">
-                                <h5>Delux Restaurant</h5>
-                                <p>Paris</p>
-                            </div>
-                            <div class="feature-favourite">
-                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Features Area -->
-                    <div class="single-features-area">
-                        <img src="/movie-dam/assets/img/bg-img/feature-8.jpg" alt="">
-                        <!-- Rating & Map Area -->
-                        <div class="ratings-map-area d-flex">
-                            <a href="#">8.2</a>
-                            <a href="#"><img src="/movie-dam/assets/img/core-img/map.png" alt=""></a>
-                        </div>
-                        <div class="feature-content d-flex align-items-center justify-content-between">
-                            <div class="feature-title">
-                                <h5>Jim’s corner Pub</h5>
-                                <p>Madrid</p>
-                            </div>
-                            <div class="feature-favourite">
-                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Features Area -->
-                    <div class="single-features-area">
-                        <img src="/movie-dam/assets/img/bg-img/feature-9.jpg" alt="">
-                        <!-- Rating & Map Area -->
-                        <div class="ratings-map-area d-flex">
-                            <a href="#">8.7</a>
-                            <a href="#"><img src="/movie-dam/assets/img/core-img/map.png" alt=""></a>
-                        </div>
-                        <div class="feature-content d-flex align-items-center justify-content-between">
-                            <div class="feature-title">
-                                <h5>tower Risto bar</h5>
-                                <p>Sydney</p>
-                            </div>
-                            <div class="feature-favourite">
-                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Features Area -->
-                    <div class="single-features-area">
-                        <img src="/movie-dam/assets/img/bg-img/feature-10.jpg" alt="">
-                        <!-- Rating & Map Area -->
-                        <div class="ratings-map-area d-flex">
-                            <a href="#">9.8</a>
-                            <a href="#"><img src="/movie-dam/assets/img/core-img/map.png" alt=""></a>
-                        </div>
-                        <div class="feature-content d-flex align-items-center justify-content-between">
-                            <div class="feature-title">
-                                <h5>Pizzeria venezia</h5>
-                                <p>Hong Kong</p>
-                            </div>
-                            <div class="feature-favourite">
-                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
+<%
+}
+%>              
                 </div>
             </div>
         </div>

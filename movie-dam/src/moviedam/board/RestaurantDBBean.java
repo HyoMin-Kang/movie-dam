@@ -115,7 +115,7 @@ public class RestaurantDBBean {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
-		List<RestaurantDataBean> articleList = null;
+		List<RestaurantDataBean> restaurantList = null;
 		try {
 			conn = getConnection();
 			String sql = "select * from restaurant ";
@@ -147,7 +147,7 @@ public class RestaurantDBBean {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				articleList = new ArrayList<RestaurantDataBean>(end);
+				restaurantList = new ArrayList<RestaurantDataBean>(end);
 				do {
 					RestaurantDataBean article = new RestaurantDataBean();
 					article.setArticle_id(rs.getInt("article_id"));
@@ -162,7 +162,7 @@ public class RestaurantDBBean {
 					article.setStart_lat(rs.getFloat("start_lat"));
 					article.setStart_lon(rs.getFloat("start_lon"));
 					
-					articleList.add(article);
+					restaurantList.add(article);
 				} while (rs.next());
 			}
 			
@@ -185,7 +185,7 @@ public class RestaurantDBBean {
 				} catch (SQLException ex) {
 				}
 		}
-		return articleList;
+		return restaurantList;
 	}
 		
 	public RestaurantDataBean getArticle(int article_id) throws Exception {
@@ -238,6 +238,56 @@ public class RestaurantDBBean {
 				}
 		}
 		return article;
+	}
+	
+	public List<RestaurantDataBean> getTopArticles() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RestaurantDataBean> restaurantList = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from restaurant order by article_hits desc LIMIT 0, 10 ";
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) { 
+				restaurantList = new ArrayList<RestaurantDataBean>();
+				do {
+					RestaurantDataBean article = new RestaurantDataBean();
+					article.setArticle_id(rs.getInt("article_id"));
+					article.setArticle_writer(rs.getString("article_writer"));
+					article.setArticle_title(rs.getString("article_title"));
+					article.setArticle_content(rs.getString("article_content"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setArticle_hits(rs.getInt("article_hits"));
+					article.setArticle_gets(rs.getInt("article_gets"));
+					article.setArticle_file(rs.getString("article_file"));
+					article.setSearch_loc(rs.getString("search_loc"));
+					article.setStart_lat(rs.getFloat("start_lat"));
+					article.setStart_lon(rs.getFloat("start_lon"));
+
+					restaurantList.add(article);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return restaurantList;
 	}
 	
 	public RestaurantDataBean updateGetArticle(int article_id) throws Exception {

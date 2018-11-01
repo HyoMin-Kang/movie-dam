@@ -110,24 +110,24 @@
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요.">
+						<input type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="button" onclick="search_location();">검색</button>
 						</div>
 					</div>
 				</div>
-				<!-- <div id="map" style="width: 500px; height: 400px;"></div> -->
 				<p>
 					지도를 클릭해 해당 위치에 마커를 입력해주세요!
 				</p>
-				<button type="button" id="setMarker">입력 완료</button>
+				<button class="btn btn-outline-secondary" type="button" id="setMarker" style="position:relative; left:400px; bottom:5px;">입력 완료</button>
 			 	<div class="map_wrap">
-					<div id="map" style="width: 500px; height: 400px;"></div>
+					<div id="map" style="width:500px; height:400px; position:relative; overflow:hidden; margin-bottom:10px;"></div>
 		  			<div class="hAddr">
 				        <span class="title">지도중심기준 주소정보</span>
 				        <span id="centerAddr"></span>
 			        </div>
 		        </div>
+		        <div id=box style="height:70px; position:relative; overflow:hidden;"></div>
 				<input type="hidden" id="startLat" name="start_lat" value="">
 				<input type="hidden" id="startLon" name="start_lon" value="">
 			</div>

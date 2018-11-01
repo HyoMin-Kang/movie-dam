@@ -6,9 +6,9 @@ public class ChanbanDataBean {
     private String cb_writer;
     private String cb_title;
     private String cb_content;
-    private String cb_tag; //해시태그
+    private String cb_tag;
     private Timestamp reg_date;
-    private int cb_hits; //조회수
+    private int cb_hits; 
     private String cb_file;
     private String cb_type;
     

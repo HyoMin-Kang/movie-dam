@@ -32,7 +32,7 @@
 	int ccount = 0;
 	int number = 0;
 	int total_page = 0;
-	List<RestaurantDataBean> articleList = null; 
+	List<RestaurantDataBean> restaurantList = null; 
     
 	try {
 	RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
@@ -42,7 +42,7 @@
 	
   	count = restaurant_db.getArticleCount(); 
     if (count > 0) {
-       	articleList = restaurant_db.getArticles(startRow, endRow, option, search);
+    	restaurantList = restaurant_db.getArticles(startRow, endRow, option, search);
 	}  
     
 	number = count-(currentPage-1)*pageSize;
@@ -112,8 +112,8 @@
 			<jsp:forward page="error.jsp"/>
 		<% }
 		
-	   for (int i = 0 ; i < articleList.size() ; i++) {
-		  RestaurantDataBean article = articleList.get(i);
+	   for (int i = 0 ; i < restaurantList.size() ; i++) {
+		  RestaurantDataBean article = restaurantList.get(i);
 		   
 	       ccount = comment_db.getCommentCount(article.getArticle_id());
 	%>

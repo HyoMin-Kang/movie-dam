@@ -31,6 +31,8 @@
 	int endRow = currentPage * pageSize;
 	int count = 0;
 	int ccount = 0;
+	int procount = 0;
+	int concount = 0;
 	int number = 0;
 	int total_page = 0;
 	String content = "";
@@ -127,6 +129,8 @@
 								pageContext.setAttribute("cb_tag", cb_tag);
 								
 								ccount = cb_comment_db.getChanbanCmtCount(chanban.getCb_id());
+								procount = cb_comment_db.getChanbanProCount(chanban.getCb_id());
+								concount = cb_comment_db.getChanbanConCount(chanban.getCb_id());
 %>	
 					<ul class="list-unstyled">
 						<li class="media">
@@ -151,9 +155,9 @@
 									</c:forEach>
 								</div>
 								<div class="pro-con-icon">
-									<span id="pros"><i class="fas fa-thumbs-up fa-sm"></i> 찬성 </span> 
-									<span id="cons"><i class="fas fa-thumbs-down fa-sm"></i> 반대 </span> 
-									<span id="opinion"><i class="fas fa-comments fa-sm"></i> 의견 </span>
+									<span id="pros" ><i class="fas fa-thumbs-up fa-sm" style="color:#4374D9;"></i> 찬성 <%=procount %>&nbsp;&nbsp;</span> 
+									<span id="cons"><i class="fas fa-thumbs-down fa-sm" style="color:#DF4D4D;"></i> 반대 <%=concount %>&nbsp;&nbsp;</span> 
+									<span id="opinion"><i class="fas fa-comments fa-sm"></i> 의견 <%=ccount %></span>
 								</div>
 							</div>
 						</li>
