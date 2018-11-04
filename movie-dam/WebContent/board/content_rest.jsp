@@ -26,6 +26,8 @@
    float lon = 0;
    String like_type = "";
    String search_loc = request.getParameter("search_loc");
+   String theater = request.getParameter("theater");
+   String area = request.getParameter("area");
 %>
 
 <%
@@ -48,6 +50,8 @@
 		lat = article.getStart_lat();
 		lon = article.getStart_lon();
 		search_loc = article.getSearch_loc();
+		theater = article.getTheater();
+		area = article.getArea();
 			
 		MemberDBBean mem_db = MemberDBBean.getInstance(); 
 		MemberDataBean profile =  mem_db.getProfile(article.getArticle_writer());
@@ -97,15 +101,17 @@
       <div class="row justify-content-center">
          <div class="col-12 col-lg-8">
             <div class="single-listing-content">
-               <div class="listing-title">
-                  <h4><%=article.getArticle_title()%></h4>
-                  <span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
-                  </span> <span><i class="fas fa-eye"></i> <%=article.getArticle_hits()%></span>
-               </div>
+            <a href="#"><span class="badge badge-dark"><%=article.getTheater()%></span></a>
+            <a href="#"><span class="badge badge-success"><%=article.getArea()%></span></a>
+				<div class="listing-title">
+					<h4><%=article.getArticle_title()%></h4>
+					<span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=article.getArticle_writer()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)
+					</span> <span><i class="fas fa-eye"></i> <%=article.getArticle_hits()%></span>
+               	</div>
 
-               <div class="overview-content mt-50" id="overview">
-                  <p><%=article.getArticle_content().replace("\r\n", "<br>")%></p>
-               </div>
+               	<div class="overview-content mt-50" id="overview">
+                  	<p><%=article.getArticle_content().replace("\r\n", "<br>")%></p>
+               	</div>
 			<%
 			  if (article.getArticle_file() != null) {
 			%>
@@ -118,7 +124,8 @@
 				<div class="map_wrap">
 					<div id="map" style="width: 500px; height: 400px; position: relative; overflow: auto; margin-bottom: 10px;"></div>
 					<div class="hAddr">
-						<span class="title">지도중심기준 주소정보</span> <span id="centerAddr"></span>
+						<span class="title">지도중심기준 주소정보</span> 
+						<span id="centerAddr"></span>
 					</div>
 				</div>
 				<div style="height: 70px; position: relative; overflow: hidden;"></div>
@@ -134,12 +141,12 @@
             <%
                } else {
             %>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">수정</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}&theater=<%=theater%>'">수정</button>
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='deletePro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">삭제</button>
             <%
                }
             %>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='cinema_restaurant.jsp?pageNum=<%=pageNum%>'">글목록</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='cinema_restaurant.jsp?pageNum=<%=pageNum%>&theater=<%=theater%>'">글목록</button>
          </div>
 
 <!-- 댓글 시작 -->
@@ -166,6 +173,7 @@
                <input type="hidden" name="pageNum" value="<%=pageNum%>"> 
                <input type="hidden" name="cmt_writer" value="<%=userid%>"> 
                <input type="hidden" name="board_id" value="<%=board_id%>"> 
+               <input type="hidden" name="theater" value="<%=theater%>">
 
                <table class="table">
                   <tr>
@@ -227,8 +235,8 @@
 %>                  
                   <tr>
                      <td colspan=3 align="right">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>);">수정</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>'">삭제</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=theater%>');">수정</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>'">삭제</button>
                      </td>
                   </tr>
 <%                   
@@ -236,8 +244,8 @@
 %>
                   <tr>
                      <td colspan=3 align="right">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>);">수정</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>'">삭제</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=theater%>');">수정</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>'">삭제</button>
                         <a class="btn btn-sm btn-outline-secondary" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display:none" >
    
                         <input type="hidden" name="cmt_id" value="<%=comment.getCmt_id()%>"> 
@@ -250,6 +258,7 @@
                         <input type="hidden" name="cmt_writer" value="<%=userid%>"> 
                         <input type="hidden" name="userid" value="<%=userid%>">
                         <input type="hidden" name="board_id" value="<%=board_id%>"> 
+                        <input type="hidden" name="theater" value="<%=theater%>">
                         
                         <table class="table">
                            <tr>
@@ -307,8 +316,8 @@
 
 
 <script>
-function updateOpen(cmt_id, article_id, pageNum, board_id) {
-   url = 'updateCommentForm.jsp?cmt_id=' + cmt_id + '&article_id=' + article_id + '&pageNum=' + pageNum + '&board_id=' + board_id;
+function updateOpen(cmt_id, article_id, pageNum, board_id, theater) {
+   url = 'updateCommentForm.jsp?cmt_id=' + cmt_id + '&article_id=' + article_id + '&pageNum=' + pageNum + '&board_id=' + board_id + '&theater=' + theater;
    window.open(url, '댓글 수정', 'height=200, width=400, scrollbars=no, resizable=no');
 }
 </script>

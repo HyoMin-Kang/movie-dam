@@ -36,7 +36,7 @@ public class RestaurantDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getArticle_id());
@@ -50,6 +50,8 @@ public class RestaurantDBBean {
 			pstmt.setString(9, article.getSearch_loc());
 			pstmt.setFloat(10, article.getStart_lat());
 			pstmt.setFloat(11, article.getStart_lon());
+			pstmt.setString(12, article.getTheater());
+			pstmt.setString(13, article.getArea());
 			
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -73,7 +75,7 @@ public class RestaurantDBBean {
 		}
 	}
 	
-	public int getArticleCount() throws Exception {
+	public int getArticleCount(String option, String search, String theater) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -83,7 +85,105 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("select count(*) from restaurant");
+			if (theater.equals("all")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where area LIKE '%" + search + "%'");
+				}
+			} else if (theater.equals("cgv")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv' and article_writer LIKE '%" + search + "%'");
+				}  else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'cgv' and area LIKE '%" + search + "%'");
+				} 
+			} else if (theater.equals("롯데시네마")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마' and article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '롯데시네마' and area LIKE '%" + search + "%'");
+				} 
+			} else if (theater.equals("메가박스")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스' and article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '메가박스' and area LIKE '%" + search + "%'");
+				} 
+			} else if (theater.equals("대한극장")) {
+					if (option == null) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장'");
+					} else if (option.equals("all")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+					} else if (option.equals("article_title")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장' and article_title LIKE '%" + search + "%'");
+					} else if (option.equals("article_content")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장' and article_content LIKE '%" + search + "%'");
+					} else if (option.equals("article_writer")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장' and article_writer LIKE '%" + search + "%'");
+					} else if (option.equals("area")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '대한극장' and area LIKE '%" + search + "%'");
+					}
+			}else if (theater.equals("서울극장")) {
+				    if (option == null) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장'");
+					} else if (option.equals("all")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+					} else if (option.equals("article_title")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장' and article_title LIKE '%" + search + "%'");
+					} else if (option.equals("article_content")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장' and article_content LIKE '%" + search + "%'");
+					} else if (option.equals("article_writer")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장' and article_writer LIKE '%" + search + "%'");
+					} else if (option.equals("area")) {
+						pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '서울극장' and area LIKE '%" + search + "%'");
+					}
+			} else if (theater.equals("etc")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc'");
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc' and article_title LIKE '%" + search + "%'");
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc' and article_content LIKE '%" + search + "%'");
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc' and article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = 'etc' and area LIKE '%" + search + "%'");
+				}
+			} 
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -111,7 +211,7 @@ public class RestaurantDBBean {
 		return x;
 	}
 	
-	public List<RestaurantDataBean> getArticles(int start, int end, String option, String search) throws Exception {
+	public List<RestaurantDataBean> getArticles(int start, int end, String option, String search, String theater) throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
@@ -120,28 +220,230 @@ public class RestaurantDBBean {
 			conn = getConnection();
 			String sql = "select * from restaurant ";
 			
-			if (option == null) {
-				pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("all")) {
-				pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("article_title")) {
-				pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("article_content")) {
-				pstmt = conn.prepareStatement(
-						sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
-			} else if (option.equals("article_writer")) {
-				pstmt = conn.prepareStatement(
-						sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-				pstmt.setInt(1, start - 1);
-				pstmt.setInt(2, end);
+			if (theater.equals("all")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(
+							sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(
+							sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(
+							sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(
+							sql += "where area LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("cgv")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'cgv' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("롯데시네마")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '롯데시네마' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("메가박스")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '메가박스' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("대한극장")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '대한극장' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("서울극장")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = '서울극장' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
+			} else if (theater.equals("etc")) {
+				if (option == null) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("all")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' and article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_title")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' and article_title LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_content")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' and article_content LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("article_writer")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' and article_writer LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement(sql += "where theater = 'etc' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
+					pstmt.setInt(1, start - 1);
+					pstmt.setInt(2, end);
+				}
 			}
             
 			rs = pstmt.executeQuery();
@@ -161,6 +463,8 @@ public class RestaurantDBBean {
 					article.setSearch_loc(rs.getString("search_loc"));
 					article.setStart_lat(rs.getFloat("start_lat"));
 					article.setStart_lon(rs.getFloat("start_lon"));
+					article.setTheater(rs.getString("theater"));
+					article.setArea(rs.getString("area"));
 					
 					restaurantList.add(article);
 				} while (rs.next());
@@ -217,6 +521,8 @@ public class RestaurantDBBean {
 				article.setSearch_loc(rs.getString("search_loc"));
 				article.setStart_lat(rs.getFloat("start_lat"));
 				article.setStart_lon(rs.getFloat("start_lon"));
+				article.setTheater(rs.getString("theater"));
+				article.setArea(rs.getString("area"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -269,6 +575,8 @@ public class RestaurantDBBean {
 					article.setSearch_loc(rs.getString("search_loc"));
 					article.setStart_lat(rs.getFloat("start_lat"));
 					article.setStart_lon(rs.getFloat("start_lon"));
+					article.setTheater(rs.getString("theater"));
+					article.setArea(rs.getString("area"));
 
 					restaurantList.add(article);
 				} while (rs.next());
@@ -315,6 +623,8 @@ public class RestaurantDBBean {
 				article.setSearch_loc(rs.getString("search_loc"));
 				article.setStart_lat(rs.getFloat("start_lat"));
 				article.setStart_lon(rs.getFloat("start_lon"));
+				article.setTheater(rs.getString("theater"));
+				article.setArea(rs.getString("area"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -355,12 +665,18 @@ public class RestaurantDBBean {
 			if (rs.next()) {
 				dbuserid = rs.getString("article_writer");
 				if (dbuserid.equals(mem_nickname)) {
-					sql = "update restaurant set article_content=?,article_title=?,article_file=? where article_id =?";
+					sql = "update restaurant set article_content=?,article_title=?,theater=?,area=?,search_loc=?,start_lat=?,start_lon=?,article_file=? where article_id =?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, article.getArticle_content());
 					pstmt.setString(2, article.getArticle_title());
-					pstmt.setString(3, article.getArticle_file());
-					pstmt.setInt(4, article.getArticle_id());
+					pstmt.setString(3, article.getTheater());
+					pstmt.setString(4, article.getArea());
+					pstmt.setString(5, article.getSearch_loc());
+					pstmt.setFloat(6, article.getStart_lat());
+					pstmt.setFloat(7, article.getStart_lon());
+					pstmt.setString(8, article.getArticle_file());
+					pstmt.setInt(9, article.getArticle_id());
+					
 					pstmt.executeUpdate();
 					x = 1;
 				} else {

@@ -15,6 +15,8 @@
 	String pageNum = request.getParameter("pageNum");
     String option = request.getParameter("option");
     String search = request.getParameter("search");
+    String theater = request.getParameter("theater");
+    String area = request.getParameter("area");
 %>
 <%!
     int pageSize = 9;
@@ -40,9 +42,9 @@
     ArrayList<CommentRestDataBean> commentList = null;
 	CommentRestDBBean comment_db = CommentRestDBBean.getInstance();
 	
-  	count = restaurant_db.getArticleCount(); 
+	count = restaurant_db.getArticleCount(option,search,theater); 
     if (count > 0) {
-    	restaurantList = restaurant_db.getArticles(startRow, endRow, option, search);
+    	restaurantList = restaurant_db.getArticles(startRow, endRow, option, search, theater);
 	}  
     
 	number = count-(currentPage-1)*pageSize;
@@ -70,15 +72,30 @@
 		</div>
 	</div>
 	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=2&article_writer=${sessionScope.userid}" role="button" >글쓰기</a>
+	
+	<div class="row justify-content-center">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<a href="cinema_restaurant.jsp?theater=all" id="all" class="btn btn-outline-secondary">전체</a>
+			<a href="cinema_restaurant.jsp?theater=cgv" id="cgv" class="btn btn-outline-secondary">CGV</a>
+			<a href="cinema_restaurant.jsp?theater=롯데시네마" id="롯데시네마" class="btn btn-outline-secondary">롯데시네마</a>
+			<a href="cinema_restaurant.jsp?theater=메가박스" id="메가박스" class="btn btn-outline-secondary">메가박스</a>
+			<a href="cinema_restaurant.jsp?theater=대한극장" id="대한극장" class="btn btn-outline-secondary">대한극장</a>
+			<a href="cinema_restaurant.jsp?theater=서울극장" id="서울극장" class="btn btn-outline-secondary">서울극장</a>
+			<a href="cinema_restaurant.jsp?theater=etc" id="etc" class="btn btn-outline-secondary">기타</a>
+		</div>
+	</div>
+	
 	<div class="row justify-content-center">
 		<div class="col-12">
 			<form>
+			<input type="hidden" name="theater" value="<%=theater %>">
 				<label class="control-label">게시글 검색</label>
 				<div class="form-group">
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<select class="form-control" name="option">
 						        <option value="all">전체글</option>
+						        <option value="area">지역</option>
 						        <option value="article_title">제목</option>
 						        <option value="article_content">내용</option>
 						        <option value="article_writer">작성자</option>
@@ -93,7 +110,6 @@
 			</form>
 		</div>
 	</div>
-	
 		
 <% if (count == 0) { %>
 
@@ -119,9 +135,9 @@
 	%>
 			<div class="col-12 col-sm-6 col-lg-4">
 				<div class="single-features-area mb-50">
-					<a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2"><img style="width:100%; height:250px; display:block;" src="/movie-dam/imageFolder/cinema_restaurant/<%=article.getArticle_file()%>" alt="저장된 사진이 없습니다."></a>
+					<a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>"><img style="width:100%; height:250px; display:block;" src="/movie-dam/imageFolder/cinema_restaurant/<%=article.getArticle_file()%>" alt="저장된 사진이 없습니다."></a>
 					<div class="feature-content d-flex align-items-center justify-content-between">
-					<div class="feature-title"><h5><a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2"><%=number--%>) <%=article.getArticle_title()%><small>(<%=ccount%>)</small></a></h5>
+					<div class="feature-title"><h5><a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>">[<%=article.getTheater()%> <%=article.getArea()%>]<br><%=number--%>|<%=article.getArticle_title()%><small>(<%=ccount%>)</small></a></h5>
 						<p>글쓴이 | <%=article.getArticle_writer() %></p>
 						<p>작성일 | <%=sdf.format(article.getReg_date())%></p>
 						<div class="feature-favourite"><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
@@ -164,25 +180,25 @@
         
         
         if (startPage > 10) { %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 10 %>">이전</a></li>
+    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 10 %>&theater=<%=theater%>">이전</a></li>
 <%      }
     
     for (int i = startPage ; i <= endPage ; i++) {
     	if(i == currentPage) {
 %>
 		<li class="page-item active">
-	      <a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>"><%=i %> <span class="sr-only">(current)</span></a>
+	      <a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %> <span class="sr-only">(current)</span></a>
 	    </li>
 <%        		
     	} else {
 %>	
-		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>"><%=i %></a></li>
+		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %></a></li>
 <%        		
     	}
   }
     
     if (endPage < pageCount) {  %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 10 %>">다음</a></li>
+    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 10 %>&theater=<%=theater%>">다음</a></li>
 <%
     }
 }
@@ -198,5 +214,10 @@
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 
+<script>
+$(document).ready(function() {
+	$('#<%=theater%>').addClass('active');
+});
+</script>
 </body>
 </html>

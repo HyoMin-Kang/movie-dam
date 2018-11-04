@@ -104,6 +104,28 @@
 				</div>
 			</div>
 <c:if test="<%=board_id == 2 %>">
+			<div class="row">
+				<div class="form-group col">
+					<label for="inputTheater" class="col-sm-8 col-form-label">극장선택</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="inputTheater" name="theater">
+							<option value="cgv" selected="selected">CGV</option>
+							<option value="롯데시네마">롯데시네마</option>
+							<option value="메가박스">메가박스</option>
+							<option value="대한극장">대한극장</option>
+							<option value="서울극장">서울극장</option>
+							<option value="etc">기타</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group col">
+					<label for="inputArea" class="col-sm-8 col-form-label">지역</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="inputArea" name="area" maxlength="50">
+					</div>
+				</div>
+			</div>
+			
 			<div class="form-group col">
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
@@ -114,18 +136,15 @@
 						</div>
 					</div>
 				</div>
-				<p>
-					지도를 클릭해 해당 위치에 마커를 입력해주세요!
-				</p>
-				<button class="btn btn-outline-secondary" type="button" id="setMarker" style="position:relative; left:400px; bottom:5px;">입력 완료</button>
-			 	<div class="map_wrap">
-					<div id="map" style="width:500px; height:400px; position:relative; overflow:hidden; margin-bottom:10px;"></div>
-		  			<div class="hAddr">
-				        <span class="title">지도중심기준 주소정보</span>
-				        <span id="centerAddr"></span>
-			        </div>
-		        </div>
-		        <div id=box style="height:70px; position:relative; overflow:hidden;"></div>
+				<p>지도를 클릭해 해당 위치에 마커를 입력해주세요!</p>
+				<button class="btn btn-outline-secondary" type="button" id="setMarker" style="position: relative; left: 400px; bottom: 5px;">입력 완료</button>
+				<div class="map_wrap">
+					<div id="map" style="width: 500px; height: 400px; position: relative; overflow: hidden; margin-bottom: 10px;"></div>
+					<div class="hAddr">
+						<span class="title">지도중심기준 주소정보</span> <span id="centerAddr"></span>
+					</div>
+				</div>
+				<div id=box style="height: 70px; position: relative; overflow: hidden;"></div>
 				<input type="hidden" id="startLat" name="start_lat" value="">
 				<input type="hidden" id="startLon" name="start_lon" value="">
 			</div>

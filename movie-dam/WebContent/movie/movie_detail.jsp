@@ -74,7 +74,7 @@
 	                <div class="listing-reviews-area mt-100" id="trailer">
 	                    <h4>예고편</h4>
 	                    <div class="embed-responsive embed-responsive-16by9">
-	                    	<iframe id="showVideo" class="embed-responsive-item" src="#" allowfullscreen></iframe>
+	                    	<iframe id="showVideo" class="embed-responsive-item" allowfullscreen></iframe>
 	                    </div>	
 	                </div>
 	                <div class="listing-menu-area mt-100" id="similar">

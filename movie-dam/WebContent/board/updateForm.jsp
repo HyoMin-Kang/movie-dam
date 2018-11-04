@@ -16,6 +16,8 @@
 	int board_id = Integer.parseInt(request.getParameter("board_id"));
 	String category = request.getParameter("category");
 	String article_writer = request.getParameter("article_writer");
+	String theater = request.getParameter("theater");
+	
 	ArticleDataBean article = null;
 	RestaurantDataBean restaurant = null;
 	
@@ -93,12 +95,33 @@
 			</div>
 </c:if>
 			
-<c:if test="<%=board_id == 2 %>">
+<c:if test="<%=board_id == 2 %>">	
 			<div class="form-group col">
 				<label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputWriter" name="article_writer" value="<%=restaurant.getArticle_writer()%>" readonly="readonly">
 				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col">
+					<label for="inputTheater" class="col-sm-8 col-form-label">극장선택</label> 
+						<div class="col-sm-10">
+							<select class="form-control" id="inputTheater" name="theater">
+								<option value="cgv"<%if(restaurant.getTheater().equals("cgv")){out.print(" selected=\"selected\"");}%>>CGV</option>
+								<option value="롯데시네마"<%if(restaurant.getTheater().equals("롯데시네마")){out.print(" selected=\"selected\"");}%>>롯데시네마</option>
+								<option value="메가박스"<%if(restaurant.getTheater().equals("메가박스")){out.print(" selected=\"selected\"");}%>>메가박스</option>
+								<option value="대한극장"<%if(restaurant.getTheater().equals("대한극장")){out.print(" selected=\"selected\"");}%>>대한극장</option>
+								<option value="서울극장"<%if(restaurant.getTheater().equals("서울극장")){out.print(" selected=\"selected\"");}%>>서울극장</option>
+								<option value="etc"<%if(restaurant.getTheater().equals("etc")){out.print(" selected=\"selected\"");}%>>ETC</option>
+							</select>
+						</div>
+				</div>
+			<div class="form-group col">
+				<label for="inputArea" class="col-sm-8 col-form-label">지역</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="inputArea" name="area" value="<%=restaurant.getArea()%>" maxlength="50">
+				    </div>
+			</div>
 			</div>
 			<div class="form-group col">
 				<label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
@@ -110,9 +133,9 @@
 				<div class="form-group">
 					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
+						<input class="form-control" type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
 						<div class="input-group-append">
-							<button class="btn btn-primary" type="button" onclick="search_location();">검색</button>
+							<button class="btn btn-outline-secondary" type="button" onclick="search_location();">검색</button>
 						</div>
 					</div>
 				</div>
