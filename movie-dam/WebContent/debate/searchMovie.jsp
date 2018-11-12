@@ -2,34 +2,35 @@
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
-	String title = "영화 검색";
 	String query = request.getParameter("query")==null ? "" : request.getParameter("query");
 	String resultPage = request.getParameter("resultPage")==null ? "1" : request.getParameter("resultPage");
 	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
 %>
-<jsp:include page="/module/header.jsp" flush="false">
-	<jsp:param name="title" value="<%=title %>"/>
-</jsp:include>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>영화 검색</title>
+<!-- Favicon -->
+<link rel="icon" href="/movie-dam/assets/img/core-img/favicon.ico">
 
-<jsp:include page="/module/nav.jsp" flush="false"/>
+<!-- Core Stylesheet -->
+<link rel="stylesheet" href="/movie-dam/assets/style.css">
+<link rel="stylesheet" href="/movie-dam/assets/css/argon.min.css">
 
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<!-- Responsive CSS -->
+<link rel="stylesheet" href="/movie-dam/assets/css/responsive/responsive.css">
 
-<section class="dorne-listing-destinations-area section-padding-100-50">
+<!-- Custom styles -->
+<link href="/movie-dam/assets/css/custom.css" rel="stylesheet">
+
+</head>
+<body>
+
 <div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Movie search</h4>
-                <p id="lead"></p>
-            </div>
-        </div>
-    </div>	
-    
-   	<div class="row mb-5">
-   		<div class="col-8 offset-md-2">
-		<form id="searchForm" action="movie_search.jsp">
+	<div class="row mb-5">
+		<form id="searchForm" action="searchMovie.jsp">
 		<div class="input-group mb-3">
 			<% if(query.equals("")) { %>
 				<input type="text" class="form-control" id="searchMovie" name="query" placeholder="찾고 싶은 영화 제목을 검색해 보세요.">
@@ -41,24 +42,25 @@
 			</div>
 		</div>	
 		</form>
-		</div>
 	</div>
 	
 	<div class="row">
-  		<div class="col-12" id="resultList">
-  		</div>
+		<div class="col-12" id="resultList">
+		</div>
 	</div>
 	
 	<nav aria-label="Page navigation">
 		<ul class="pagination justify-content-center" id="paging">
 	  	</ul>
 	</nav>
-    
 </div>
-</section>
 
-<jsp:include page="/module/footer.jsp" flush="false"/>
-
+<script src="/movie-dam/assets/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/movie-dam/assets/js/bootstrap/popper.min.js"></script>
+<script src="/movie-dam/assets/js/bootstrap/bootstrap.min.js"></script>
+<script src="/movie-dam/assets/js/argon.min.js"></script>
+<script src="/movie-dam/assets/js/others/plugins.js"></script>
+<script src="/movie-dam/assets/js/active.js"></script>
 <script>
 var page = '<%=resultPage%>';
 var query = '<%=query%>';
@@ -89,15 +91,15 @@ function paging(total_results, data_size, page_size, current_page) {
     
     if(prev > 0) {
     	rs2.push('<li class="page-item">');
-    	rs2.push('<a class="page-link" href="movie_search.jsp?query='+query+'&resultPage='+prev+'" id="prev" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a>');
+    	rs2.push('<a class="page-link" href="searchMovie.jsp?query='+query+'&resultPage='+prev+'" id="prev" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a>');
     	rs2.push('</li>');
     }
     for(var i=first; i<=last; i++) {
-    	rs2.push('<li class="page-item"><a class="page-link" href="movie_search.jsp?query='+query+'&resultPage='+i+'" id="'+i+'">'+i+'</a></li>');
+    	rs2.push('<li class="page-item"><a class="page-link" href="searchMovie.jsp?query='+query+'&resultPage='+i+'" id="'+i+'">'+i+'</a></li>');
     }
     if(last < total_pages) {
     	rs2.push('<li class="page-item">');
-    	rs2.push('<a class="page-link" href="movie_search.jsp?query='+query+'&resultPage='+next+'" id="next" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>');
+    	rs2.push('<a class="page-link" href="searchMovie.jsp?query='+query+'&resultPage='+next+'" id="next" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>');
     	rs2.push('</li>');
     }
  
@@ -106,6 +108,11 @@ function paging(total_results, data_size, page_size, current_page) {
     	paging(total_results, data_size, page_size, current_page);
     });
     $('#'+page+'').parent('li').addClass('active');
+}
+
+function setMovie(cb_movie) {
+	opener.document.writeForm.cb_movie.value = cb_movie;
+	self.close();
 }
 
 $('document').ready(function(){	
@@ -135,16 +142,13 @@ $('document').ready(function(){
 			if(response.total_results == 0) {
 		    	rs.push('<div class="alert alert-secondary" role="alert">');
 		    	rs.push('<strong>검색 결과가 없습니다!</strong> 다른 검색어를 입력해 주세요.');
-		    	rs.push('<hr>');
-		    	rs.push('<p>최근 검색어 목록</p>');
-		    	rs.push('<p><a href="#">다크 나이트</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
-		    	rs.push('<p><a href="#">부다페스트</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
-		    	rs.push('<p><a href="#">할로윈</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
 		    	rs.push('</div>');
 		    	$('#resultList').html(rs.join(''));
 		    } else {
 				for(var i=0; i<response['results'].length; i++) {
-					rs.push('<a href="movie_detail.jsp?id='+response['results'][i]['id']+'" style="color:black; text-decoratio: none;"><div class="media">');
+					var title_id = response['results'][i]['title'] + '(' + response['results'][i]['id'] +')';
+					title_id.replace('', '&nbsp;');
+					rs.push('<a href="javascript:setMovie(\''+title_id+'\');"><div class="media">');
 					rs.push('<img class="mr-3" style="width: 64px; height: 64px;" src="https://image.tmdb.org/t/p/original'+response['results'][i]['poster_path']+'" alt="Generic placeholder image">');
 					if(response['results'][i]['release_date'] == '') {
 						rs.push('<div class="media-body"><h5 class="mt-0">'+response['results'][i]['title']+'</h5>');
@@ -172,8 +176,6 @@ $('document').ready(function(){
 		});
 	}
 });
-
-
 </script>
 </body>
 </html>

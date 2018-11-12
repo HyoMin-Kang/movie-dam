@@ -1,35 +1,34 @@
 package moviedam.debate;
 
+import java.util.HashSet;
 import java.util.List;
 
-import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
-
 public class Analyze {
-	String path = this.getClass().getResource("models-full").getPath();
-	Komoran komoran = new Komoran(path);
-	
+
 	public double tf(List<String> doc, String term) {
 		double result = 0;
 		for (String word : doc) {
 			if(term.equalsIgnoreCase(word))
 				result++;
 		}
-		System.out.println(term+" tf:"+result/doc.size());
-		return result/doc.size();
+		return (1+Math.log(result));
 	}
-
+	
 	public double idf(List<List<String>> docs, String term) {
+		long start = System.currentTimeMillis();
 		double n = 0;
 		for (List<String> doc : docs) {
-			for (String word : doc) {
+			HashSet<String> doc2 = new HashSet<String>(doc);
+			for (String word : doc2) {
 				if(term.equalsIgnoreCase(word)) {
 					n++;
 					break;
 				}
 			}
 		}
-		System.out.println(term+" idf:"+Math.log(docs.size() / n));
-		return Math.log(docs.size() / n);
+		long end = System.currentTimeMillis();
+		System.out.println( "실행 시간 : " + ( end - start )/1000.0 );
+		return Math.log(docs.size() / (1+n));
 	}
 	
 	public double tfIdf(List<String> doc, List<List<String>> docs, String term) {

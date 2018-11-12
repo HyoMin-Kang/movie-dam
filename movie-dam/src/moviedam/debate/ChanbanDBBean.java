@@ -86,8 +86,8 @@ public class ChanbanDBBean {
 					System.out.println();
 			}
 			docs.add(doc);
-/*			System.out.println("doc:"+doc);
-			System.out.println("docs:"+docs);*/
+			System.out.println("doc:"+doc);
+			System.out.println("docs:"+docs);
 			for(String term : doc) {
 				double tfidf = analyze.tfIdf(doc, docs, term);
 				map.put(term, tfidf);
@@ -127,32 +127,42 @@ public class ChanbanDBBean {
 		String sql = "";
 
 		try {	
+			String cb_tag = "";
 			HashMap<String, Double> analyzedMap = analyzeContent(cb.getCb_content());
-			System.out.println(analyzedMap);
 			HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
 			System.out.println(sortedMap);
-			List<String> top7List = new ArrayList<String>();
-			List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-			List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
-			for(Entry<String,Double> entry : topTags) {
-				top7List.add(entry.getKey());
+			if(sortedMap.size() >= 7) { 
+				List<String> top7List = new ArrayList<String>();
+				List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
+				List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
+				for(Entry<String,Double> entry : topTags) {
+					top7List.add(entry.getKey());
+				}
+				System.out.println(top7List);
+				cb_tag = String.join("|", top7List);
+			} else {
+				List<String> topNList = new ArrayList<String>();
+				List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
+				for(Entry<String,Double> entry : sortedList) {
+					topNList.add(entry.getKey());
+				}
+				System.out.println(topNList);
+				cb_tag = String.join("|", topNList);
 			}
-			System.out.println(top7List);
-			String cb_tag = String.join("|", top7List);
-			
 			conn = getConnection();
-			sql = "insert into chanban values(?,?,?,?,?,?,?,?,?)";
+			sql = "insert into chanban values(?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cb.getCb_id());
 			pstmt.setString(2, cb.getCb_writer());
 			pstmt.setString(3, cb.getCb_title());
-			pstmt.setString(4, cb.getCb_content());
-			pstmt.setString(5, cb_tag);
-			pstmt.setTimestamp(6, cb.getReg_date());
-			pstmt.setInt(7, cb.getCb_hits());
-			pstmt.setString(8, cb.getCb_file());
-			pstmt.setString(9, cb.getCb_type());
+			pstmt.setString(4, cb.getCb_movie());
+			pstmt.setString(5, cb.getCb_content());
+			pstmt.setString(6, cb_tag);
+			pstmt.setTimestamp(7, cb.getReg_date());
+			pstmt.setInt(8, cb.getCb_hits());
+			pstmt.setString(9, cb.getCb_file());
+			pstmt.setString(10, cb.getCb_type());
 
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -267,6 +277,7 @@ public class ChanbanDBBean {
 					chanban.setCb_id(rs.getInt("cb_id"));
 					chanban.setCb_writer(rs.getString("cb_writer"));
 					chanban.setCb_title(rs.getString("cb_title"));
+					chanban.setCb_movie(rs.getString("cb_movie"));
 					chanban.setCb_content(rs.getString("cb_content"));
 					chanban.setCb_tag(rs.getString("cb_tag"));
 					chanban.setReg_date(rs.getTimestamp("reg_date"));
@@ -320,6 +331,7 @@ public class ChanbanDBBean {
 					chanban.setCb_id(rs.getInt("cb_id"));
 					chanban.setCb_writer(rs.getString("cb_writer"));
 					chanban.setCb_title(rs.getString("cb_title"));
+					chanban.setCb_movie(rs.getString("cb_movie"));
 					chanban.setCb_content(rs.getString("cb_content"));
 					chanban.setCb_tag(rs.getString("cb_tag"));
 					chanban.setReg_date(rs.getTimestamp("reg_date"));
@@ -368,6 +380,7 @@ public class ChanbanDBBean {
 				chanban.setCb_id(rs.getInt("cb_id"));
 				chanban.setCb_writer(rs.getString("cb_writer"));
 				chanban.setCb_title(rs.getString("cb_title"));
+				chanban.setCb_movie(rs.getString("cb_movie"));
 				chanban.setCb_content(rs.getString("cb_content"));
 				chanban.setCb_tag(rs.getString("cb_tag"));
 				chanban.setReg_date(rs.getTimestamp("reg_date"));
@@ -414,6 +427,7 @@ public class ChanbanDBBean {
 				chanban.setCb_id(rs.getInt("cb_id"));
 				chanban.setCb_writer(rs.getString("cb_writer"));
 				chanban.setCb_title(rs.getString("cb_title"));
+				chanban.setCb_movie(rs.getString("cb_movie"));
 				chanban.setCb_content(rs.getString("cb_content"));
 				chanban.setCb_tag(rs.getString("cb_tag"));
 				chanban.setReg_date(rs.getTimestamp("reg_date"));
@@ -460,27 +474,39 @@ public class ChanbanDBBean {
 			if (rs.next()) {
 				dbuserid = rs.getString("cb_writer");
 				if (dbuserid.equals(mem_userid)) {
+					String cb_tag = "";
 					HashMap<String, Double> analyzedMap = analyzeContent(chanban.getCb_content());
 					System.out.println(analyzedMap);
 					HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
 					System.out.println(sortedMap);
-					List<String> top7List = new ArrayList<String>();
-					List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-					List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
-					for(Entry<String,Double> entry : topTags) {
-						top7List.add(entry.getKey());
+					if(sortedMap.size() >= 7) { 
+						List<String> top7List = new ArrayList<String>();
+						List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
+						List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
+						for(Entry<String,Double> entry : topTags) {
+							top7List.add(entry.getKey());
+						}
+						System.out.println(top7List);
+						cb_tag = String.join("|", top7List);
+					} else {
+						List<String> topNList = new ArrayList<String>();
+						List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
+						for(Entry<String,Double> entry : sortedList) {
+							topNList.add(entry.getKey());
+						}
+						System.out.println(topNList);
+						cb_tag = String.join("|", topNList);
 					}
-					System.out.println(top7List);
-					String cb_tag = String.join("|", top7List);
 					
-					sql = "update chanban set cb_content=?,cb_tag=?,cb_title=?,cb_file=?,cb_type=? where cb_id =?";
+					sql = "update chanban set cb_content=?,cb_tag=?,cb_title=?,cb_movie=?,cb_file=?,cb_type=? where cb_id =?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, chanban.getCb_content());
 					pstmt.setString(2, cb_tag);
 					pstmt.setString(3, chanban.getCb_title());
-					pstmt.setString(4, chanban.getCb_file());
-					pstmt.setString(5, chanban.getCb_type());
-					pstmt.setInt(6, chanban.getCb_id());
+					pstmt.setString(4, chanban.getCb_movie());
+					pstmt.setString(5, chanban.getCb_file());
+					pstmt.setString(6, chanban.getCb_type());
+					pstmt.setInt(7, chanban.getCb_id());
 					pstmt.executeUpdate();
 					x = 1;
 				} else {

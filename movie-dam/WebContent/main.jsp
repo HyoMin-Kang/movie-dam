@@ -117,7 +117,7 @@
 <!-- ***** Catagory Area End ***** -->
 
 <!-- ***** Editor Pick Area Start ***** -->
-<section class="dorne-editors-pick-area bg-img bg-overlay-9 section-padding-100" style="background-image: url(/movie-dam/assets/img/bg-img/hero-2.jpg);">
+<section class="dorne-editors-pick-area bg-img bg-overlay-9 section-padding-100" style="background-image: url(/movie-dam/assets/img/bg-img/hero-4.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -281,7 +281,7 @@
 <!-- ***** Features Destinations Area End ***** -->
 
 <!-- ***** Features Restaurant Area Start ***** -->
-<section class="dorne-features-restaurant-area bg-default">
+<section class="dorne-features-restaurant-area bg-default" style="background-color: #341a79;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -341,21 +341,26 @@ double delay = 0.1;
 for (int i = 0 ; i < articleList.size() ; i++) {
 	   ArticleDataBean article = articleList.get(i);
 	   MemberDataBean writer_profile = mem_db.getProfile(article.getArticle_writer());
+	   delay = delay+0.1;
+	   String sdf = new SimpleDateFormat("MMM d").format(article.getReg_date());
+	   int like_cnt = article_db.getlikeCount(1, article.getArticle_id());
 %>
             <div class="col-12 col-lg-6">
-                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay+0.1 %>s">
+                <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="<%=delay %>s">
                     <div class="feature-events-thumb">
-                        <img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="128">
+                        <img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="170">
                         <div class="date-map-area d-flex">
-                            <a href="#">26 Oct</a>
+                            <a href="#"><%=sdf %></a>
+                            <a href="#"><i class="fas fa-heart fa-sm"><br><br><%=like_cnt %></i></a>
                         </div>
                     </div>
                     <div class="feature-events-content">
+                    	<a href="/movie-dam/board/free_board.jsp?category=<%=article.getCategory()%>"><span class="badge badge-primary"><%=article.getCategory()%></span></a>
                         <h5><%=article.getArticle_title()%></h5>
-                        <h6><%=article.getArticle_writer()%></h6>
+                        <h6><%=writer_profile.getMem_nickname()%></h6>
                     </div>
                     <div class="feature-events-details-btn">
-                        <a href="#">+</a>
+                        <a href="/movie-dam/board/content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=1&board_id=1&category=all">+</a>
                     </div>
                 </div>
             </div>

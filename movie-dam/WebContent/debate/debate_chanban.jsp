@@ -200,7 +200,7 @@
 	
 						if (startPage > 10) {
 %>
-				<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage - 10%>">이전</a></li>
+				<li class="page-item"><a class="page-link" href="debate_chanban.jsp?pageNum=<%=startPage - 10%>">이전</a></li>
 <%
 					}
 					
@@ -208,19 +208,19 @@
 						if (i == currentPage) {
 %>
 				<li class="page-item active">
-					<a class="page-link" href="free_board.jsp?pageNum=<%=i%>"><%=i%><span class="sr-only">(current)</span></a>
+					<a class="page-link" href="debate_chanban.jsp?pageNum=<%=i%>"><%=i%><span class="sr-only">(current)</span></a>
 				</li>
 <%
 						} else {
 %>
-				<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=i%>"><%=i%></a></li>
+				<li class="page-item"><a class="page-link" href="debate_chanban.jsp?pageNum=<%=i%>"><%=i%></a></li>
 <%
 						}
 					}
 					
 					if (endPage < pageCount) {
 %>
-				<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage + 10%>">다음</a></li>
+				<li class="page-item"><a class="page-link" href="debate_chanban.jsp?pageNum=<%=startPage + 10%>">다음</a></li>
 <%
 					}
 							}

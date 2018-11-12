@@ -5,6 +5,7 @@ public class ChanbanDataBean {
 	private int cb_id; 
     private String cb_writer;
     private String cb_title;
+    private String cb_movie;
     private String cb_content;
     private String cb_tag;
     private Timestamp reg_date;
@@ -71,6 +72,12 @@ public class ChanbanDataBean {
 	}
 	public void setCb_tag(String cb_tag) {
 		this.cb_tag = cb_tag;
+	}
+	public String getCb_movie() {
+		return cb_movie;
+	}
+	public void setCb_movie(String cb_movie) {
+		this.cb_movie = cb_movie;
 	}
  
  

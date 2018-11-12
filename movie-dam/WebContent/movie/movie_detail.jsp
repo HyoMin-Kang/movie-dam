@@ -227,7 +227,11 @@ $(document).ready(function() {
 							rs2.push('<img src="https://image.tmdb.org/t/p/w185/'+response3['results'][i]['poster_path']+'" alt="Poster image">');
 							rs2.push('<div class="listing-menu-title">');
 							rs2.push('<h6><a href="movie_detail.jsp?id='+response3['results'][i]['id']+'">'+response3['results'][i]['title']+'</a></h6>');
-							rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">'+response3['results'][i]['overview']+'</p>');
+							if(response3['results'][i]['overview'] == "" || response3['results'][i]['overview'].length == 0) {
+								rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">줄거리가 없습니다.</p>');
+							} else {
+								rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">'+response3['results'][i]['overview']+'</p>');
+							}
 							rs2.push('</div></div></div>');
 						}
 					} else {
@@ -237,7 +241,11 @@ $(document).ready(function() {
 							rs2.push('<img src="https://image.tmdb.org/t/p/w185/'+response3['results'][i]['poster_path']+'" alt="Poster image">');
 							rs2.push('<div class="listing-menu-title">');
 							rs2.push('<h6><a href="movie_detail.jsp?id='+response3['results'][i]['id']+'">'+response3['results'][i]['title']+'</a></h6>');
-							rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">'+response3['results'][i]['overview']+'</p>');
+							if(response3['results'][i]['overview'] == "" || response3['results'][i]['overview'].length == 0) {
+								rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">줄거리가 없습니다.</p>');
+							} else {
+								rs2.push('<p style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;">'+response3['results'][i]['overview']+'</p>');
+							}
 							rs2.push('</div></div></div>');
 						}
 					}
