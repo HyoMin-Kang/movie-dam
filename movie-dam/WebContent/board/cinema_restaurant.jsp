@@ -9,6 +9,7 @@
 <%@ page import="moviedam.board.CommentRestDataBean" %>
 <%@ page import="moviedam.board.RestaurantDBBean" %>
 <%@ page import="moviedam.board.RestaurantDataBean" %>
+
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화관 맛집";
@@ -34,7 +35,7 @@
 	int ccount = 0;
 	int number = 0;
 	int total_page = 0;
-	List<RestaurantDataBean> restaurantList = null; 
+	List<RestaurantDataBean> articleList = null; 
     
 	try {
 	RestaurantDBBean restaurant_db = RestaurantDBBean.getInstance();
@@ -42,19 +43,22 @@
     ArrayList<CommentRestDataBean> commentList = null;
 	CommentRestDBBean comment_db = CommentRestDBBean.getInstance();
 	
-	count = restaurant_db.getArticleCount(option,search,theater); 
+  	count = restaurant_db.getArticleCount(option,search,theater); 
     if (count > 0) {
-    	restaurantList = restaurant_db.getArticles(startRow, endRow, option, search, theater);
+       	articleList = restaurant_db.getArticles(startRow, endRow, option, search, theater);
 	}  
     
 	number = count-(currentPage-1)*pageSize;
 %>
 
+
+	
+
 <jsp:include page="/module/header.jsp" flush="false">
 	<jsp:param name="title" value="<%=title%>" />
 </jsp:include>
 
-<jsp:include page="/module/nav.jsp" flush="false" />
+<jsp:include page="/module/nav.jsp" flush="false"/>
 
 <!-- ***** Breadcumb Area Start ***** -->
 <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
@@ -71,27 +75,25 @@
 			</div>
 		</div>
 	</div>
-	<a class="btn btn-sm btn-outline-secondary" href="writeForm.jsp?board_id=2&article_writer=${sessionScope.userid}" role="button" >글쓰기</a>
 	
-	<div class="row justify-content-center">
+	<div class="row justify-content-center mb-4">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<a href="cinema_restaurant.jsp?theater=all" id="all" class="btn btn-outline-secondary">전체</a>
-			<a href="cinema_restaurant.jsp?theater=cgv" id="cgv" class="btn btn-outline-secondary">CGV</a>
-			<a href="cinema_restaurant.jsp?theater=롯데시네마" id="롯데시네마" class="btn btn-outline-secondary">롯데시네마</a>
-			<a href="cinema_restaurant.jsp?theater=메가박스" id="메가박스" class="btn btn-outline-secondary">메가박스</a>
-			<a href="cinema_restaurant.jsp?theater=대한극장" id="대한극장" class="btn btn-outline-secondary">대한극장</a>
-			<a href="cinema_restaurant.jsp?theater=서울극장" id="서울극장" class="btn btn-outline-secondary">서울극장</a>
-			<a href="cinema_restaurant.jsp?theater=etc" id="etc" class="btn btn-outline-secondary">기타</a>
+			<a href="cinema_restaurant.jsp?theater=all" id="all" class="btn btn-outline-primary">전체</a>
+			<a href="cinema_restaurant.jsp?theater=cgv" id="cgv" class="btn btn-outline-primary">CGV</a>
+			<a href="cinema_restaurant.jsp?theater=롯데시네마" id="롯데시네마" class="btn btn-outline-primary">롯데시네마</a>
+			<a href="cinema_restaurant.jsp?theater=메가박스" id="메가박스" class="btn btn-outline-primary">메가박스</a>
+			<a href="cinema_restaurant.jsp?theater=대한극장" id="대한극장" class="btn btn-outline-primary">대한극장</a>
+			<a href="cinema_restaurant.jsp?theater=서울극장" id="서울극장" class="btn btn-outline-primary">서울극장</a>
+			<a href="cinema_restaurant.jsp?theater=etc" id="etc" class="btn btn-outline-primary">기타</a>
 		</div>
 	</div>
 	
-	<div class="row justify-content-center">
+	<div class="row justify-content-center mb-4">
 		<div class="col-12">
 			<form>
 			<input type="hidden" name="theater" value="<%=theater %>">
-				<label class="control-label">게시글 검색</label>
 				<div class="form-group">
-					<div class="input-group mb-3">
+					<div class="input-group">
 						<div class="input-group-prepend">
 							<select class="form-control" name="option">
 						        <option value="all">전체글</option>
@@ -103,13 +105,14 @@
 						</div>
 						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요">
 						<div class="input-group-append">
-							<input class="btn btn-outline-secondary" type="submit" value="검색"> 
+							<input class="btn btn-dark" type="submit" value="검색"> 
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+	
 		
 <% if (count == 0) { %>
 
@@ -128,8 +131,8 @@
 			<jsp:forward page="error.jsp"/>
 		<% }
 		
-	   for (int i = 0 ; i < restaurantList.size() ; i++) {
-		  RestaurantDataBean article = restaurantList.get(i);
+	   for (int i = 0 ; i < articleList.size() ; i++) {
+		  RestaurantDataBean article = articleList.get(i);
 		   
 	       ccount = comment_db.getCommentCount(article.getArticle_id());
 	%>
@@ -149,14 +152,17 @@
 	<%	} %>
 
 </div>
-		
+
+<div class="row mb-3 mr-2 d-flex justify-content-end">
+	<a class="btn btn-dark" href="writeForm.jsp?board_id=1&article_writer=${sessionScope.userid}" role="button">글쓰기</a>
+</div>	
 <%}%>
 
 <nav aria-label="Page navigation">
 	<ul class="pagination justify-content-center">
 <%
     if (count > 0) {
-    	//전체 페이지수 구하기//50개=>5페이지, 51~59개=>6페이지
+    	//전체 페이지수 구하기
         int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
         
     	if(pageCount < currentPage){
@@ -180,7 +186,7 @@
         
         
         if (startPage > 10) { %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 10 %>&theater=<%=theater%>">이전</a></li>
+    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 9 %>&theater=<%=theater%>">이전</a></li>
 <%      }
     
     for (int i = startPage ; i <= endPage ; i++) {
@@ -198,7 +204,7 @@
   }
     
     if (endPage < pageCount) {  %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 10 %>&theater=<%=theater%>">다음</a></li>
+    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 9 %>&theater=<%=theater%>">다음</a></li>
 <%
     }
 }
@@ -213,7 +219,6 @@
 </section>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
-
 <script>
 $(document).ready(function() {
 	$('#<%=theater%>').addClass('active');

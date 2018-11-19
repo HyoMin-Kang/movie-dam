@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="moviedam.debate.ChanbanDBBean"%>
 <%@ page import="moviedam.debate.ChanbanDataBean"%>
@@ -40,6 +41,9 @@
 	   	MemberDBBean mem_db = MemberDBBean.getInstance(); 
 		ChanbanDBBean chanban_db = ChanbanDBBean.getInstance();
 		ChanbanDataBean chanban = chanban_db.getChanban(cb_id);
+		String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");		
+		String cb_tag = chanban.getCb_tag();
+		pageContext.setAttribute("cb_tag", cb_tag);
 %>
 
 <%
@@ -79,7 +83,7 @@
 				<div class="section-heading dark text-center">
 					<span></span>
 					<h4>Pro and con debate</h4>
-					<p></p>
+					<p>토론글 상세보기</p>
 				</div>
 			</div>
 		</div>
@@ -92,7 +96,7 @@
 						<span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=chanban.getCb_writer()%>"><%=chanban.getCb_writer()%></a>&nbsp;(<%=sdf.format(chanban.getReg_date())%>)</span> 
 						<span><i class="fas fa-eye"></i> <%=chanban.getCb_hits()%></span>
 					</div>
-
+					<hr>
 					<div class="overview-content mt-50" id="overview">
 						<p><%=chanban.getCb_content().replace("\r\n", "<br>")%></p>
 					</div>
@@ -104,6 +108,14 @@
 <%
                      }
 %>
+					<hr>
+					<div class="hashtag mb-3">
+						<c:set var="tags" value="${fn:split(cb_tag, '|')}"></c:set>
+						<c:forEach var="item" items="${tags}">
+						    <a href="#" class="badge badge-primary">#${item}</a>
+						</c:forEach>
+					</div>
+					
 					<div class="text-right">							
 <%
                if (userid.equals("not")) {

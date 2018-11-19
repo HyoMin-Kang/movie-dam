@@ -27,6 +27,9 @@
 <!-- Icon -->
 <link rel="stylesheet" href="/movie-dam/assets/css/vender/nucleo/css/nucleo.css">
 
+<!-- animate.css -->
+<link rel="stylesheet" href="/movie-dam/assets/css/animate.min.css">
+
 <!-- Custom styles -->
 <link href="/movie-dam/assets/css/custom.css" rel="stylesheet">
 <style>
@@ -123,8 +126,8 @@
 				<div class="search-close-btn" id="closeBtn">
 					<i class="pe-7s-close-circle" aria-hidden="true"></i>
 				</div>
-				<form action="#" method="get">
-					<input type="search" name="caviarSearch" id="search" placeholder="Search Your Desire Destinations or Events">
+				<form action="/movie-dam/movie/movie_search.jsp" method="get">
+					<input type="search" name="query" placeholder="찾고자 하는 영화를 검색해 보세요!">
 					<input type="submit" class="d-none" value="submit">
 				</form>
 			</div>

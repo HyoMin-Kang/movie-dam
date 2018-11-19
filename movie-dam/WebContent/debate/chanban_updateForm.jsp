@@ -40,7 +40,7 @@
 
 	<div class="row justify-content-center">
 		<div class="col-12">
-			<form method="post" name="updateform" action="chanban_updatePro.jsp?pageNum=<%=pageNum%>&cb_id=<%=cb_id %>" onsubmit="return writeSave()" enctype="multipart/form-data">
+			<form method="post" name="writeForm" action="chanban_updatePro.jsp?pageNum=<%=pageNum%>&cb_id=<%=cb_id %>" onsubmit="return writeSave()" enctype="multipart/form-data">
 	 			<input type="hidden" name="cb_id" value="<%=cb_id%>"> 
 	 			<input type="hidden" id="inputWriter" name="cb_writer" value="<%=userid%>" readonly="readonly" required="required">
 
@@ -109,6 +109,9 @@
 <jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
+function search_movie() {
+	open('searchMovie.jsp', '영화 검색', 'height=800, width=600, menubar=no, scrollbars=no, toolbar=no, location=no, status=no, resizable=no');
+}
 $(document).ready(function() {
 	  $('.summernote').summernote({
 		  height:300

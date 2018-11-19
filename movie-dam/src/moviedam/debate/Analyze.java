@@ -1,6 +1,5 @@
 package moviedam.debate;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class Analyze {
@@ -11,27 +10,15 @@ public class Analyze {
 			if(term.equalsIgnoreCase(word))
 				result++;
 		}
+		System.out.println("term:"+term+" tf:"+ (1+Math.log(result)));
 		return (1+Math.log(result));
 	}
 	
-	public double idf(List<List<String>> docs, String term) {
-		long start = System.currentTimeMillis();
-		double n = 0;
-		for (List<String> doc : docs) {
-			HashSet<String> doc2 = new HashSet<String>(doc);
-			for (String word : doc2) {
-				if(term.equalsIgnoreCase(word)) {
-					n++;
-					break;
-				}
-			}
-		}
-		long end = System.currentTimeMillis();
-		System.out.println( "실행 시간 : " + ( end - start )/1000.0 );
-		return Math.log(docs.size() / (1+n));
+	public double idf(int docsCount, int docsSize) {
+		return (double)docsSize / (1+docsCount);
 	}
 	
-	public double tfIdf(List<String> doc, List<List<String>> docs, String term) {
-		return tf(doc, term) * idf(docs, term);
+	public double tfIdf(List<String> doc, int docsCount, int docsSize, String term) {
+		return tf(doc, term) * idf(docsCount, docsSize);
 	}
 }

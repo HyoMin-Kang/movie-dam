@@ -20,8 +20,7 @@
 <%
 	int pageSize = 10;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-%>
-<%
+	
 	if (pageNum == null) {
 		pageNum = "1";
 	}
@@ -58,12 +57,8 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
 
-<!-- ***** Listing Destinations Area Start ***** -->
 <section class="dorne-listing-destinations-area section-padding-100-50">
 	<div class="container">
 		<div class="row">
@@ -71,13 +66,12 @@
 				<div class="section-heading dark text-center">
 					<h4>Pro and con debate</h4>
 					<p>영화를 주제로 한 다양한 찬반 토론 <%=count%>개가 진행중입니다.</p><br>
-					<button class="btn btn-sm btn-outline-secondary" onclick="document.location.href='chanban_writeForm.jsp?cb_writer=${sessionScope.userid}'">글쓰기</button>
 				</div>
 			</div>
 		</div>
 		
-		<div class="row justify-content-center">
-			<div class="col-10">
+		<div class="row mb-3 mr-2 justify-content-center">
+			<div class="col-12">
 				<form>
 					<div class="form-group">
 						<div class="input-group mb-3">
@@ -91,7 +85,7 @@
 							</div>
 							<input class="form-control" type="text" name="search" placeholder="관심있는 토론 주제를 검색해 보세요.">
 							<div class="input-group-append">
-								<input class="btn btn-outline-secondary" type="submit" value="검색">
+								<input class="btn btn-dark" type="submit" value="검색">
 							</div>
 						</div>
 					</div>
@@ -100,20 +94,18 @@
 		</div>
 		<br>
 		
-
-		
+		<div class="container">
 <%
 			if (count == 0) {
 %>
-		<div class="alert alert-danger" role="alert">게시판에 저장된 글이 없습니다.</div>
+			<div class="alert alert-danger" role="alert">게시판에 저장된 글이 없습니다.</div>
 
 <%
-			} else {
+			} else {		
 %>
-		<div class="container">
 			<div class="row justify-content-center">
 				<!-- Single Features Area -->
-				<div class="col-10">
+				<div class="col-12">
 <%
 						int a = count / pageSize + (count % pageSize == 0 ? 0 : 1); //전체페이지 수 
 							if (Integer.parseInt(pageNum) > a) {
@@ -144,14 +136,13 @@
 							<div class="media-body">
 								<h5 class="mt-0 mb-1">
 									<a href="chanban_content.jsp?cb_id=<%=chanban.getCb_id()%>&pageNum=<%=currentPage%>" style="color: black;"><%=chanban.getCb_title()%></a>
-									<% if (chanban.getCb_hits() <= 20) {%><span class="badge badge-info">H</span><%}%>
 								</h5>
 								
 								<div style="display: inline-block; whith-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; height: 5.2em;"><%=textWithoutTag %></div>
-								<div class="hashtag">
+								<div class="hashtag mb-3">
 									<c:set var="tags" value="${fn:split(cb_tag, '|')}"></c:set>
 									<c:forEach var="item" items="${tags}">
-									    <a type="buttn" class="btn btn-outline-primary btn-sm">#${item}</a>
+									    <a href="#" class="badge badge-primary">#${item}</a>
 									</c:forEach>
 								</div>
 								<div class="pro-con-icon">
@@ -170,8 +161,10 @@
 				</div>
 			</div>
 			
-		</div>
 		
+		<div class="form-group row d-flex justify-content-end">
+			<button class="btn btn-dark" onclick="document.location.href='chanban_writeForm.jsp?cb_writer=${sessionScope.userid}'">글쓰기</button>
+		</div>
 		<nav aria-label="Page navigation">
 			<ul class="pagination justify-content-center">
 <%
@@ -223,23 +216,21 @@
 				<li class="page-item"><a class="page-link" href="debate_chanban.jsp?pageNum=<%=startPage + 10%>">다음</a></li>
 <%
 					}
-							}
-						}
+				}
 %>
+		
 			</ul>
 		</nav>
 <%
-			} catch (Exception e) {
-			}
-	
+			}	
 %>
+</div>
+	
+<% } catch (Exception e) { } %>
 	</div>
 </section>
-<!-- ***** Listing Destinations Area End ***** -->
-
 
 <jsp:include page="/module/footer.jsp" flush="false" />
-
 
 </body>
 </html>

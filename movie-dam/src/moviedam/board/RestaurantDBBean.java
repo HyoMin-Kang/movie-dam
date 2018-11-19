@@ -794,7 +794,7 @@ public class RestaurantDBBean {
 		return type;
 	}
 	
-	public String insertLike(ArticlelikeDataBean like) throws Exception {
+	public String insertLike(RestaurantLikeDataBean like) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -804,7 +804,7 @@ public class RestaurantDBBean {
 			
 			conn = getConnection();
 			
-			sql = "select * from article_like where board_id = ? and article_id = ? and mem_id = ?";
+			sql = "select * from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getBoard_id());
 			pstmt.setInt(2, like.getArticle_id());
@@ -814,9 +814,9 @@ public class RestaurantDBBean {
 			if(rs.next()) {
 				String type = like.getLike_type();
 				if(type.equals("Y")) {
-					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'N'";
+					sql = "insert into rest_like values (?, ?, ?, ?) on duplicate key update like_type = 'N'";
 				} else if(type.equals("N")){
-					sql = "insert into article_like values (?, ?, ?, ?) on duplicate key update like_type = 'Y'";
+					sql = "insert into rest_like values (?, ?, ?, ?) on duplicate key update like_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getBoard_id());
@@ -825,7 +825,7 @@ public class RestaurantDBBean {
 				pstmt.setString(4, like.getLike_type());
 				
 			} else {
-				sql = "insert into article_like values (?, ?, ?, ?)";
+				sql = "insert into rest_like values (?, ?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getBoard_id());
 				pstmt.setInt(2, like.getArticle_id());
@@ -835,7 +835,7 @@ public class RestaurantDBBean {
 			pstmt.executeUpdate();
 			
 			
-			sql = "select like_type from article_like where board_id = ? and article_id = ? and mem_id = ?";
+			sql = "select like_type from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getBoard_id());
 			pstmt.setInt(2, like.getArticle_id());
@@ -880,7 +880,7 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 
-			sql = "select count(*) from article_like where board_id=? and article_id=? and like_type = 'Y'";
+			sql = "select count(*) from rest_like where board_id=? and article_id=? and like_type = 'Y'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_id);
 			pstmt.setInt(2, article_id);

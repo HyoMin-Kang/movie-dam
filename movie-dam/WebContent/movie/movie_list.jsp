@@ -42,9 +42,9 @@
         </div>
     </div>	
 
-	<div class="row">
+	<div class="row mb-3 mr-2 d-flex justify-content-end">
 		<div class="dropdown mb-4">
-			<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    	장르
 			</button>
 	  		<div class="dropdown-menu" aria-labelledby="dropdownGenre" id="dropdownGenreList">
@@ -52,7 +52,7 @@
 		</div>
 		
 		<div class="dropdown mb-4">
-			<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 				정렬
 		  	</button>
 		  	<div class="dropdown-menu" aria-labelledby="dropdownSort">

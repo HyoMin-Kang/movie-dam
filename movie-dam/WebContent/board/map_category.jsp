@@ -22,6 +22,7 @@
 		    <div class="section-heading dark text-center">
 		    	<span></span>
 				<h4>Cinema Map</h4>
+				<p>영화관 주변의 편의 시설들을 간편하게 찾아보세요.</p>
 			</div>
 		</div>
 	</div>
@@ -30,7 +31,7 @@
 	<div class="input-group mb-3">
 		<input class="form-control" type="text" name="searchTheater" id="searchTheater" placeholder="원하시는 주변 장소를 입력하세요.   ex)왕십리 CGV" style="padding-bottom: 10px" onkeypress="if(event.keyCode==13){searchTheateration(); return false;}">
 		<div class="input-group-append">
-			<button class="btn btn-outline-secondary" onclick="searchTheateration();">검색</button>
+			<button class="btn btn-dark" onclick="searchTheateration();">검색</button>
 		</div>
 	</div>
 	<div class="map_wrap">

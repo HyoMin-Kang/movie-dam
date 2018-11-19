@@ -22,7 +22,7 @@
             <div class="section-heading dark text-center">
                 <span></span>
                 <h4>Movie search</h4>
-                <p id="lead"></p>
+                <p id="lead">영화 찾아보기</p>
             </div>
         </div>
     </div>	
@@ -37,7 +37,7 @@
 				<input type="text" class="form-control" id="searchMovie" name="query" value="<%=query%>">
 			<% } %>
 			<div class="input-group-append">
-				<input class="btn btn-primary" type="submit" value="검색">
+				<input class="btn btn-dark" type="submit" value="검색">
 			</div>
 		</div>	
 		</form>

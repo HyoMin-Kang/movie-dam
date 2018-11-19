@@ -36,7 +36,7 @@
 		<div class="row justify-content-center">
 			<div class="col-12">
 				<form method="post" name="writeForm" action="chanban_writePro.jsp" onsubmit="return writeSave()" enctype="multipart/form-data">
-					<input type="hidden" id="inputWriter" name="cb_writer" value="<%=cb_writer%>" readonly="readonly" required="required">
+					<input type="hidden" id="inputWriter" name="cb_writer" value="<%=cb_writer%>">
 
 					<div class="form-group row mb-3">
 						<label for="inputWriter" class="col-sm-2 col-form-label">영화</label>

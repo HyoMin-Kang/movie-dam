@@ -1,25 +1,28 @@
 package moviedam.debate;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import com.mysql.fabric.xmlrpc.base.Param;
-
 import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
 import kr.co.shineware.util.common.model.Pair;
 
@@ -41,39 +44,36 @@ public class ChanbanDBBean {
 		return ds.getConnection();
 	}
 
+	String indexPath = this.getClass().getResource("").getPath();
 	String path = this.getClass().getResource("models-full").getPath();
 	Komoran komoran = new Komoran(path);
 	List<String> doc = null;
 	List<List<String>> docs = null;
+	File file = new File(indexPath, "word_index.txt");
 	
 	public HashMap<String, Double> analyzeContent(String content) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";	
-		String docsContent = "";
 		docs = new ArrayList<List<String>>();
+		int docsSize = 0;
 		Analyze analyze = new Analyze();
 		HashMap<String, Double> map = new HashMap<String, Double>();
+		
+		BufferedReader reader = null;
+		PrintWriter writer = null;
 		try {
 			conn = getConnection();
-			
-			sql = "select cb_content from chanban";
+
+			sql = "select count(*) from chanban";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				List<String>docsDoc = new ArrayList<String>();
-				docsContent = rs.getString(1);
-				docsContent = docsContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-				List<List<Pair<String,String>>> result = komoran.analyze(docsContent);
-				for (List<Pair<String, String>> eojeolResult : result) {
-					for (Pair<String, String> wordMorph : eojeolResult) {
-						if(wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
-							docsDoc.add(wordMorph.getFirst());
-					}
-				}
-				docs.add(docsDoc);
+				docsSize = rs.getInt(1)+1;
 			}
+			
+			//형태소 분석
 			doc = new ArrayList<String>();
 			content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 			List<List<Pair<String,String>>> result = komoran.analyze(content);
@@ -84,16 +84,55 @@ public class ChanbanDBBean {
 						doc.add(wordMorph.getFirst());
 				}
 					System.out.println();
+			}			
+		
+			//index 생성 부분
+			HashSet<String> docSet = new HashSet<String>(doc);
+			Map<String, Integer> indexMap = new HashMap<>();
+			Map<String, Integer> indexedMap = new HashMap<>();
+
+			reader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println("line: " + line);	
+				String[] data = line.split("=");
+				if(data.length >= 2) {
+					String key = data[0];
+					String value = data[1];
+					indexedMap.put(key, Integer.parseInt(value));
+				} else {
+					System.out.println("ignoring line: " + line);
+				}
 			}
-			docs.add(doc);
-			System.out.println("doc:"+doc);
-			System.out.println("docs:"+docs);
+			indexMap.putAll(indexedMap);
+			
+			for(String term : docSet) {			
+				if(indexMap.containsKey(term)) {
+					indexMap.put(term, indexMap.get(term)+1);
+				} else {
+					indexMap.put(term, 1);
+				}
+			}
+			System.out.println(indexMap);
+			
+			//tf-idf 계산
 			for(String term : doc) {
-				double tfidf = analyze.tfIdf(doc, docs, term);
+				int docsCount = indexMap.get(term);
+				double tfidf = analyze.tfIdf(doc, docsCount, docsSize, term);
 				map.put(term, tfidf);
+				System.out.println("term:" + term + ", tf-idf:" + tfidf);
 			}
+
+			writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			for(String key : indexMap.keySet()) {
+				writer.println(key + "=" + indexMap.get(key));
+				writer.flush();
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(writer != null) writer.close();
+			if(reader != null) reader.close();
 		}
 		return map;
 	}
@@ -130,7 +169,6 @@ public class ChanbanDBBean {
 			String cb_tag = "";
 			HashMap<String, Double> analyzedMap = analyzeContent(cb.getCb_content());
 			HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
-			System.out.println(sortedMap);
 			if(sortedMap.size() >= 7) { 
 				List<String> top7List = new ArrayList<String>();
 				List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
@@ -476,9 +514,7 @@ public class ChanbanDBBean {
 				if (dbuserid.equals(mem_userid)) {
 					String cb_tag = "";
 					HashMap<String, Double> analyzedMap = analyzeContent(chanban.getCb_content());
-					System.out.println(analyzedMap);
 					HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
-					System.out.println(sortedMap);
 					if(sortedMap.size() >= 7) { 
 						List<String> top7List = new ArrayList<String>();
 						List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
