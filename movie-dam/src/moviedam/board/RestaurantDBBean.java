@@ -36,7 +36,7 @@ public class RestaurantDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getArticle_id());
@@ -45,13 +45,12 @@ public class RestaurantDBBean {
 			pstmt.setString(4, article.getArticle_content());
 			pstmt.setTimestamp(5, article.getReg_date());
 			pstmt.setInt(6, article.getArticle_hits());
-			pstmt.setInt(7, article.getArticle_gets());
-			pstmt.setString(8, article.getArticle_file());
-			pstmt.setString(9, article.getSearch_loc());
-			pstmt.setFloat(10, article.getStart_lat());
-			pstmt.setFloat(11, article.getStart_lon());
-			pstmt.setString(12, article.getTheater());
-			pstmt.setString(13, article.getArea());
+			pstmt.setString(7, article.getArticle_file());
+			pstmt.setString(8, article.getSearch_loc());
+			pstmt.setFloat(9, article.getStart_lat());
+			pstmt.setFloat(10, article.getStart_lon());
+			pstmt.setString(11, article.getTheater());
+			pstmt.setString(12, article.getArea());
 			
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -458,7 +457,6 @@ public class RestaurantDBBean {
 					article.setArticle_content(rs.getString("article_content"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setArticle_hits(rs.getInt("article_hits"));
-					article.setArticle_gets(rs.getInt("article_gets"));
 					article.setArticle_file(rs.getString("article_file"));
 					article.setSearch_loc(rs.getString("search_loc"));
 					article.setStart_lat(rs.getFloat("start_lat"));
@@ -516,7 +514,6 @@ public class RestaurantDBBean {
 				article.setArticle_content(rs.getString("article_content"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setArticle_hits(rs.getInt("article_hits"));
-				article.setArticle_gets(rs.getInt("article_gets"));
 				article.setArticle_file(rs.getString("article_file"));
 				article.setSearch_loc(rs.getString("search_loc"));
 				article.setStart_lat(rs.getFloat("start_lat"));
@@ -570,7 +567,6 @@ public class RestaurantDBBean {
 					article.setArticle_content(rs.getString("article_content"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setArticle_hits(rs.getInt("article_hits"));
-					article.setArticle_gets(rs.getInt("article_gets"));
 					article.setArticle_file(rs.getString("article_file"));
 					article.setSearch_loc(rs.getString("search_loc"));
 					article.setStart_lat(rs.getFloat("start_lat"));
@@ -618,7 +614,6 @@ public class RestaurantDBBean {
 				article.setArticle_content(rs.getString("article_content"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setArticle_hits(rs.getInt("article_hits"));
-				article.setArticle_gets(rs.getInt("article_gets"));
 				article.setArticle_file(rs.getString("article_file"));
 				article.setSearch_loc(rs.getString("search_loc"));
 				article.setStart_lat(rs.getFloat("start_lat"));
@@ -760,7 +755,7 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 			
-			sql = "select like_type from article_like where board_id = ? and article_id = ? and mem_id = ?";
+			sql = "select like_type from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_id);
 			pstmt.setInt(2, article_id);

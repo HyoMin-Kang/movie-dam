@@ -1,18 +1,11 @@
 package moviedam.board;
 
 public class RestaurantLikeDataBean {
-	private int article_like_id;
 	private int board_id;
 	private int article_id;
 	private String mem_id;
 	private String like_type;
 	
-	public int getArticle_like_id() {
-		return article_like_id;
-	}
-	public void setArticle_like_id(int article_like_id) {
-		this.article_like_id = article_like_id;
-	}
 	public int getBoard_id() {
 		return board_id;
 	}

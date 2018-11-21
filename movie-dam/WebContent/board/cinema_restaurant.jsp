@@ -51,9 +51,6 @@
 	number = count-(currentPage-1)*pageSize;
 %>
 
-
-	
-
 <jsp:include page="/module/header.jsp" flush="false">
 	<jsp:param name="title" value="<%=title%>" />
 </jsp:include>
@@ -71,20 +68,20 @@
 		    <div class="section-heading dark text-center">
 		    	<span></span>
 				<h4>Cinema restaurant</h4>
-				<p>검색된 글 : <%=count%>개</p>
+				<p>총 <%=count%>개의 글 검색</p>
 			</div>
 		</div>
 	</div>
 	
 	<div class="row justify-content-center mb-4">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<a href="cinema_restaurant.jsp?theater=all" id="all" class="btn btn-outline-primary">전체</a>
-			<a href="cinema_restaurant.jsp?theater=cgv" id="cgv" class="btn btn-outline-primary">CGV</a>
-			<a href="cinema_restaurant.jsp?theater=롯데시네마" id="롯데시네마" class="btn btn-outline-primary">롯데시네마</a>
-			<a href="cinema_restaurant.jsp?theater=메가박스" id="메가박스" class="btn btn-outline-primary">메가박스</a>
-			<a href="cinema_restaurant.jsp?theater=대한극장" id="대한극장" class="btn btn-outline-primary">대한극장</a>
-			<a href="cinema_restaurant.jsp?theater=서울극장" id="서울극장" class="btn btn-outline-primary">서울극장</a>
-			<a href="cinema_restaurant.jsp?theater=etc" id="etc" class="btn btn-outline-primary">기타</a>
+			<a href="cinema_restaurant.jsp?theater=all" id="all" class="btn btn-outline-secondary">전체</a>
+			<a href="cinema_restaurant.jsp?theater=cgv" id="cgv" class="btn btn-outline-secondary">CGV</a>
+			<a href="cinema_restaurant.jsp?theater=롯데시네마" id="롯데시네마" class="btn btn-outline-secondary">롯데시네마</a>
+			<a href="cinema_restaurant.jsp?theater=메가박스" id="메가박스" class="btn btn-outline-secondary">메가박스</a>
+			<a href="cinema_restaurant.jsp?theater=대한극장" id="대한극장" class="btn btn-outline-secondary">대한극장</a>
+			<a href="cinema_restaurant.jsp?theater=서울극장" id="서울극장" class="btn btn-outline-secondary">서울극장</a>
+			<a href="cinema_restaurant.jsp?theater=etc" id="etc" class="btn btn-outline-secondary">기타</a>
 		</div>
 	</div>
 	
@@ -127,9 +124,10 @@
 	<%  
 		int a = count / pageSize + (count % pageSize == 0 ? 0 : 1); //전체페이지 수 
 		
-		if(Integer.parseInt(pageNum) > a){ %>
+		if(Integer.parseInt(pageNum) > a){ 
+	%>
 			<jsp:forward page="error.jsp"/>
-		<% }
+	<% }
 		
 	   for (int i = 0 ; i < articleList.size() ; i++) {
 		  RestaurantDataBean article = articleList.get(i);
@@ -140,10 +138,16 @@
 				<div class="single-features-area mb-50">
 					<a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>"><img style="width:100%; height:250px; display:block;" src="/movie-dam/imageFolder/cinema_restaurant/<%=article.getArticle_file()%>" alt="저장된 사진이 없습니다."></a>
 					<div class="feature-content d-flex align-items-center justify-content-between">
-					<div class="feature-title"><h5><a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>">[<%=article.getTheater()%> <%=article.getArea()%>]<br><%=number--%>|<%=article.getArticle_title()%><small>(<%=ccount%>)</small></a></h5>
+					<div class="feature-title">
+						<h5>
+							<a href="#"><span class="badge badge-pill badge-primary"><%=article.getTheater()%></span></a>
+                 			<a href="#"><span class="badge badge-pill badge-info"><%=article.getArea()%></span></a>
+							<a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>">
+                 			<br>
+                 			<%=article.getArticle_title()%><small> (<%=ccount%>)</small></a>
+               			</h5>
 						<p>글쓴이 | <%=article.getArticle_writer() %></p>
 						<p>작성일 | <%=sdf.format(article.getReg_date())%></p>
-						<div class="feature-favourite"><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
 					</div>
 					</div>
 				</div>
@@ -153,10 +157,11 @@
 
 </div>
 
-<div class="row mb-3 mr-2 d-flex justify-content-end">
-	<a class="btn btn-dark" href="writeForm.jsp?board_id=1&article_writer=${sessionScope.userid}" role="button">글쓰기</a>
-</div>	
 <%}%>
+
+<div class="row mb-3 mr-2 d-flex justify-content-end">
+	<a class="btn btn-dark" href="writeForm.jsp?board_id=2&article_writer=${sessionScope.userid}" role="button">글쓰기</a>
+</div>	
 
 <nav aria-label="Page navigation">
 	<ul class="pagination justify-content-center">

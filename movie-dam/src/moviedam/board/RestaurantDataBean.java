@@ -8,7 +8,6 @@ public class RestaurantDataBean {
 	private String article_content;
 	private Timestamp reg_date;
 	private int article_hits;
-	private int article_gets;
 	private String article_file;
 	private String search_loc;
 	private float start_lat;
@@ -51,12 +50,6 @@ public class RestaurantDataBean {
 	}
 	public void setArticle_hits(int article_hits) {
 		this.article_hits = article_hits;
-	}
-	public int getArticle_gets() {
-		return article_gets;
-	}
-	public void setArticle_gets(int article_gets) {
-		this.article_gets = article_gets;
 	}
 	public String getSearch_loc() {
 		return search_loc;

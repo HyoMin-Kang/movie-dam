@@ -36,7 +36,7 @@ public class ArticleDBBean {
 
 		try {
 			conn = getConnection();
-			sql = "insert into article values(?,?,?,?,?,?,?,?,?)";
+			sql = "insert into article values(?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getArticle_id());
@@ -45,9 +45,8 @@ public class ArticleDBBean {
 			pstmt.setString(4, article.getArticle_content());
 			pstmt.setTimestamp(5, article.getReg_date());
 			pstmt.setInt(6, article.getArticle_hits());
-			pstmt.setInt(7, article.getArticle_gets());
-			pstmt.setString(8, article.getArticle_file());
-			pstmt.setString(9, article.getCategory());
+			pstmt.setString(7, article.getArticle_file());
+			pstmt.setString(8, article.getCategory());
 
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -386,7 +385,6 @@ public class ArticleDBBean {
 					article.setArticle_content(rs.getString("article_content"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setArticle_hits(rs.getInt("article_hits"));
-					article.setArticle_gets(rs.getInt("article_gets"));
 					article.setArticle_file(rs.getString("article_file"));
 					article.setCategory(rs.getString("category"));
 
@@ -439,7 +437,6 @@ public class ArticleDBBean {
 					article.setArticle_content(rs.getString("article_content"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setArticle_hits(rs.getInt("article_hits"));
-					article.setArticle_gets(rs.getInt("article_gets"));
 					article.setArticle_file(rs.getString("article_file"));
 					article.setCategory(rs.getString("category"));
 
@@ -487,7 +484,6 @@ public class ArticleDBBean {
 				article.setArticle_content(rs.getString("article_content"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setArticle_hits(rs.getInt("article_hits"));
-				article.setArticle_gets(rs.getInt("article_gets"));
 				article.setArticle_file(rs.getString("article_file"));
 				article.setCategory(rs.getString("category"));
 			}
@@ -533,7 +529,6 @@ public class ArticleDBBean {
 				article.setArticle_content(rs.getString("article_content"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setArticle_hits(rs.getInt("article_hits"));
-				article.setArticle_gets(rs.getInt("article_gets"));
 				article.setArticle_file(rs.getString("article_file"));
 				article.setCategory(rs.getString("category"));
 			}

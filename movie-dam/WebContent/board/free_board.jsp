@@ -66,20 +66,20 @@
 		    <div class="section-heading dark text-center">
 		    	<span></span>
 				<h4>Free board</h4>
-				<p>검색된 글 : <%=count%>개</p>
+				<p>총 <%=count%>개의 글 검색</p>
 			</div>
 		</div>
 	</div>
 
 	<div class="row justify-content-center mb-4">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<a href="free_board.jsp?category=all" id="all" class="btn btn-outline-primary">전체</a>
-			<a href="free_board.jsp?category=talk" id="talk" class="btn btn-outline-primary">사담</a>
-			<a href="free_board.jsp?category=movietalk" id="movietalk" class="btn btn-outline-primary">영화후기</a>
-			<a href="free_board.jsp?category=spoiler" id="spoiler" class="btn btn-outline-primary">스포일러</a>
-			<a href="free_board.jsp?category=movietmi" id="movietmi" class="btn btn-outline-primary">영화TMI</a>
-			<a href="free_board.jsp?category=boast" id="boast" class="btn btn-outline-primary">자랑하기</a>
-			<a href="free_board.jsp?category=hobby" id="hobby" class="btn btn-outline-primary">덕질공간</a>
+			<a href="free_board.jsp?category=all" id="all" class="btn btn-outline-secondary">전체</a>
+			<a href="free_board.jsp?category=talk" id="talk" class="btn btn-outline-secondary">사담</a>
+			<a href="free_board.jsp?category=movietalk" id="movietalk" class="btn btn-outline-secondary">영화후기</a>
+			<a href="free_board.jsp?category=spoiler" id="spoiler" class="btn btn-outline-secondary">스포일러</a>
+			<a href="free_board.jsp?category=movietmi" id="movietmi" class="btn btn-outline-secondary">영화TMI</a>
+			<a href="free_board.jsp?category=boast" id="boast" class="btn btn-outline-secondary">자랑하기</a>
+			<a href="free_board.jsp?category=hobby" id="hobby" class="btn btn-outline-secondary">덕질공간</a>
 		</div>
 	</div>
 	
@@ -126,7 +126,6 @@
 			<col width="20%">
 			<col width="8%">
 			<col width="8%">
-			<col width="8%">
 			
 		</colgroup>
 		<thead>
@@ -137,7 +136,6 @@
 		      <th scope="col">작성자</th>
 		      <th scope="col">작성일</th>
 		      <th scope="col">댓글수</th>
-		      <th scope="col">추천수</th>
 		      <th scope="col">조회수</th>
 		    </tr>
 		  </thead>
@@ -157,14 +155,10 @@
 			<tr>
 			    <td class="text-center"><%=number--%></td>
 			    <td class="text-center"><%=article.getCategory()%></td>
-	
-	           
-	      		<td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=1&category=<%=category%>"><%=article.getArticle_title()%></a>
-				</td>
+	      		<td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=1&category=<%=category%>"><%=article.getArticle_title()%></a></td>
 	    		<td class="text-center"><%=article.getArticle_writer()%></td>
 				<td class="text-center"><%=sdf.format(article.getReg_date())%></td>
 				<td class="text-center"><%=ccount%></td>
-				<td class="text-center"><%=article.getArticle_gets() %></td>
 				<td class="text-center"><%=article.getArticle_hits()%></td>
 	  		</tr>
 	<%	} %>

@@ -101,6 +101,7 @@
 		response.sendRedirect("./cinema_restaurant.jsp?pageNum=1&theater=all");
 	} else if(board_id == 4) { //시사회
 		String preview_date = multi.getParameter("preview_date");
+		preview_date.replaceAll("(\\d+)/(\\d+)/(\\d+)", "$3-$2-$1");
 		String cinema = multi.getParameter("cinema");
 		String original_url = multi.getParameter("original_url");
 		String preview_region = multi.getParameter("preview_region");

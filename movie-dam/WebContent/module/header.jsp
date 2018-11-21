@@ -12,7 +12,7 @@
 <title>영화담 | <%=pageTitle %></title>
 
 <!-- Favicon -->
-<link rel="icon" href="/movie-dam/assets/img/core-img/favicon.ico">
+<link rel="icon" href="/movie-dam/assets/img/core-img/movie.ico">
 
 <!-- Core Stylesheet -->
 <link rel="stylesheet" href="/movie-dam/assets/style.css">

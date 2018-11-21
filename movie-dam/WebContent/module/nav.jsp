@@ -8,7 +8,7 @@
 		<div class="row h-100">
 			<div class="col-12 h-100">
 				<nav class="h-100 navbar navbar-expand-lg">
-					<a class="navbar-brand" href="/movie-dam/main.jsp"><img src="/movie-dam/assets/img/core-img/logo.png" alt=""></a>
+					<a class="navbar-brand" href="/movie-dam/main.jsp"><img src="/movie-dam/assets/img/core-img/logo1.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="fas fa-bars"></span>
 					</button>
@@ -49,7 +49,6 @@
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
 									<a class="dropdown-item" href="/movie-dam/board/movie_preview.jsp">Preview</a> 
-									<a class="dropdown-item" href="/movie-dam/board/movie_stage.jsp">Stage</a>
 									<a class="dropdown-item" href="/movie-dam/board/movie_issue.jsp">Movie issue</a> 
 								</div>
 							</li>

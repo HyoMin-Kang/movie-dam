@@ -56,9 +56,9 @@
 				정렬
 		  	</button>
 		  	<div class="dropdown-menu" aria-labelledby="dropdownSort">
-		    	<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count">인기순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date">최근 개봉순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue">최고 흥행순</a>
+		    	<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count&with_genres=<%=with_genres%>">인기순</a>
+				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date&with_genres=<%=with_genres%>">최근 개봉순</a>
+				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue&with_genres=<%=with_genres%>">최고 흥행순</a>
 		  	</div>
 		</div>
 	</div>
@@ -67,16 +67,8 @@
 		
 	</div>
 
-	<!-- Pagination -->
 	<nav aria-label="Page navigation">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-			<li class="page-item active"><a class="page-link" href="movie_list.jsp?resultPage=1&sort=<%=sort%>&with_genres=<%=with_genres%>">1</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=2&sort=<%=sort%>&with_genres=<%=with_genres%>">2</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=3&sort=<%=sort%>&with_genres=<%=with_genres%>">3</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=4&sort=<%=sort%>&with_genres=<%=with_genres%>">4</a></li>
-			<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage=5&sort=<%=sort%>&with_genres=<%=with_genres%>">5</a></li>
-			<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+		<ul class="pagination justify-content-center" id="paging">
 		</ul>
 	</nav>
 </div>
@@ -91,6 +83,50 @@ var sort = '<%=sort%>';
 var genre = '<%=with_genres%>';
 var api_key = '<%=api_key%>';
 var response2 = [];
+
+var total_results = 0; //검색 결과 수
+var total_pages = 0; //전체 페이지 수
+var page_size = 10; //페이지 그룹 범위
+var current_page = 0; //보여줄 페이지
+var page_group = 0; //페이지 그룹
+
+function paging(total_results, page_size, current_page) {
+	var rs2 = [];
+	var last = page_group * page_size;
+	if(last > total_pages) {
+		last = total_pages;
+	}
+	var first = last - (page_size-1);
+	if(total_pages <= 10) {
+		first = 1;
+	}
+	var next = last+1;
+	var prev = first-1;
+	console.log("last : " + last);
+    console.log("first : " + first);
+    console.log("next : " + next);
+    console.log("prev : " + prev);
+    
+    if(prev > 0) {
+    	rs2.push('<li class="page-item">');
+    	rs2.push('<a class="page-link" href="movie_list.jsp?resultPage='+prev+'&sort='+sort+'&with_genres='+genre+'" id="prev" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a>');
+    	rs2.push('</li>');
+    }
+    for(var i=first; i<=last; i++) {
+    	rs2.push('<li class="page-item"><a class="page-link" href="movie_list.jsp?resultPage='+i+'&sort='+sort+'&with_genres='+genre+'" id="'+i+'">'+i+'</a></li>');
+    }
+    if(last < total_pages) {
+    	rs2.push('<li class="page-item">');
+    	rs2.push('<a class="page-link" href="movie_list.jsp?resultPage='+next+'&sort='+sort+'&with_genres='+genre+'" id="next" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>');
+    	rs2.push('</li>');
+    }
+ 
+    $('#paging').html(rs2.join(''));
+    $('#paging a').click(function() {
+    	paging(total_results, data_size, page_size, current_page);
+    });
+    $('#'+page+'').parent('li').addClass('active');
+}
 
 $(document).ready(function() {
 	var rs = [];
@@ -115,8 +151,7 @@ $(document).ready(function() {
 
 	$.ajax(settings).done(function (response) {
 		console.log(response);
-  		$('#lead').html('총 '+response.total_results+'개의 작품 검색');
-  		
+		  		
   		var settings2 = {
 		  async: true,
 		  crossDomain: true,
@@ -132,14 +167,15 @@ $(document).ready(function() {
 
 		$.ajax(settings2).done(function (response2) {
 		  	console.log(response2);
+		  	
 			var rs2 = [];
 			rs2.push('<a class="dropdown-item" href="movie_list.jsp">전체</a>');
 		  	for(var i=0; i<response2['genres'].length; i++) {
-		  		rs2.push('<a class="dropdown-item" href="movie_list.jsp?resultPage='+page+'&sort='+sort+'&with_genres='+response2['genres'][i].id+'">'+response2['genres'][i].name+'</a>');
+		  		rs2.push('<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort='+sort+'&with_genres='+response2['genres'][i].id+'">'+response2['genres'][i].name+'</a>');
 		  	}
 		  	$('#dropdownGenreList').html(rs2.join(''));
 		  
-		  	function getGenreName(genre_ids) {
+		  	function getGenresName(genre_ids) {
 				var genreName = [];
 				for(var i=0; i<genre_ids.length; i++) {
 					for(var j=0; j<response2['genres'].length; j++) {
@@ -149,6 +185,22 @@ $(document).ready(function() {
 					}
 				}
 				return genreName;
+			}
+		  	function getGenreName(genre_id) {
+		  		var genreName = '';
+		  		for(var j=0; j<response2['genres'].length; j++) {
+					if(response2['genres'][j].id == genre_id) {
+						genreName = response2['genres'][j].name;
+						break;
+					}
+		  		}
+		  		return genreName;
+		  	}
+		  	
+		  	if(genre == null || genre.length == 0) {
+				$('#lead').html('총 '+response.total_results+'개의 작품 검색');
+			} else {
+				$('#lead').html(getGenreName(genre)+' 장르에 해당하는 총 '+response.total_results+'개의 작품 검색');
 			}
   
 	  		for(var i=0; i<response['results'].length; i++) {
@@ -161,7 +213,7 @@ $(document).ready(function() {
 	  			}
 	  			rs.push('<div class="feature-content d-flex align-items-center justify-content-between">');
 	  			rs.push('<div class="feature-title"><h5>'+response['results'][i]['title']+'</h5>');
-	  			rs.push('<p>장르 | '+getGenreName(response['results'][i]['genre_ids'])+'</p>');
+	  			rs.push('<p>장르 | '+getGenresName(response['results'][i]['genre_ids'])+'</p>');
 	  			rs.push('<p>개봉일 | '+response['results'][i]['release_date']+'</p></div>');
 				rs.push('<div class="feature-favourite"><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>');
 				rs.push('</div></div></div>');
@@ -169,7 +221,17 @@ $(document).ready(function() {
   	  		$('#showMovieList').html(rs.join(''));
 
 		});
+
+  		total_results = response.total_results; 
+  		total_pages = response.total_pages; 
+  		page_size = 10;
+  		current_page = page; 
+  		page_group = Math.ceil(current_page/page_size); 
+  		
+  	 	paging(total_results, page_size, 1);
 	});
+	
+			
 });
 </script>
 </body>

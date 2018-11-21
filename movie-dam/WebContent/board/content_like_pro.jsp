@@ -14,10 +14,10 @@
 %>
 
 <jsp:useBean id="like" class="moviedam.board.ArticlelikeDataBean">
-<jsp:setProperty property="*" name="like" />
+	<jsp:setProperty property="*" name="like" />
 </jsp:useBean>
 <jsp:useBean id="r_like" class="moviedam.board.RestaurantLikeDataBean">
-<jsp:setProperty property="*" name="r_like" />
+	<jsp:setProperty property="*" name="r_like" />
 </jsp:useBean>
 
 <%
@@ -26,18 +26,20 @@
 	String mem_id = request.getParameter("mem_id");
 	String like_type = request.getParameter("currentLike");
 	JSONObject jsonobj = new JSONObject();
+	String ltype = "";
+	int lcount = 0;
 	
 	if(!mem_id.equals("")){ 
-		like.setMem_id(mem_id);
-		like.setLike_type(like_type);
-		String ltype = "";
-		int lcount = 0;
 		
 		if(board_id == 1) {
+			like.setMem_id(mem_id);
+			like.setLike_type(like_type);
 			ArticleDBBean like_db = ArticleDBBean.getInstance();
 			ltype = like_db.insertLike(like);
 			lcount = like_db.getlikeCount(board_id, article_id);
 		} else if(board_id == 2) {
+			r_like.setMem_id(mem_id);
+			r_like.setLike_type(like_type);
 			RestaurantDBBean r_like_db = RestaurantDBBean.getInstance();
 			ltype = r_like_db.insertLike(r_like);
 			lcount = r_like_db.getlikeCount(board_id, article_id);

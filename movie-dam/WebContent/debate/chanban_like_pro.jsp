@@ -29,7 +29,6 @@
 		int lcount = like_db.getlikeCount(cb_id);
 		jsonobj.put("ltype", ltype);
 		jsonobj.put("lcount", lcount);
-		/* int lcount = like_db.getlikeCount(board_id, article_id); */
 
 		response.setContentType("application/json");
     	response.setCharacterEncoding("UTF-8");

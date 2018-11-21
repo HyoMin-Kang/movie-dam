@@ -239,17 +239,17 @@
 			</div>
 </c:if>
 		<div class="form-group row text-right">
-						<div class="col-sm-12">
-			<button type="submit" class="btn btn-sm btn-outline-primary">작성하기</button>
-			<button type="reset" class="btn btn-sm btn-outline-danger">다시작성</button>
-			<c:if test="<%=board_id == 1 %>">
-			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./free_board.jsp'">목록으로</button>
-			</c:if>
-			<c:if test="<%=board_id == 2 %>">
-			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./cinema_restaurant.jsp'">목록으로</button>
-			</c:if>
+			<div class="col-sm-12">
+				<button type="submit" class="btn btn-sm btn-outline-primary">작성하기</button>
+				<button type="reset" class="btn btn-sm btn-outline-danger">다시작성</button>
+				<c:if test="<%=board_id == 1 %>">
+				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./free_board.jsp'">목록으로</button>
+				</c:if>
+				<c:if test="<%=board_id == 2 %>">
+				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./cinema_restaurant.jsp'">목록으로</button>
+				</c:if>
 			</div>
-			</div>
+		</div>
 		</form>
 	</div>
 </div>

@@ -28,7 +28,7 @@
 	</div>
 </div>
 <div class="container">
-	<div class="input-group mb-3">
+	<div class="input-group mb-4">
 		<input class="form-control" type="text" name="searchTheater" id="searchTheater" placeholder="원하시는 주변 장소를 입력하세요.   ex)왕십리 CGV" style="padding-bottom: 10px" onkeypress="if(event.keyCode==13){searchTheateration(); return false;}">
 		<div class="input-group-append">
 			<button class="btn btn-dark" onclick="searchTheateration();">검색</button>

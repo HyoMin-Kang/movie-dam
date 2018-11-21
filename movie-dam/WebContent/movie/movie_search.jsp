@@ -70,6 +70,7 @@ var total_pages = 0; //전체 페이지 수
 var page_size = 10; //페이지 그룹 범위
 var current_page = 0; //보여줄 페이지
 var page_group = 0; //페이지 그룹
+
 function paging(total_results, data_size, page_size, current_page) {
 	var rs2 = [];
 	var last = page_group * page_size;
@@ -135,11 +136,6 @@ $('document').ready(function(){
 			if(response.total_results == 0) {
 		    	rs.push('<div class="alert alert-secondary" role="alert">');
 		    	rs.push('<strong>검색 결과가 없습니다!</strong> 다른 검색어를 입력해 주세요.');
-		    	rs.push('<hr>');
-		    	rs.push('<p>최근 검색어 목록</p>');
-		    	rs.push('<p><a href="#">다크 나이트</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
-		    	rs.push('<p><a href="#">부다페스트</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
-		    	rs.push('<p><a href="#">할로윈</a><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>');
 		    	rs.push('</div>');
 		    	$('#resultList').html(rs.join(''));
 		    } else {

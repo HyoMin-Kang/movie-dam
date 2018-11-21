@@ -25,6 +25,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
 import kr.co.shineware.util.common.model.Pair;
+import moviedam.board.ArticlelikeDataBean;
 
 public class ChanbanDBBean {
 	
@@ -617,5 +618,159 @@ public class ChanbanDBBean {
 		return x;
 	}
 
+	public String getLike_type (int article_id, String mem_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		String type = "";
+		try {
+			conn = getConnection();
+			
+			sql = "select like_type from chanban_like where article_id = ? and mem_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, article_id);
+			pstmt.setString(2, mem_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				type = rs.getString(1);
+			} else {
+				type = "N";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return type;
+	}
 	
+	public String insertLike(ArticlelikeDataBean like) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		String ltype = "";
+		try {
+			
+			conn = getConnection();
+			
+			sql = "select * from chanban_like where and article_id = ? and mem_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, like.getArticle_id());
+			pstmt.setString(2, like.getMem_id());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String type = like.getLike_type();
+				if(type.equals("Y")) {
+					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update like_type = 'N'";
+				} else if(type.equals("N")){
+					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update like_type = 'Y'";
+				}
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, like.getArticle_id());
+				pstmt.setString(2, like.getMem_id());
+				pstmt.setString(3, like.getLike_type());
+				
+			} else {
+				sql = "insert into chanban_like values (?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, like.getArticle_id());
+				pstmt.setString(2, like.getMem_id());
+				pstmt.setString(3, "Y");
+			}			
+			pstmt.executeUpdate();
+			
+			
+			sql = "select like_type from chanban_like where article_id = ? and mem_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, like.getArticle_id());
+			pstmt.setString(2, like.getMem_id());
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				ltype = rs.getString(1);
+			} else {
+				ltype = "N";
+			}
+					
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return ltype;
+	}
+
+	public int getlikeCount(int article_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+
+		int x = 0;
+		try {
+			conn = getConnection();
+
+			sql = "select count(*) from chanban_like where article_id=? and like_type = 'Y'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, article_id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				x = rs.getInt(1);
+			} else {
+				x = 0;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return x;
+	}
 }

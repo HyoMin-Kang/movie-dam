@@ -66,34 +66,35 @@
 			</div>
 </c:if>
 <c:if test="<%=board_id == 4 %>">
-			<div class="form-group">
-				<label for="inputCategory">영화관</label> 
-				<select class="form-control" id="inputCinema" name="cinema">
-					<option value="cgv" selected="selected">CGV</option>
-					<option value="lottecinema">롯데시네마</option>
-					<option value="megabox">메가박스</option>
-					<option value="etc">기타</option>
-				</select>
+			<div class="form-group row">
+				<label for="inputCategory" class="col-sm-2 col-form-label">지역/영화관</label> 
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="inputContent" name="preview_region">
+				</div>
+				<div class="col-sm-5">
+					<select class="form-control" id="inputCinema" name="cinema">
+						<option value="cgv" selected="selected">CGV</option>
+						<option value="롯데시네마">롯데시네마</option>
+						<option value="메가박스">메가박스</option>
+						<option value="기타">기타</option>
+					</select>
+				</div>
 			</div>
-			<div class="form-group col">
+			<div class="form-group row">
 				<label for="inputUrl" class="col-sm-2 col-form-label">원본글 주소</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputUrl" name="original_url">
 				</div>
 			</div>
-			<div class="form-group col">
+			<div class="form-group row">
 				<label for="inputWriter" class="col-sm-2 col-form-label">일시</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="datepicker" name="preview_date">
+					<input type="text" class="form-control datepicker" id="datepicker" name="preview_date">
 				</div>
-			</div>
-			<div class="form-group col">
-				<label for="Textarea">지역</label>
-				<textarea class="form-control" id="inputContent" name="preview_region" rows="1"></textarea>
 			</div>
 </c:if>
 <c:if test="<%=board_id == 5 %>">
-			<div class="form-group col">
+			<div class="form-group row">
 				<label for="inputUrl" class="col-sm-2 col-form-label">원본글 주소</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="inputUrl" name="original_url">
@@ -119,109 +120,111 @@
 							<option value="etc">기타</option>
 						</select>
 					</div>
-							<div class="col-sm-6">
-							<select class="form-control" id="inputArea" name="area">
-							<optgroup label ="[서울]">
-							<option value="강남점" selected="selected">강남점</option>
-							<option value="강변점">강변점</option>
-							<option value="건대입구점">건대입구점</option>
-							<option value="구로점">구로점</option>
-							<option value="대학로점">대학로점</option>
-							<option value="동대문점">동대문점</option>
-							<option value="명동점">명동점</option>
-							<option value="목동점">목동점</option>
-							<option value="미아점">미아점</option>
-							<option value="불광점">불광점</option>
-							<option value="상봉점">상봉점</option>
-							<option value="성신여대점">성신여대점</option>
-							<option value="송파점">송파점</option>
-							<option value="수유점">수유점</option>
-							<option value="신촌점">신촌점</option>
-							<option value="압구정점">압구정점</option>
-							<option value="여의도점">여의도점</option>
-							<option value="영등포점">영등포점</option>
-							<option value="왕십리점">왕십리점</option>
-							<option value="용산점">용산점</option>
-							<option value="중계점">중계점</option>
-							<option value="천호점">천호점</option>
-							<option value="청담점">청담점</option>
-							<option value="피카디리점">피카디리점</option>
-							<option value="하계점">하계점</option>
-							<option value="홍대점">홍대점</option>
-							</optgroup>
-							<optgroup label ="[경기]">
-							<option value="경기광주점">경기광주점</option>
-							<option value="광교상현점">광교상현점</option>
-							<option value="광명철산점">광명철산점</option>
-							<option value="구리점">구리점</option>
-							<option value="김포점">김포점</option>
-							<option value="동백점">동백점</option>
-							<option value="동수원점">동수원점</option>
-							<option value="동탄점">동탄점</option>
-							<option value="배곧점">배곧점</option>
-							<option value="범계점">범계점</option>
-							<option value="부천점">부천점</option>
-							<option value="부천역점">부천역점</option>
-							<option value="북수원점">북수원점</option>
-							<option value="산본점">산본점</option>
-							<option value="소풍점">소풍점</option>
-							<option value="수원점">수원점</option>
-							<option value="시흥점">시흥점</option>
-							<option value="안산점">안산점</option>
-							<option value="안성점">안성점</option>
-							<option value="역곡점">역곡점</option>
-							<option value="오리점">오리점</option>
-							<option value="용인점">용인점</option>
-							<option value="의정부점">의정부점</option>
-							<option value="일산점">일산점</option>
-							<option value="죽전점">죽전점</option>
-							<option value="파주문산점">파주문산점</option>
-							<option value="판교점">판교점</option>
-							<option value="평촌점">평촌점</option>
-							<option value="평택비전점">평택비전점</option>
-							<option value="평택소사점">평택소사점</option>
-							<option value="화정점">화정점</option>
-							</optgroup>
+					<div class="col-sm-6">
+						<select class="form-control" id="inputArea" name="area">
+						<optgroup label ="[서울]">
+						<option value="강남점" selected="selected">강남점</option>
+						<option value="강변점">강변점</option>
+						<option value="건대입구점">건대입구점</option>
+						<option value="구로점">구로점</option>
+						<option value="대학로점">대학로점</option>
+						<option value="동대문점">동대문점</option>
+						<option value="명동점">명동점</option>
+						<option value="목동점">목동점</option>
+						<option value="미아점">미아점</option>
+						<option value="불광점">불광점</option>
+						<option value="상봉점">상봉점</option>
+						<option value="성신여대점">성신여대점</option>
+						<option value="송파점">송파점</option>
+						<option value="수유점">수유점</option>
+						<option value="신촌점">신촌점</option>
+						<option value="압구정점">압구정점</option>
+						<option value="여의도점">여의도점</option>
+						<option value="영등포점">영등포점</option>
+						<option value="왕십리점">왕십리점</option>
+						<option value="용산점">용산점</option>
+						<option value="중계점">중계점</option>
+						<option value="천호점">천호점</option>
+						<option value="청담점">청담점</option>
+						<option value="피카디리점">피카디리점</option>
+						<option value="하계점">하계점</option>
+						<option value="홍대점">홍대점</option>
+						</optgroup>
+						<optgroup label ="[경기]">
+						<option value="경기광주점">경기광주점</option>
+						<option value="광교상현점">광교상현점</option>
+						<option value="광명철산점">광명철산점</option>
+						<option value="구리점">구리점</option>
+						<option value="김포점">김포점</option>
+						<option value="동백점">동백점</option>
+						<option value="동수원점">동수원점</option>
+						<option value="동탄점">동탄점</option>
+						<option value="배곧점">배곧점</option>
+						<option value="범계점">범계점</option>
+						<option value="부천점">부천점</option>
+						<option value="부천역점">부천역점</option>
+						<option value="북수원점">북수원점</option>
+						<option value="산본점">산본점</option>
+						<option value="소풍점">소풍점</option>
+						<option value="수원점">수원점</option>
+						<option value="시흥점">시흥점</option>
+						<option value="안산점">안산점</option>
+						<option value="안성점">안성점</option>
+						<option value="역곡점">역곡점</option>
+						<option value="오리점">오리점</option>
+						<option value="용인점">용인점</option>
+						<option value="의정부점">의정부점</option>
+						<option value="일산점">일산점</option>
+						<option value="죽전점">죽전점</option>
+						<option value="파주문산점">파주문산점</option>
+						<option value="판교점">판교점</option>
+						<option value="평촌점">평촌점</option>
+						<option value="평택비전점">평택비전점</option>
+						<option value="평택소사점">평택소사점</option>
+						<option value="화정점">화정점</option>
+						</optgroup>
 						</select>
-							</div>
-						</div>
-			<div class="form-group row">
-					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
-							<div class="col-sm-10">
-							<div class="input-group mb-3">
-						<input class="form-control" type="text" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button" onclick="search_location();">검색</button>
-						</div>
-				</div>
-				</div>			
-				<div class="col-12">
-					<div class="form-group row">
-						<label for="inputMap" class="col-sm-2 col-form-label"></label>
-			<div class="col-sm-10">
-			<p>지도를 클릭해 해당 위치에 마커를 입력해주세요!</p>
- <div class="col-sm-10 offset-sm-10">		
-				<button class="btn btn-outline-primary" type="button" id="setMarker" style=" bottom: 5px;">입력 완료</button></div>
-				<div class="map_wrap">
-					<div id="map" style="width: 100%; height: 400px; position: relative; overflow: hidden; margin-bottom: 10px;"></div>
-					<div class="hAddr">
-						<span class="title">지도중심기준 주소정보</span> <span id="centerAddr"></span>
 					</div>
 				</div>
-				<div id=box style="height: 70px; position: relative; overflow: hidden;"></div>
-				<input type="hidden" id="startLat" name="start_lat" value="">
-				<input type="hidden" id="startLon" name="start_lon" value="">
-			</div>
-			</div>
-			</div>
-			</div>
+				<div class="form-group row">
+					<label for="inputLoc" class="col-sm-2 col-form-label">장소</label>
+					<div class="col-sm-10">
+						<div class="input-group mb-3">
+							<input class="form-control" type="text" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button" onclick="search_location();">검색</button>
+							</div>
+						</div>
+					</div>			
+					<div class="col-12">
+						<div class="form-group row">
+							<label for="inputMap" class="col-sm-2 col-form-label"></label>
+							<div class="col-sm-10">
+							<p>지도를 클릭해 해당 위치에 마커를 입력해주세요!</p>
+ 							<div class="col-sm-10 offset-sm-10">		
+								<button class="btn btn-outline-primary" type="button" id="setMarker" style=" bottom: 5px;">입력 완료</button></div>
+								<div class="map_wrap">
+									<div id="map" style="width: 100%; height: 400px; position: relative; overflow: hidden; margin-bottom: 10px;"></div>
+										<div class="hAddr">
+											<span class="title">지도중심기준 주소정보</span> <span id="centerAddr"></span>
+										</div>
+								</div>
+								<div id=box style="height: 70px; position: relative; overflow: hidden;"></div>
+								<input type="hidden" id="startLat" name="start_lat" value="">
+								<input type="hidden" id="startLon" name="start_lon" value="">
+							</div>
+						</div>
+					</div>
+				</div>
 </c:if>
+<c:if test="<%=board_id == 1 || board_id == 2%>">
 			<div class="form-group row">
 				<label for="exampleTextarea" class="col-sm-2 col-form-label">내용</label>
 				<div class="col-sm-10">
 				<textarea class="form-control" id="inputContent" name="article_content" rows="10"></textarea>
+				</div>
 			</div>
-			</div>
+</c:if>
 			<div class="form-group row">
 				<label for="exampleInputFile" class="col-sm-2 col-form-label">첨부파일</label> 
 				<div class="col-sm-10">
@@ -418,8 +421,9 @@ $('#setMarker').click(function() {
 
 <script>
 $(function() {
-	$('#datepicker').datepicker({
-		dateFormat: 'yy-mm-dd'
+	$('.datepicker').datepicker({ 
+        autoclose: true,
+        format: 'yyyy/mm/dd'
 	});
 });
 </script>

@@ -7,8 +7,7 @@ public class ArticleDataBean {
     private String article_title;
     private String article_content;
     private Timestamp reg_date;
-    private int article_hits; //조회수
-    private int article_gets; //추천수
+    private int article_hits;
     private String article_file;
     private String category;
    
@@ -48,12 +47,6 @@ public class ArticleDataBean {
 	}
 	public void setArticle_hits(int article_hits) {
 		this.article_hits = article_hits;
-	}
-	public int getArticle_gets() {
-		return article_gets;
-	}
-	public void setArticle_gets(int article_gets) {
-		this.article_gets = article_gets;
 	}
 	public String getCategory() {
 		return category;

@@ -65,4 +65,91 @@ public class IssueDBBean {
 		}
 			
 	}
+	
+	public int getArticleCount() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int x = 0;
+
+		try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("select count(*) from issue");
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				x = rs.getInt(1);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return x;
+	}
+	
+	public List<IssueDataBean> getArticles(int start, int end) throws Exception {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<IssueDataBean> issueList = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "select * from issue order by article_id desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start - 1);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				issueList = new ArrayList<IssueDataBean>(end);
+				do {
+					IssueDataBean issue = new IssueDataBean();
+					issue.setArticle_id(rs.getInt("article_id"));
+					issue.setArticle_title(rs.getString("article_title"));
+					issue.setReg_date(rs.getTimestamp("reg_date"));
+					issue.setOriginal_url(rs.getString("original_url"));
+					issue.setArticle_file(rs.getString("article_file"));
+					
+					issueList.add(issue);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return issueList;
+	}
 }

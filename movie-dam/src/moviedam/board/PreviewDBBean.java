@@ -67,4 +67,94 @@ public class PreviewDBBean {
 				}
 		}
 	}
+	
+	public int getArticleCount() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int x = 0;
+
+		try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("select count(*) from preview");
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				x = rs.getInt(1);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return x;
+	}
+	
+	public List<PreviewDataBean> getArticles(int start, int end) throws Exception {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<PreviewDataBean> previewList = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "select * from preview order by article_id desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start - 1);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				previewList = new ArrayList<PreviewDataBean>(end);
+				do {
+					PreviewDataBean preview = new PreviewDataBean();
+					preview.setArticle_id(rs.getInt("article_id"));
+					preview.setArticle_title(rs.getString("article_title"));
+					preview.setPreview_date(rs.getString("preview_date"));
+					preview.setPreview_region(rs.getString("preview_region"));
+					preview.setReg_date(rs.getTimestamp("reg_date"));
+					preview.setOriginal_url(rs.getString("original_url"));
+					preview.setArticle_file(rs.getString("article_file"));
+					preview.setCinema(rs.getString("cinema"));
+					
+					previewList.add(preview);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return previewList;
+	}
 }
