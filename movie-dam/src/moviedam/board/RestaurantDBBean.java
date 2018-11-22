@@ -907,4 +907,53 @@ public class RestaurantDBBean {
 		}
 		return x;
 	}
+	
+	public RestaurantDataBean getlikeRest(int article_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestaurantDataBean article = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from restaurant where article_id = ? order by article_id desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, article_id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				article = new RestaurantDataBean();
+				do {
+					article = new RestaurantDataBean();
+					article.setArticle_id(rs.getInt("article_id"));
+					article.setArticle_writer(rs.getString("article_writer"));
+					article.setArticle_title(rs.getString("article_title"));
+					article.setArticle_content(rs.getString("article_content"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setArticle_hits(rs.getInt("article_hits"));
+					article.setArticle_file(rs.getString("article_file"));
+					article.setSearch_loc(rs.getString("search_loc"));
+					article.setStart_lat(rs.getFloat("start_lat"));
+					article.setStart_lon(rs.getFloat("start_lon"));
+					article.setTheater(rs.getString("theater"));
+					article.setArea(rs.getString("area"));
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return article;
+	}
 }

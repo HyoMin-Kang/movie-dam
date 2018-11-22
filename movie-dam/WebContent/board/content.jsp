@@ -43,6 +43,21 @@
 
 	  	MemberDBBean mem_db = MemberDBBean.getInstance(); 
 		MemberDataBean profile =  mem_db.getProfile(article.getArticle_writer());
+		
+		String a_category = "";
+		if(article.getCategory().equals("talk")){
+			a_category = "사담";
+		} else if(article.getCategory().equals("movietalk")){			
+			a_category = "영화후기";
+		}else if(article.getCategory().equals("spoiler")){
+			a_category = "스포일러";
+		}else if(article.getCategory().equals("movietmi")){	
+			a_category = "영화TMI";
+		}else if(article.getCategory().equals("boast")){
+			a_category = "자랑하기";
+		}else{
+			a_category = "덕질공간";
+ 		}
 %>
 
 <%
@@ -86,23 +101,26 @@
 		<div class="row justify-content-center">
 				<div class="col-10">
 				<div class="single-listing-content">
-					<h5><span class="badge badge-pill badge-primary"><%=article.getCategory()%></span></h5>
+					<h5><span class="badge badge-pill badge-primary"><%=a_category%></span></h5>
 					<div class="listing-title">
 						<h4><%=article.getArticle_title()%></h4>
 						<span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=profile.getMem_userid()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)</span> 
 						<span><i class="fas fa-eye"></i> <%=article.getArticle_hits()%></span>
 					</div>
-  <hr>
-					<div class="overview-content mt-50" id="overview">
-						<p><%=article.getArticle_content().replace("\r\n", "<br>")%></p>
-					</div>
+  					<hr>
 <%
                      if (article.getArticle_file() != null) {
 %>
-					<img src="/movie-dam/imageFolder/free_board/<%=article.getArticle_file()%>" width="500px">
+					<div class="text-center">
+						<img src="/movie-dam/imageFolder/free_board/<%=article.getArticle_file()%>" width="500px">
+					</div>
 <%
                      }
 %>
+					<div class="overview-content mt-50" id="overview">
+						<p><%=article.getArticle_content().replace("\r\n", "<br>")%></p>
+					</div>
+
 					<div class="text-right" style="padding-bottom:15px;">
 <%
                		if (userid.equals("not")) {
@@ -121,6 +139,7 @@
 						<button type="button" class="btn btn-outline-default btn-sm" onclick="location.href='free_board.jsp?pageNum=<%=pageNum%>&category=<%=category%>'">글목록</button>
 					</div>
 				</div>
+			</div>
 			</div>
 
 			<!-- 댓글 시작 -->
@@ -177,35 +196,27 @@
                   		MemberDataBean writer_profile = mem_db.getProfile(comment.getCmt_writer());
 %>
 				<form name="updatecomment" method="post" action="contentPro.jsp">
-<%
-               		if(comment.getCmt_restep() != 0){
-%>						
-						<hr>
-						<div class="form-group row">
-						    <label class="col-sm-3 col-form-label text-right"><img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="128"></label>
-						    <div class="col-sm-9">
-						      <b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)<br>
-						      <%=comment.getCmt_content()%>
-							</div>
+				<% if(comment.getCmt_restep() != 0){ %>						
+					<hr>
+					<div class="form-group row">
+					    <label class="col-sm-3 col-form-label text-right"><i class="ni ni-curved-next"></i> <img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="64"></label>
+					    <div class="col-sm-9">
+					      <b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)<br>
+					      <%=comment.getCmt_content()%>
 						</div>
-<%                   
-               		}else{
-%>
-						<hr>
-						<div class="form-group row">	
-							<label class="col-sm-2 col-form-label text-center">
-								<img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="128">
-							</label>
-							<div class="col-sm-10">
-								<b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)<br>
-								<%=comment.getCmt_content()%>
-							</div>
+					</div>
+				<% }else{ %>
+					<hr>
+					<div class="form-group row">	
+						<label class="col-sm-2 col-form-label text-center">
+							<img src="/movie-dam/assets/img/profile-img/<%=writer_profile.getMem_img() %>" width="64">
+						</label>
+						<div class="col-sm-10">
+							<b><%=comment.getCmt_writer()%></b>(<%=comment.getCmt_date()%>)<br>
+							<%=comment.getCmt_content()%>
 						</div>
-
-						
-<%                   
-                  }
-%>
+					</div>					
+				<% } %>
 <%
 				if(comment.getCmt_restep() != 0){
            			if (userid.equals(comment.getCmt_writer()) ) {
@@ -215,83 +226,76 @@
 							<button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
 						</div>
 <%					} else { %>
-					<div class="col-sm-12 text-right">
-					    <button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled" style="display:none;">수정</button>
-						<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
-					</div>
+						<div class="col-sm-12 text-right">
+						    <button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled" style="display:none;">수정</button>
+							<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
+						</div>
 <%                   
 					}
                
-           		}else{
+           		} else { 
 %>
-
 					<div class="col-sm-12 text-right">
 <%
-						if (userid.equals(comment.getCmt_writer()) ) {
+					if (userid.equals(comment.getCmt_writer()) ) {
 %>
-						    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=category%>');">수정</button>
-							<button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
+					    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>, '<%=category%>');">수정</button>
+						<button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>'">삭제</button>
 <%
-						} else {
+					} else {
 %>
-							<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled" style="display:none;">수정</button>
-							<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled" style="display:none;">수정</button>
+						<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
 <%						
-						} 
+					} 
 %>
-							 <a class="btn btn-outline-default btn-sm" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display: none">
-
-								<input type="hidden" name="cmt_id" value="<%=comment.getCmt_id()%>"> 
-									<input type="hidden" name="cmt_parent" value="<%=comment.getCmt_parent()%>">
-									<input type="hidden" name="cmt_restep" value="<%=comment.getCmt_restep()%>"> 
-									<input type="hidden" name="cmt_relevel" value="<%=comment.getCmt_relevel()%>">
-									 
-									<input type="hidden" name="cmt_ref" value="<%=article_id%>">
-									<input type="hidden" name="pageNum" value="<%=pageNum%>">
-									<input type="hidden" name="cmt_writer" value="<%=userid%>">
-									<input type="hidden" name="userid" value="<%=userid%>">
-									<input type="hidden" name="board_id" value="<%=board_id%>">
-									<input type="hidden" name="category" value="<%=category%>">
+					 	<a class="btn btn-outline-default btn-sm" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display: none">
 	
-								<div class="card">
-								  <div class="card-body">
-								    <div class="form-group text-center">reply</div>
-								    <hr>
-			    				
-				    				<div class="form-group row">
-										<label class="col-sm-12" ></label>
-									    <label class="col-sm-2 col-form-label text-center"><%=userid%></label>
-									    <div class="col-sm-10 text-left">
-									      <textarea class="form-control" name="cmt_content"></textarea>
-									    </div>
-									 </div>
-								 
-									 <div class="form-group row text-right">
-									    <div class="col-sm-12">
-									      <button type="submit" class="btn btn-outline-default btn-sm">댓글작성</button>
-									      <button type="reset" class="btn btn-outline-danger btn-sm">다시입력</button>
-									    </div>
-									 </div>
-									  
-									</div>
-								</div>
-									
+						<input type="hidden" name="cmt_id" value="<%=comment.getCmt_id()%>"> 
+						<input type="hidden" name="cmt_parent" value="<%=comment.getCmt_parent()%>">
+						<input type="hidden" name="cmt_restep" value="<%=comment.getCmt_restep()%>"> 
+						<input type="hidden" name="cmt_relevel" value="<%=comment.getCmt_relevel()%>">
+						<input type="hidden" name="cmt_ref" value="<%=article_id%>">
+						<input type="hidden" name="pageNum" value="<%=pageNum%>">
+						<input type="hidden" name="cmt_writer" value="<%=userid%>">
+						<input type="hidden" name="userid" value="<%=userid%>">
+						<input type="hidden" name="board_id" value="<%=board_id%>">
+						<input type="hidden" name="category" value="<%=category%>">
+
+						<div class="card">
+							<div class="card-body">
+							    <div class="form-group text-center">reply</div>
+							    <hr>
+		    				
+			    				<div class="form-group row">
+									<label class="col-sm-12" ></label>
+								    <label class="col-sm-2 col-form-label text-center"><%=userid%></label>
+								    <div class="col-sm-10 text-left">
+								      <textarea class="form-control" name="cmt_content"></textarea>
+								    </div>
+								 </div>
+							 
+								 <div class="form-group row text-right">
+								    <div class="col-sm-12">
+								      <button type="submit" class="btn btn-outline-default btn-sm">댓글작성</button>
+								      <button type="reset" class="btn btn-outline-danger btn-sm">다시입력</button>
+								    </div>
+								 </div>
+								  
 							</div>
 						</div>
+						</div>
+					</div>
 <%                   
               	}
 	    }
 	}
 %>
 
-<%
+			</form>
+		</div>
+<% } catch (Exception e) { } %>
 
-                     } catch (Exception e) {
-
-                     }
-%>
-
-			
 	</div>
 </section>
 
@@ -363,17 +367,14 @@ $(document).ready(function() {
       });
    });
    
+   $('#like').click(function(){
+      if($('#likeIcon').hasClass('far') == true) {
+         $('#likeIcon').toggleClass('animated rubberBand');
+      } else {
+         $('#likeIcon').removeClass('animated rubberBand');
+      }
+   });
 });
-</script>
-
-<script>
-$(document).ready(function() {
-	$('#like').click(function(){
-		$('#likeIcon').toggleClass("animated bounce",function(){
-			$(this).remove(); 
-		});
-	})
-});  
 </script>
 
 </body>

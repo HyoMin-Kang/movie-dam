@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="moviedam.debate.ChanbanDBBean"%>
+<%@ page import="moviedam.debate.ChanbanDataBean"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화 상세";
 	String id = request.getParameter("id");
 	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
+	
+	try {
+		ChanbanDBBean chanban_db = ChanbanDBBean.getInstance(); 
+		ArrayList<ChanbanDataBean> chanbanList = chanban_db.getRelatedArticle(id);
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -41,6 +48,7 @@
                                 <li class="active"><a href="#overview">기본 정보</a></li>
                                 <li><a href="#credit">출연·제작</a></li>
                                 <li><a href="#trailer">예고편</a></li>
+                                <li><a href="#related">관련 토론</a></li>
                                 <li><a href="#similar" id="li_similar">유사한 영화</a></li>
                             </ul>
                         </nav>
@@ -77,6 +85,47 @@
 	                    	<iframe id="showVideo" class="embed-responsive-item" allowfullscreen></iframe>
 	                    </div>	
 	                </div>
+	                <div class="listing-reviews-area mt-100" id="related">
+	                    <h4>관련 토론</h4>
+	                    <div class="row">
+	                    <%
+							if (chanbanList != null && chanbanList.size() > 0) {
+						%>
+							<table class="table table-sm table-hover">
+								<colgroup>
+									<col width="*">
+									<col width="15%">
+									<col width="10%">
+									<col width="25%">
+								</colgroup>
+								<thead>
+									<tr align="center">
+										<th scope="col">제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col">조회수</th>
+										<th scope="col">작성일</th>
+									</tr>
+								</thead>
+						<% 			
+							for (int i = 0; i < chanbanList.size(); i++) {
+								ChanbanDataBean chanban = chanbanList.get(i);
+							
+						%>
+								<tbody>
+									<tr>
+										<td class="text-center"><a href="/movie-dam/debate/chanban_content.jsp?cb_id=<%=chanban.getCb_id()%>&pageNum=1"><%=chanban.getCb_title()%></a></td>
+										<td class="text-center"><%=chanban.getCb_writer() %></td>
+										<td class="text-center"><%=chanban.getCb_hits() %></td>
+										<td class="text-center"><%=chanban.getReg_date() %></td>
+									</tr>
+								</tbody>
+						<%
+							}
+						%>
+							</table>
+						<% } %>
+	                    </div>
+	                </div>
 	                <div class="listing-menu-area mt-100" id="similar">
 	                    <h4>유사한 영화</h4>
 	                    <div class="row" id="similar_movie"></div>
@@ -89,7 +138,9 @@
 	</div>
 </section>
 
-
+<%
+	} catch(Exception e){ }
+%>
 
 <jsp:include page="/module/footer.jsp" flush="false"/>
 
@@ -98,11 +149,12 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 var api_key = '<%=api_key%>';
+var id = '<%=id%>';
 $(document).ready(function() {
 	var settings = {
 		async: true,
 	  	crossDomain: true,
-	  	url: 'https://api.themoviedb.org/3/movie/'+<%=id%>+'',
+	  	url: 'https://api.themoviedb.org/3/movie/'+id+'',
 		method: 'GET',
 	  	data: {
 		  	'language': 'ko-KR',
@@ -133,7 +185,7 @@ $(document).ready(function() {
 	 	var settings2 = {
 			async: true,
 			crossDomain: true,
-			url: 'https://api.themoviedb.org/3/movie/'+<%=id%>+'/credits',
+			url: 'https://api.themoviedb.org/3/movie/'+id+'/credits',
 			method: 'GET',
 			headers: {},
 			data: {
@@ -203,7 +255,7 @@ $(document).ready(function() {
 			var settings3 = {
 			  async: true,
 			  crossDomain: true,
-			  url: 'https://api.themoviedb.org/3/movie/'+<%=id%>+'/similar',
+			  url: 'https://api.themoviedb.org/3/movie/'+id+'/similar',
 			  method: 'GET',
 			  headers: {},
 			  data: {

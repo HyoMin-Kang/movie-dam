@@ -20,7 +20,7 @@ public class ChanbanlikeDataBean {
 	public String getCb_like_type() {
 		return cb_like_type;
 	}
-	public void setLike_type(String cb_like_type) {
+	public void setCb_like_type(String cb_like_type) {
 		this.cb_like_type = cb_like_type;
 	}
 	

@@ -5,6 +5,16 @@
 <%@ page import="moviedam.member.MemberDataBean" %>
 <%@ page import="moviedam.member.FollowDBBean" %>
 <%@ page import="moviedam.member.FollowDataBean" %>
+<%@ page import="moviedam.member.ArticlelikeDBBean" %>
+<%@ page import="moviedam.board.ArticlelikeDataBean" %>
+<%@ page import="moviedam.board.RestaurantLikeDataBean" %>
+<%@ page import="moviedam.debate.ChanbanlikeDataBean" %>
+<%@ page import="moviedam.board.ArticleDataBean" %>
+<%@ page import="moviedam.board.ArticleDBBean" %>
+<%@ page import="moviedam.board.RestaurantDBBean" %>
+<%@ page import="moviedam.board.RestaurantDataBean" %>
+<%@ page import="moviedam.debate.ChanbanDBBean" %>
+<%@ page import="moviedam.debate.ChanbanDataBean" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String userid = (String)session.getAttribute("userid");
@@ -12,6 +22,10 @@
 	String fol_type = "";
 	int follower_cnt = 0;
 	int following_cnt = 0;
+	int a_like_cnt = 0;
+	int r_like_cnt = 0;
+	int c_like_cnt = 0;
+	int like_cnt = 0;
 	String birth = "";
 	
 	try{
@@ -23,6 +37,22 @@
 		followerList = fol_db.getFollowers(mem_userid);
 		follower_cnt = fol_db.getFollowerCount(mem_userid);
 		following_cnt = fol_db.getFollowingCount(mem_userid);
+		fol_type =  fol_db.getFol_type(userid,mem_userid);
+		
+		ArticlelikeDBBean like_db = ArticlelikeDBBean.getInstance(); 
+		
+		ArrayList<ArticlelikeDataBean> articleList = null;
+		ArrayList<RestaurantLikeDataBean> restaurantList = null;
+		ArrayList<ChanbanlikeDataBean> chanbanList = null;
+		articleList = like_db.getlikeArticles(mem_userid);
+		restaurantList = like_db.getlikeRestaurants(mem_userid);
+		chanbanList = like_db.getlikeChanbans(mem_userid);
+		
+		a_like_cnt = like_db.getArticleLikeCount(mem_userid);
+		r_like_cnt = like_db.getRestLikeCount(mem_userid);
+		c_like_cnt = like_db.getChanbanLikeCount(mem_userid);
+		
+		like_cnt = a_like_cnt + r_like_cnt + c_like_cnt;
 		
 		String title = user_profile.getMem_nickname()+"님의 프로필";
 		birth = user_profile.getMem_birth();
@@ -84,8 +114,8 @@
 								</a>
 							</div>
 							<div>
-								<a href="#"> 
-									<span class="heading">26</span> 
+								<a href="profile_like.jsp?mem_userid=<%=mem_userid%>"> 
+									<span class="heading"><%=like_cnt %></span> 
 									<span class="description">좋아요</span>
 								</a>
 							</div>

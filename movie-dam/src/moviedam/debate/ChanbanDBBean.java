@@ -64,16 +64,7 @@ public class ChanbanDBBean {
 		
 		BufferedReader reader = null;
 		PrintWriter writer = null;
-		try {
-			conn = getConnection();
-
-			sql = "select count(*) from chanban";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				docsSize = rs.getInt(1)+1;
-			}
-			
+		try {			
 			//형태소 분석
 			doc = new ArrayList<String>();
 			content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
@@ -116,6 +107,7 @@ public class ChanbanDBBean {
 			}
 			System.out.println(indexMap);
 			
+			docsSize = indexMap.size();
 			//tf-idf 계산
 			for(String term : doc) {
 				int docsCount = indexMap.get(term);
@@ -772,5 +764,98 @@ public class ChanbanDBBean {
 				}
 		}
 		return x;
+	}
+	
+	public ChanbanDataBean getlikeChanban(int cb_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ChanbanDataBean chanban = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from chanban where cb_id = ? order by cb_id desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cb_id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				chanban = new ChanbanDataBean();
+				chanban.setCb_id(rs.getInt("cb_id"));
+				chanban.setCb_writer(rs.getString("cb_writer"));
+				chanban.setCb_title(rs.getString("cb_title"));
+				chanban.setCb_movie(rs.getString("cb_movie"));
+				chanban.setCb_content(rs.getString("cb_content"));
+				chanban.setCb_tag(rs.getString("cb_tag"));
+				chanban.setReg_date(rs.getTimestamp("reg_date"));
+				chanban.setCb_hits(rs.getInt("cb_hits"));
+				chanban.setCb_file(rs.getString("cb_file"));
+				chanban.setCb_type(rs.getString("cb_type"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return chanban;
+	}
+	
+	public ArrayList<ChanbanDataBean> getRelatedArticle(String movie_code) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ChanbanDataBean> chanbanList = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from chanban where cb_movie like concat('%(', ?, ')')";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, movie_code);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				chanbanList = new ArrayList<ChanbanDataBean>();
+				do {
+					ChanbanDataBean chanban = new ChanbanDataBean();
+					chanban.setCb_id(rs.getInt("cb_id"));
+					chanban.setCb_writer(rs.getString("cb_writer"));
+					chanban.setCb_title(rs.getString("cb_title"));
+					chanban.setCb_movie(rs.getString("cb_movie"));
+					chanban.setCb_content(rs.getString("cb_content"));
+					chanban.setCb_tag(rs.getString("cb_tag"));
+					chanban.setReg_date(rs.getTimestamp("reg_date"));
+					chanban.setCb_hits(rs.getInt("cb_hits"));
+					chanban.setCb_file(rs.getString("cb_file"));
+					chanban.setCb_type(rs.getString("cb_type"));
+					
+					chanbanList.add(chanban);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return chanbanList;
 	}
 }

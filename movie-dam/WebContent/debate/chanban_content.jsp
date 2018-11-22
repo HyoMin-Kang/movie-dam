@@ -44,6 +44,11 @@
 		String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");		
 		String cb_tag = chanban.getCb_tag();
 		pageContext.setAttribute("cb_tag", cb_tag);
+		
+		String cb_movie[] = chanban.getCb_movie().split("\\(");
+		String cb_movie_name = cb_movie[0];
+		String cb_movie2[] = cb_movie[1].split("\\)");
+		String cb_movie_code = cb_movie2[0];
 %>
 
 <%
@@ -97,19 +102,23 @@
 						<span><i class="fas fa-eye"></i> <%=chanban.getCb_hits()%></span>
 					</div>
 					<hr>
+					
+<%
+                     if (chanban.getCb_file() != null) {
+%>
+					<div class="text-center">
+						<img src="/movie-dam/imageFolder/debate_chanban/<%=chanban.getCb_file()%>" width="480px">
+					</div>
+<%
+                     }
+%>
 					<div class="overview-content mt-50" id="overview">
 						<p><%=chanban.getCb_content().replace("\r\n", "<br>")%></p>
 					</div>
 
-<%
-                     if (chanban.getCb_file() != null) {
-%>
-					<img src="/movie-dam/imageFolder/debate_chanban/<%=chanban.getCb_file()%>" width="250px">
-<%
-                     }
-%>
 					<hr>
 					<div class="hashtag mb-3">
+						<p>영화 <a href="/movie-dam/movie/movie_detail.jsp?id=<%=cb_movie_code%>"><%=cb_movie_name %></a></p>
 						<c:set var="tags" value="${fn:split(cb_tag, '|')}"></c:set>
 						<c:forEach var="item" items="${tags}">
 						    <a href="#" class="badge badge-primary">#${item}</a>
@@ -344,23 +353,15 @@
 <jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
-$(document).ready(function() {
-	  $('.summernote').summernote({
-		  height:150
-	  });
-
-});
- </script>
-
-<script>
 function updateOpen(cb_cmt_id, cb_id, pageNum) {
    url = 'chanban_updateCmtForm.jsp?cb_cmt_id=' + cb_cmt_id + '&cb_id=' + cb_id + '&pageNum=' + pageNum;
    window.open(url, '댓글 수정', 'height=400, width=1000, scrollbars=no, resizable=no');
 }
-</script>
-
-<script>
 $(document).ready(function() {
+	$('.summernote').summernote({
+		height:150
+	});
+	
    var rs = [];
    var cb_like_type = '<%=cb_like_type%>';
    var like_count = <%=like_count%>;
@@ -412,6 +413,13 @@ $(document).ready(function() {
       });
    });
    
+   $('#like').click(function(){
+      if($('#likeIcon').hasClass('far') == true) {
+         $('#likeIcon').toggleClass('animated rubberBand');
+      } else {
+         $('#likeIcon').removeClass('animated rubberBand');
+      }
+   });
 });
 </script>
 

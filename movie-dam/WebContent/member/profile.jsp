@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="moviedam.member.MemberDBBean" %>
-<%@ page import="moviedam.member.MemberDataBean" %>
-<%@ page import="moviedam.member.FollowDBBean" %>
-<%@ page import="moviedam.member.FollowDataBean" %>
+<%@ page import="moviedam.member.MemberDBBean"%>
+<%@ page import="moviedam.member.MemberDataBean"%>
+<%@ page import="moviedam.member.FollowDBBean"%>
+<%@ page import="moviedam.member.FollowDataBean"%>
+<%@ page import="moviedam.board.ArticleDBBean"%>
+<%@ page import="moviedam.board.ArticleDataBean"%>
+<%@ page import="moviedam.member.ArticlelikeDBBean" %>
 
 <%
 	request.setCharacterEncoding("utf-8");
@@ -15,6 +19,9 @@
 	int follower_cnt = 0;
 	int following_cnt = 0;
 	int like_cnt = 0;
+	int a_like_cnt = 0;
+	int r_like_cnt = 0;
+	int c_like_cnt = 0;
 	String birth = "";
 	
 	try{
@@ -22,9 +29,21 @@
 		MemberDataBean profile =  mem_db.getProfile(mem_userid);
 		FollowDBBean fol_db = FollowDBBean.getInstance(); 
 		
+		ArticlelikeDBBean like_db = ArticlelikeDBBean.getInstance(); 
+		
+		ArrayList<ArticleDataBean> articleList = null;
+		ArticleDBBean article_db = ArticleDBBean.getInstance();
+		articleList = article_db.getwriteArticles(mem_userid);
+		
 		fol_type =  fol_db.getFol_type(userid,mem_userid);
 		follower_cnt = fol_db.getFollowerCount(mem_userid);
 		following_cnt = fol_db.getFollowingCount(mem_userid);
+		
+		a_like_cnt = like_db.getArticleLikeCount(mem_userid);
+		r_like_cnt = like_db.getRestLikeCount(mem_userid);
+		c_like_cnt = like_db.getChanbanLikeCount(mem_userid);
+		
+		like_cnt = a_like_cnt + r_like_cnt + c_like_cnt; 
 
 		String title = profile.getMem_nickname()+"님의 프로필";
 		birth = profile.getMem_birth();
@@ -92,10 +111,10 @@
                     </a>
                   </div>
                   <div>
-                  	<a href="#">
-	                    <span class="heading">26</span>
-	                    <span class="description">좋아요</span>
-                    </a>
+                  	<a href="profile_like.jsp?mem_userid=<%=mem_userid%>"> 
+						<span class="heading"><%=like_cnt %></span> 
+						<span class="description">좋아요</span>
+					</a>
                   </div>
                 </div>
               </div>
@@ -112,7 +131,6 @@
                 	<div class="nav-wrapper">
 						<ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
 							<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#profile" role="tab" aria-selected="true">프로필</a></li>
-							<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="#tendency" role="tab" aria-selected="false">성향</a></li>
 							<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-toggle="tab" href="#activiry" role="tab" aria-selected="false">활동</a></li>
 						</ul>
 					</div>
@@ -137,12 +155,42 @@
 						                <dd class="col-sm-8 text-left"><%=profile.getJoin_date() %></dd>
 					              	</dl>
 					            </div>
-					            <div class="tab-pane fade" id="tendency" role="tabpanel">
-					                <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-					            </div>
 					            <div class="tab-pane fade" id="activiry" role="tabpanel">
-					                <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-					            </div>
+									<%
+										if (articleList != null && articleList.size() > 0) {
+									%>
+										<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th scope="col">제목</th>
+												<th scope="col">날짜</th>
+												<th scope="col">조회수</th>
+											</tr>
+										</thead>
+									<%			
+											
+											for (int i = 0 ; i < articleList.size() ; i++) {
+												   ArticleDataBean article = articleList.get(i);
+									%>
+										<tbody>
+											<tr>
+												<td><a href="/movie-dam/board/content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=1&board_id=1&category=all"><%=article.getArticle_title() %></a></td>
+												<td><%=article.getReg_date() %></td>
+												<td><%=article.getArticle_hits() %></td>
+											</tr>
+										</tbody>
+									<%
+											}
+									%>
+										</table>
+									<%		
+										}else{
+									%>
+										<p class="description">없어요</p>
+									<%		
+										}
+				            		%>
+					            </div>		
 					        </div>
 					    </div>
 					</div>

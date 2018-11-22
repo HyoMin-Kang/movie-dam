@@ -29,13 +29,13 @@
 <body>
 
 <div class="container">
-	<div class="row mb-5">
+	<div class="row mt-4 mb-4 justify-content-center">
 		<form id="searchForm" action="searchMovie.jsp">
 		<div class="input-group mb-3">
 			<% if(query.equals("")) { %>
-				<input type="text" class="form-control" id="searchMovie" name="query" placeholder="찾고 싶은 영화 제목을 검색해 보세요.">
+				<input type="text" class="form-control" id="searchMovie" name="query" placeholder="찾고 싶은 영화 제목을 검색해 보세요." size="36">
 			<% } else { %>
-				<input type="text" class="form-control" id="searchMovie" name="query" value="<%=query%>">
+				<input type="text" class="form-control" id="searchMovie" name="query" value="<%=query%>" size="36">
 			<% } %>
 			<div class="input-group-append">
 				<input class="btn btn-primary" type="submit" value="검색">

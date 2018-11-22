@@ -120,7 +120,7 @@
 	<table class="table table-hover">
 		<colgroup>
 			<col width="8%">
-			<col width="8%">
+			<col width="10%">
 			<col width="*">
 			<col width="10%">
 			<col width="20%">
@@ -154,7 +154,20 @@
 	%>
 			<tr>
 			    <td class="text-center"><%=number--%></td>
-			    <td class="text-center"><%=article.getCategory()%></td>
+			    
+ 		<% if(article.getCategory().equals("talk")){ %>
+				<td class="text-center">사담</td>
+		<% }else if(article.getCategory().equals("movietalk")){ %>				
+				<td class="text-center">영화후기</td>
+		<% }else if(article.getCategory().equals("spoiler")){ %>
+				<td class="text-center">스포일러</td>
+		<% }else if(article.getCategory().equals("movietmi")){ %>		
+				<td class="text-center">영화TMI</td>
+		<% }else if(article.getCategory().equals("boast")){ %>
+				<td class="text-center">자랑하기</td>
+		<% }else{ %>
+				<td class="text-center">덕질공간</td>
+		<% } %>
 	      		<td><a href="content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=1&category=<%=category%>"><%=article.getArticle_title()%></a></td>
 	    		<td class="text-center"><%=article.getArticle_writer()%></td>
 				<td class="text-center"><%=sdf.format(article.getReg_date())%></td>

@@ -813,4 +813,96 @@ public class ArticleDBBean {
 		}
 		return x;
 	}
+	
+	public ArrayList<ArticleDataBean> getwriteArticles(String mem_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ArticleDataBean> articleList = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from article where article_writer=? order by article_id desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mem_id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleList = new ArrayList<ArticleDataBean>();
+				do {
+					ArticleDataBean article = new ArticleDataBean();
+					article.setArticle_id(rs.getInt("article_id"));
+					article.setArticle_writer(rs.getString("article_writer"));
+					article.setArticle_title(rs.getString("article_title"));
+					article.setArticle_content(rs.getString("article_content"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setArticle_hits(rs.getInt("article_hits"));
+					article.setArticle_file(rs.getString("article_file"));
+					article.setCategory(rs.getString("category"));
+
+					articleList.add(article);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return articleList;
+	}
+	
+	public ArticleDataBean getlikeArticle(int article_id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArticleDataBean article = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select * from article where article_id = ? order by article_id desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, article_id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				article = new ArticleDataBean();
+				do {
+					article = new ArticleDataBean();
+					article.setArticle_id(rs.getInt("article_id"));
+					article.setArticle_writer(rs.getString("article_writer"));
+					article.setArticle_title(rs.getString("article_title"));
+					article.setArticle_content(rs.getString("article_content"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setArticle_hits(rs.getInt("article_hits"));
+					article.setArticle_file(rs.getString("article_file"));
+					article.setCategory(rs.getString("category"));
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return article;
+	}
 }

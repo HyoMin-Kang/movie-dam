@@ -64,6 +64,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-heading dark text-center">
+					<span></span>
 					<h4>Pro and con debate</h4>
 					<p>영화를 주제로 한 다양한 찬반 토론 <%=count%>개가 진행중입니다.</p><br>
 				</div>
@@ -99,30 +100,28 @@
 			if (count == 0) {
 %>
 			<div class="alert alert-danger" role="alert">게시판에 저장된 글이 없습니다.</div>
-
 <%
 			} else {		
 %>
 			<div class="row justify-content-center">
-				<!-- Single Features Area -->
 				<div class="col-12">
 <%
-						int a = count / pageSize + (count % pageSize == 0 ? 0 : 1); //전체페이지 수 
-							if (Integer.parseInt(pageNum) > a) {
+					int a = count / pageSize + (count % pageSize == 0 ? 0 : 1); //전체페이지 수 
+					if (Integer.parseInt(pageNum) > a) {
 %>
-					<jsp:forward page="error.jsp" />
+						<jsp:forward page="error.jsp" />
 <%
-							}
-							
-							for (int i = 0; i < chanbanList.size(); i++) {
-								ChanbanDataBean chanban = chanbanList.get(i);
-								String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");		
-								String cb_tag = chanban.getCb_tag();
-								pageContext.setAttribute("cb_tag", cb_tag);
-								
-								ccount = cb_comment_db.getChanbanCmtCount(chanban.getCb_id());
-								procount = cb_comment_db.getChanbanProCount(chanban.getCb_id());
-								concount = cb_comment_db.getChanbanConCount(chanban.getCb_id());
+					}
+						
+					for (int i = 0; i < chanbanList.size(); i++) {
+						ChanbanDataBean chanban = chanbanList.get(i);
+						String textWithoutTag = chanban.getCb_content().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");		
+						String cb_tag = chanban.getCb_tag();
+						pageContext.setAttribute("cb_tag", cb_tag);
+						
+						ccount = cb_comment_db.getChanbanCmtCount(chanban.getCb_id());
+						procount = cb_comment_db.getChanbanProCount(chanban.getCb_id());
+						concount = cb_comment_db.getChanbanConCount(chanban.getCb_id());
 %>	
 					<ul class="list-unstyled">
 						<li class="media">
@@ -154,17 +153,19 @@
 						</li>
 					</ul>
 					<hr>
-	
 <%
-						}
+					}
+							
 %>
 				</div>
 			</div>
-			
-		
-		<div class="form-group row d-flex justify-content-end">
+<%			
+			} 
+%>
+		<div class="row mb-3 mr-2 d-flex justify-content-end">
 			<button class="btn btn-dark" onclick="document.location.href='chanban_writeForm.jsp?cb_writer=${sessionScope.userid}'">글쓰기</button>
 		</div>
+		
 		<nav aria-label="Page navigation">
 			<ul class="pagination justify-content-center">
 <%
@@ -221,9 +222,6 @@
 		
 			</ul>
 		</nav>
-<%
-			}	
-%>
 </div>
 	
 <% } catch (Exception e) { } %>

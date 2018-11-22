@@ -15,7 +15,7 @@ public class Analyze {
 	}
 	
 	public double idf(int docsCount, int docsSize) {
-		return (double)docsSize / (1+docsCount);
+		return Math.log(docsSize / (1+docsCount));
 	}
 	
 	public double tfIdf(List<String> doc, int docsCount, int docsSize, String term) {
