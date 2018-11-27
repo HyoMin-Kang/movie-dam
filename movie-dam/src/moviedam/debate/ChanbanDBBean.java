@@ -3,8 +3,10 @@ package moviedam.debate;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,7 +118,8 @@ public class ChanbanDBBean {
 				System.out.println("term:" + term + ", tf-idf:" + tfidf);
 			}
 
-			writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			//writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
 			for(String key : indexMap.keySet()) {
 				writer.println(key + "=" + indexMap.get(key));
 				writer.flush();

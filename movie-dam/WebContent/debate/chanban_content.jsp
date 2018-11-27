@@ -26,8 +26,6 @@
    int col1 = 0;
    int col2 = 0;
 
-%>
-<%
    int cb_id = Integer.parseInt(request.getParameter("cb_id"));
    String pageNum = request.getParameter("pageNum");
 
@@ -78,7 +76,7 @@
 <jsp:include page="/module/nav.jsp" flush="false" />
 
 <!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 <!-- ***** Breadcumb Area End ***** -->
 
 <section class="dorne-single-listing-area section-padding-100">
@@ -341,11 +339,7 @@
 				</form>
 			</div>	
 <%
-                   
-
-	} catch (Exception e) {
-
-		}
+    } catch (Exception e) { }
 %>
 	</div>
 </section>

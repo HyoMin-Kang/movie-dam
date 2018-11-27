@@ -83,7 +83,7 @@
 
 <!-- ***** Breadcumb Area Start ***** -->
 <div class="breadcumb-area bg-img bg-overlay"
-   style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+   style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 <!-- ***** Breadcumb Area End ***** -->
 
 <section class="dorne-single-listing-area section-padding-100">
@@ -102,8 +102,8 @@
          <div class="col-12 col-lg-8">
             <div class="single-listing-content">
                	<h5> 
-               		<a href="#"><span class="badge badge-pill badge-primary"><%=article.getTheater()%></span></a>
-                 	<a href="#"><span class="badge badge-pill badge-info"><%=article.getArea()%></span></a>
+               		<a href="/movie-dam/board/cinema_restaurant.jsp?theater=<%=article.getTheater()%>"><span class="badge badge-pill badge-primary"><%=article.getTheater()%></span></a>
+                 	<a href="/movie-dam/board/cinema_restaurant.jsp?theater=all&option=area&search=<%=article.getArea()%>"><span class="badge badge-pill badge-info"><%=article.getArea()%></span></a>
                	</h5>
                	<div class="listing-title">
                   	<h4><%=article.getArticle_title()%></h4>

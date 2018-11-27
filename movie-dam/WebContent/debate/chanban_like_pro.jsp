@@ -22,7 +22,7 @@
 	
 	if(!mem_id.equals("")){ 
 		like.setMem_id(mem_id);
-		like.setLike_type(like_type);
+		like.setCb_like_type(like_type);
 		
 		ChanbanCommentDBBean like_db = ChanbanCommentDBBean.getInstance();
 		String ltype = like_db.insertLike(like);

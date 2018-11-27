@@ -13,7 +13,7 @@
 
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 
 <section class="dorne-listing-destinations-area section-padding-100-50">
 <div class="container">

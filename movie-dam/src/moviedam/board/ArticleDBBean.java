@@ -92,81 +92,20 @@ public class ArticleDBBean {
 				} else if (option.equals("article_writer")) {
 					pstmt = conn.prepareStatement("select count(*) from article where article_writer LIKE '%" + search + "%'");
 				}
-			} else if (category.equals("talk")) {
+			} else {
 				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'talk'");
+					pstmt = conn.prepareStatement("select count(*) from article where category = '"+category+"'");
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'talk' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from article where category = '"+category+"' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'talk' and article_title LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from article where category = '"+category+"' and article_title LIKE '%" + search + "%'");
 				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'talk' and article_content LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from article where category = '"+category+"' and article_content LIKE '%" + search + "%'");
 				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'talk' and article_writer LIKE '%" + search + "%'");
-				}
-			} else if (category.equals("movietalk")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietalk'");
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietalk' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietalk' and article_title LIKE '%" + search + "%'");
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietalk' and article_content LIKE '%" + search + "%'");
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietalk' and article_writer LIKE '%" + search + "%'");
-				}
-			} else if (category.equals("spoiler")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'spoiler'");
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'spoiler' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'spoiler' and article_title LIKE '%" + search + "%'");
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'spoiler' and article_content LIKE '%" + search + "%'");
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'spoiler' and article_writer LIKE '%" + search + "%'");
-				}
-			} else if (category.equals("movietmi")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietmi'");
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietmi' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietmi' and article_title LIKE '%" + search + "%'");
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietmi' and article_content LIKE '%" + search + "%'");
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'movietmi' and article_writer LIKE '%" + search + "%'");
-				}
-			} else if (category.equals("boast")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'boast'");
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'boast' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'boast' and article_title LIKE '%" + search + "%'");
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'boast' and article_content LIKE '%" + search + "%'");
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'boast' and article_writer LIKE '%" + search + "%'");
-				}
-			} else if (category.equals("hobby")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'hobby'");
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'hobby' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%'");
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'hobby' and article_title LIKE '%" + search + "%'");
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'hobby' and article_content LIKE '%" + search + "%'");
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from article where category = 'hobby' and article_writer LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from article where category = '"+category+"' and article_writer LIKE '%" + search + "%'");
 				}
 			}
 			
-
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -227,152 +166,32 @@ public class ArticleDBBean {
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				}
-			} else if (category.equals("talk")) {
+			} else {
 				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'talk' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where category = '"+category+"' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'talk' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt = conn.prepareStatement(sql += "where category = '"+category+"' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'talk' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where category = '"+category+"' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_content")) {
 					pstmt = conn.prepareStatement(
-							sql += "where category = 'talk' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+							sql += "where category = '"+category+"' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_writer")) {
 					pstmt = conn.prepareStatement(
-							sql += "where category = 'talk' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				}
-			} else if (category.equals("movietalk")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietalk' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietalk' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietalk' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'movietalk' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'movietalk' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				}
-			} else if (category.equals("spoiler")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'spoiler' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'spoiler' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'spoiler' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'spoiler' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'spoiler' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				}
-			} else if (category.equals("movietmi")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietmi' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietmi' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'movietmi' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'movietmi' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'movietmi' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				}
-			} else if (category.equals("boast")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'boast' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'boast' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'boast' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'boast' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'boast' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				}
-			} else if (category.equals("hobby")) {
-				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where category = 'hobby' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'hobby' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' order by article_id desc limit ?,?");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where category = 'hobby' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'hobby' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
-					pstmt.setInt(1, start - 1);
-					pstmt.setInt(2, end);
-				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(
-							sql += "where category = 'hobby' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+							sql += "where category = '"+category+"' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				}
 			}
-
+			
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {

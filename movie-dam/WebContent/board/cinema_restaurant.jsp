@@ -58,7 +58,7 @@
 <jsp:include page="/module/nav.jsp" flush="false"/>
 
 <!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 <!-- ***** Breadcumb Area End ***** -->
 
 <section class="dorne-single-listing-area section-padding-100">
@@ -140,8 +140,8 @@
 					<div class="feature-content d-flex align-items-center justify-content-between">
 					<div class="feature-title">
 						<h5>
-							<a href="#"><span class="badge badge-pill badge-primary"><%=article.getTheater()%></span></a>
-                 			<a href="#"><span class="badge badge-pill badge-info"><%=article.getArea()%></span></a>
+							<a href="/movie-dam/board/cinema_restaurant.jsp?theater=<%=article.getTheater()%>"><span class="badge badge-pill badge-primary"><%=article.getTheater()%></span></a>
+                 			<a href="/movie-dam/board/cinema_restaurant.jsp?theater=all&option=area&search=<%=article.getArea()%>"><span class="badge badge-pill badge-info"><%=article.getArea()%></span></a>
 							<a href="content_rest.jsp?article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&board_id=2&theater=<%=theater%>">
                  			<br>
                  			<%=article.getArticle_title()%><small> (<%=ccount%>)</small></a>

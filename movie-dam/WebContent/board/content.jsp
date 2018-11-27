@@ -84,7 +84,7 @@
 <jsp:include page="/module/nav.jsp" flush="false" />
 
 <!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/hero-1.jpg)"></div>
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 <!-- ***** Breadcumb Area End ***** -->
 
 <section class="dorne-single-listing-area section-padding-100">
@@ -101,7 +101,7 @@
 		<div class="row justify-content-center">
 				<div class="col-10">
 				<div class="single-listing-content">
-					<h5><span class="badge badge-pill badge-primary"><%=a_category%></span></h5>
+					<h5><a href="/movie-dam/board/free_board.jsp?category=<%=article.getCategory()%>"><span class="badge badge-pill badge-primary"><%=a_category%></span></a></h5>
 					<div class="listing-title">
 						<h4><%=article.getArticle_title()%></h4>
 						<span>작성자 <a href="/movie-dam/member/profile.jsp?mem_userid=<%=profile.getMem_userid()%>"><%=profile.getMem_nickname()%></a>&nbsp;(<%=sdf.format(article.getReg_date())%>)</span> 
