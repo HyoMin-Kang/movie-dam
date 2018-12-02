@@ -135,12 +135,12 @@
             	
            	<div class="text-right" style="padding-bottom:15px;">
             <% if (userid.equals("not")) { %>
-	            <button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled">수정</button>
 	            <button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled">삭제</button>
+	            <button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled">수정</button>
             <% } else { %>
        			<form id="likeForm" method="post"></form>
-	            <button type="button" class="btn btn-sm btn-outline-primary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}&theater=<%=theater%>'">수정</button>
 	            <button type="button" class="btn btn-sm btn-outline-danger" onclick="location.href='deletePro.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}'">삭제</button>
+	            <button type="button" class="btn btn-sm btn-outline-primary" onclick="location.href='updateForm.jsp?board_id=<%=board_id%>&article_id=<%=article_id%>&pageNum=<%=pageNum%>&article_writer=${sessionScope.userid}&theater=<%=theater%>'">수정</button>
             <% } %>
             	<button type="button" class="btn btn-sm btn-outline-default" onclick="location.href='cinema_restaurant.jsp?pageNum=<%=pageNum%>&theater=<%=theater%>'">글목록</button>
          	</div>
@@ -180,14 +180,14 @@
 							<label class="col-sm-12" ></label>
 						    <label class="col-sm-2 col-form-label text-center"><%=userid%></label>
 						    <div class="col-sm-10">
-						      <textarea class="form-control" name="cmt_content"></textarea>
+						      <textarea class="form-control" name="cmt_content" required="required"></textarea>
 						    </div>
 						 </div>
 					 
 						 <div class="form-group row text-right">
 						    <div class="col-sm-12">
+						      <button type="reset" class="btn btn-outline-primary btn-sm">다시입력</button>
 						      <button type="submit" class="btn btn-outline-default btn-sm">댓글작성</button>
-						      <button type="reset" class="btn btn-outline-danger btn-sm">다시입력</button>
 						    </div>
 						</div>
 					</div>
@@ -234,14 +234,14 @@
         			if (userid.equals(comment.getCmt_writer()) ) {
 %>                
                  <div class="col-sm-12 text-right">
-                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>,'<%=theater%>');">수정</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>'">삭제</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>,'<%=theater%>');">수정</button>
                   </div>
 <%                   
                   } else{ %>
 					<div class="col-sm-12 text-right">
-					<button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled" style="display:none;">수정</button>
-					<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
+						<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
+						<button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled" style="display:none;">수정</button>
 					</div>
 <%                   
 					}
@@ -250,11 +250,11 @@
 
            		<div class="col-sm-12 text-right">
 			<% if (userid.equals(comment.getCmt_writer()) ) { %>
-					<button type="button" class="btn btn-sm btn-outline-secondary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>,'<%=theater%>');">수정</button>
 					<button type="button" class="btn btn-sm btn-outline-danger" onclick="document.location.href='deleteCommentPro.jsp?article_id=<%=article_id%>&cmt_id=<%=comment.getCmt_id()%>&userid=<%=userid%>&pageNum=<%=pageNum%>&cmt_ref=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>'">삭제</button>
+					<button type="button" class="btn btn-sm btn-outline-primary" onclick="updateOpen(<%=comment.getCmt_id()%>, <%=article_id%>, <%=pageNum%>, <%=board_id%>,'<%=theater%>');">수정</button>
 			<% } else { %>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled" style="display:none;">수정</button>
 					<button type="button" class="btn btn-sm btn-outline-danger" disabled="disabled" style="display:none;">삭제</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary" disabled="disabled" style="display:none;">수정</button>
             <% } %>
                     <a class="btn btn-outline-default btn-sm" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 답글쓰기 </a><div style="display:none" >
                      
@@ -283,8 +283,8 @@
 								 
 							<div class="form-group row text-right">
 							    <div class="col-sm-12">
+							      <button type="reset" class="btn btn-outline-primary btn-sm">다시입력</button>
 							      <button type="submit" class="btn btn-outline-default btn-sm">댓글작성</button>
-							      <button type="reset" class="btn btn-outline-danger btn-sm">다시입력</button>
 							    </div>
 							</div>	  
 						</div>

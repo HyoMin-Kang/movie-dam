@@ -106,6 +106,13 @@
 function search_movie() {
 	open('searchMovie.jsp', '영화 검색', 'height=800, width=600, menubar=no, scrollbars=no, toolbar=no, location=no, status=no, resizable=no');
 }
+function writeSave() {
+	if (writeForm.cb_movie.value == '') {
+        alert("영화를 선택해주세요.");
+        writeForm.cb_movie.focus();
+		return false;
+	}
+}
 $(document).ready(function() {
 	  $('.summernote').summernote({
 		  height:300

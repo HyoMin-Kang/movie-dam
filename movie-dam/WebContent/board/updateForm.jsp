@@ -200,7 +200,7 @@
 					<div class="input-group mb-3">
 						<input class="form-control" type="text" class="form-control" id="searchLoc" name="search_loc" placeholder="위치를 입력하세요." onkeypress="if(event.keyCode==13){search_location(); return false;}">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button" onclick="search_location();">검색</button>
+							<button class="btn btn-dark" type="button" onclick="search_location();">검색</button>
 						</div>
 					</div>
 					</div>
@@ -240,23 +240,28 @@
 </c:if>
 		<div class="form-group row text-right">
 			<div class="col-sm-12">
-				<button type="submit" class="btn btn-sm btn-outline-primary">작성하기</button>
-				<button type="reset" class="btn btn-sm btn-outline-danger">다시작성</button>
-				<c:if test="<%=board_id == 1 %>">
+	<c:choose>
+		<c:when test="<%=board_id == 1 %>">
 				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./free_board.jsp'">목록으로</button>
-				</c:if>
-				<c:if test="<%=board_id == 2 %>">
+		</c:when>
+		<c:when test="<%=board_id == 2 %>">
 				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./cinema_restaurant.jsp'">목록으로</button>
-				</c:if>
+		</c:when>
+		<c:when test="<%=board_id == 4 %>">
+				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./movie_preview.jsp'">목록으로</button>
+		</c:when>
+		<c:when test="<%=board_id == 5 %>">
+				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='./movie_issue.jsp'">목록으로</button>
+		</c:when>
+	</c:choose>
+				<button type="reset" class="btn btn-sm btn-outline-primary">다시작성</button>
+				<button type="submit" class="btn btn-sm btn-outline-default">작성하기</button>
 			</div>
 		</div>
 		</form>
 	</div>
 </div>
 </section>
-
-
-
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 

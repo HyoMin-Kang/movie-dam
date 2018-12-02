@@ -9,6 +9,10 @@
 <%@ page import="moviedam.board.CommentDataBean" %>
 <%@ page import="moviedam.board.ArticleDBBean" %>
 <%@ page import="moviedam.board.ArticleDataBean" %>
+<%!
+    int pageSize = 15;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "자유게시판";	
@@ -16,12 +20,10 @@
     String option = request.getParameter("option");
     String search = request.getParameter("search");
     String category = request.getParameter("category");
-    
+    pageContext.setAttribute("option",option);
+    pageContext.setAttribute("search",search);
 %>
-<%!
-    int pageSize = 10;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-%>
+
 <%
 	if (pageNum == null) {
 		pageNum = "1";
@@ -35,18 +37,20 @@
 	int number = 0;
 	int total_page = 0;
 	List<ArticleDataBean> articleList = null; 
+	ArticleDataBean article = null;
+    ArrayList<CommentDataBean> commentList = null;
     
+	try {
     ArticleDBBean article_db = ArticleDBBean.getInstance();
     
-    ArrayList<CommentDataBean> commentList = null;
 	CommentDBBean comment_db = CommentDBBean.getInstance();
 	
-    count = article_db.getArticleCount(option,search,category); //전체 글 수
+    count = article_db.getArticleCount(option,search,category);
     if (count > 0) {
-       	articleList = article_db.getArticles(startRow, endRow, option, search, category);
+       	articleList = article_db.getArticles(startRow, pageSize, option, search, category);
 	}    
     
-	number = count-(currentPage-1)*pageSize;
+    number = count-(currentPage-1)*pageSize;
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
@@ -85,7 +89,7 @@
 	
 	<div class="row justify-content-center mb-4">
 		<div class="col-12">
-			<form>
+			<form action="free_board.jsp?pageNum=<%=currentPage%>&category=<%=category%>&option=<%=option%>&search=<%=search%>">
 				<input type="hidden" name="category" value="<%=category %>">
 				<div class="form-group">
 					<div class="input-group">
@@ -97,7 +101,7 @@
 						        <option value="article_writer">작성자</option>
 					        </select>
 						</div>
-						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요">
+						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요" <%if (search != null) {out.print("value=\""+search+"\"");}%>>
 						<div class="input-group-append">
 							<input class="btn btn-dark" type="submit" value="검색"> 
 						</div>
@@ -145,16 +149,15 @@
 		
 		if(Integer.parseInt(pageNum) > a){ %>
 			<jsp:forward page="error.jsp"/>
-		<% }
+	<% }
 		
-	   for (int i = 0 ; i < articleList.size() ; i++) {
-		   ArticleDataBean article = articleList.get(i);
+		for (int i = 0 ; i < articleList.size() ; i++) {
+			article = articleList.get(i);
 		   
-	       ccount = comment_db.getCommentCount(article.getArticle_id());
+	       	ccount = comment_db.getCommentCount(article.getArticle_id());
 	%>
 			<tr>
 			    <td class="text-center"><%=number--%></td>
-			    
  		<% if(article.getCategory().equals("talk")){ %>
 				<td class="text-center">사담</td>
 		<% }else if(article.getCategory().equals("movietalk")){ %>				
@@ -188,56 +191,72 @@
 	<ul class="pagination justify-content-center">
 <%
     if (count > 0) {
-    	//전체 페이지수 구하기//50개=>5페이지, 51~59개=>6페이지
-        int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-        
-    	if(pageCount < currentPage){
-    		currentPage = pageCount;
-    	}
-       	//한 페이지에 보여지는 시작페이지 구하기
-		int startPage =1;
-		
-		if(currentPage % 10 != 0)
-           startPage = (int)(currentPage/10)*10 + 1;
+    	int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+
+		if (currentPage % 10 != 0)
+			startPage = (int) (currentPage / 10) * 10 + 1;
 		else
-           startPage = ((int)(currentPage/10)-1)*10 + 1; 
-           
-        int pageBlock = 10; //한 페이지에 보여줄 페이지수 설정
-        
-		//한 페이지에 보여지는 끝페이지 구하기
+			startPage = ((int) (currentPage / 10) - 1) * 10 + 1;
+
+		int pageBlock = 10;
 		int endPage = startPage + pageBlock - 1;
-        if (endPage > pageCount) {
-        	endPage = pageCount; 
-        } 
+		if (endPage > pageCount)
+			endPage = pageCount;
         
-        
-        if (startPage > 10) { %>
-    	<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage - 10 %>&category=<%=category%>">이전</a></li>
+        if (startPage > 10) { 
+%>
+    	<c:if test="${option eq null || search eq null}">
+    		<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage - 10 %>&category=<%=category%>">이전</a></li>
+    	</c:if>
+    	<c:if test="${option ne null || search ne null}">
+    		<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage - 10 %>&category=<%=category%>&option=<%=option%>&search=<%=search%>">이전</a></li>
+    	</c:if>
 <%      }
     
-    for (int i = startPage ; i <= endPage ; i++) {
-    	if(i == currentPage) {
+        for (int i = startPage ; i <= endPage ; i++) {
+        	if(i == currentPage) {
 %>
-		<li class="page-item active">
-	      <a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>"><%=i %> <span class="sr-only">(current)</span></a>
-	    </li>
+    	<c:if test="${option eq null || search eq null}">
+			<li class="page-item active">
+		      <a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>"><%=i %> <span class="sr-only">(current)</span></a>
+		    </li>
+	    </c:if>
+	    <c:if test="${option ne null || search ne null}">
+	    	<li class="page-item active">
+		      <a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>&option=<%=option%>&search=<%=search%>"><%=i %> <span class="sr-only">(current)</span></a>
+		    </li>
+	    </c:if>
 <%        		
-    	} else {
+    		} else {
 %>	
-		<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>"><%=i %></a></li>
+    	<c:if test="${option eq null || search eq null}">
+			<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>"><%=i %></a></li>
+		</c:if>
+		<c:if test="${option ne null || search ne null}">
+			<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=i %>&category=<%=category%>&option=<%=option%>&search=<%=search%>"><%=i %></a></li>
+		</c:if>
 <%        		
-    	}
-  }
+    		}
+  		}
     
-    if (endPage < pageCount) {  %>
-    	<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage + 10 %>&category=<%=category%>">다음</a></li>
+	    if (endPage < pageCount) {  %>
+	    	<c:if test="${option eq null || search eq null}">
+	    		<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage + 10 %>&category=<%=category%>">다음</a></li>
+	    	</c:if>
+	    	<c:if test="${option ne null || search ne null}">
+	    		<li class="page-item"><a class="page-link" href="free_board.jsp?pageNum=<%=startPage + 10 %>&category=<%=category%>&option=<%=option%>&search=<%=search%>">다음</a></li>
+			</c:if>
 <%
-    }
-}
+    	}
+	}
 %>
 	</ul>
 </nav>
 
+<%
+} catch (Exception e) { }
+ %>
 </div>
 </section>
 

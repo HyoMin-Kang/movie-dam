@@ -18,6 +18,8 @@
     String search = request.getParameter("search");
     String theater = request.getParameter("theater");
     String area = request.getParameter("area");
+    pageContext.setAttribute("option",option);
+    pageContext.setAttribute("search",search);
 %>
 <%!
     int pageSize = 9;
@@ -45,7 +47,7 @@
 	
   	count = restaurant_db.getArticleCount(option,search,theater); 
     if (count > 0) {
-       	articleList = restaurant_db.getArticles(startRow, endRow, option, search, theater);
+       	articleList = restaurant_db.getArticles(startRow, pageSize, option, search, theater);
 	}  
     
 	number = count-(currentPage-1)*pageSize;
@@ -87,7 +89,7 @@
 	
 	<div class="row justify-content-center mb-4">
 		<div class="col-12">
-			<form>
+			<form action="cinema_restaurant.jsp?pageNum=<%=currentPage%>&theater=<%=theater%>&option=<%=option%>&search=<%=search%>">
 			<input type="hidden" name="theater" value="<%=theater %>">
 				<div class="form-group">
 					<div class="input-group">
@@ -100,7 +102,7 @@
 						        <option value="article_writer">작성자</option>
 					        </select>
 						</div>
-						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요">
+						<input class="form-control" type="text" name="search" placeholder="궁금한 것을 검색해보세요" <%if (search != null) {out.print("value=\""+search+"\"");}%>>
 						<div class="input-group-append">
 							<input class="btn btn-dark" type="submit" value="검색"> 
 						</div>
@@ -191,25 +193,49 @@
         
         
         if (startPage > 10) { %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 9 %>&theater=<%=theater%>">이전</a></li>
+        <c:if test="${option eq null || search eq null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 9 %>&theater=<%=theater%>">이전</a></li>
+    	</c:if>
+    	<c:if test="${option ne null || search ne null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage - 9 %>&theater=<%=theater%>&option=<%=option%>&search=<%=search%>">이전</a></li>
+    	</c:if>
+    	
 <%      }
     
     for (int i = startPage ; i <= endPage ; i++) {
     	if(i == currentPage) {
 %>
-		<li class="page-item active">
-	      <a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %> <span class="sr-only">(current)</span></a>
-	    </li>
+		<c:if test="${option eq null || search eq null}">
+    		<li class="page-item active">
+	      		<a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %> <span class="sr-only">(current)</span></a>
+	    	</li>
+    	</c:if>
+    	<c:if test="${option ne null || search ne null}">
+    		<li class="page-item active">
+	      		<a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>&option=<%=option%>&search=<%=search%>"><%=i %> <span class="sr-only">(current)</span></a>
+	    	</li>
+    	</c:if>
+		
 <%        		
     	} else {
 %>	
-		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %></a></li>
+		<c:if test="${option eq null || search eq null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>"><%=i %></a></li>
+    	</c:if>
+    	<c:if test="${option ne null || search ne null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=i %>&theater=<%=theater%>&option=<%=option%>&search=<%=search%>"><%=i %></a></li>
+    	</c:if>	
 <%        		
     	}
   }
     
     if (endPage < pageCount) {  %>
-    	<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 9 %>&theater=<%=theater%>">다음</a></li>
+    	<c:if test="${option eq null || search eq null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 9 %>&theater=<%=theater%>">다음</a></li>
+    	</c:if>
+    	<c:if test="${option ne null || search ne null}">
+    		<li class="page-item"><a class="page-link" href="cinema_restaurant.jsp?pageNum=<%=startPage + 9 %>&theater=<%=theater%>&option=<%=option%>&search=<%=search%>">다음</a></li>
+    	</c:if>	
 <%
     }
 }

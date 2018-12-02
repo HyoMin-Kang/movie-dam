@@ -8,6 +8,8 @@
 	String title = "영화 상세";
 	String id = request.getParameter("id");
 	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
+
+	response.setHeader("Access-Control-Allow-Origin","*");
 	
 	try {
 		ChanbanDBBean chanban_db = ChanbanDBBean.getInstance(); 
@@ -82,7 +84,7 @@
 	                <div class="listing-reviews-area mt-100" id="trailer">
 	                    <h4>예고편</h4>
 	                    <div class="embed-responsive embed-responsive-16by9">
-	                    	<iframe id="showVideo" class="embed-responsive-item" allowfullscreen></iframe>
+	                    	<iframe id="showVideo" class="embed-responsive-item" allowfullscreen onerror="alert('failed')"></iframe>
 	                    </div>	
 	                </div>
 	                <div class="listing-reviews-area mt-100" id="related">
@@ -123,6 +125,10 @@
 							}
 						%>
 							</table>
+						<% } else { %>
+							<div class="col-12">
+								<div class="alert alert-secondary" role="alert">이 영화와 관련된 토론이 아직 이루어지지 않았습니다! <strong><a href="/movie-dam/debate/debate_chanban.jsp" class="text-dark">토론 글 찾아보기..</a></strong></div>
+							</div>
 						<% } %>
 	                    </div>
 	                </div>
@@ -179,9 +185,8 @@ $(document).ready(function() {
 	  	$('#show_runtime').html(response['runtime']+'분');
 	  	$('#show_revenue').html(numberWithCommas(response['revenue'])+'원');
 
-	 	
 		$('#showVideo').attr('src', 'https://moviedam-stream.herokuapp.com/player/'+response['title']+'.mp4');
-	 	
+		
 	 	var settings2 = {
 			async: true,
 			crossDomain: true,
