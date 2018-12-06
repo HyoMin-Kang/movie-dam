@@ -10,7 +10,6 @@ public class Analyze {
 			if(term.equalsIgnoreCase(word))
 				result++;
 		}
-		System.out.println("term:"+term+" tf:"+ (1+Math.log(result)));
 		return (1+Math.log(result));
 	}
 	

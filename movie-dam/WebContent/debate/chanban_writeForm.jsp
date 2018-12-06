@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -16,10 +15,8 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
+
 
 <section class="dorne-single-listing-area section-padding-100">
 	<div class="container">
@@ -54,37 +51,33 @@
 							<input type="text" class="form-control" id="inputTitle" name="cb_title" maxlength="100" placeholder="글 제목을 입력해 주세요." required="required">
 						</div>
 					</div>
-					
+
 					<div class="form-group row mb-3">
-						<label for="inputCbtype_chan" class="col-sm-2 col-form-label">찬반</label>					
+						<label for="inputCbtype_chan" class="col-sm-2 col-form-label">찬반</label>
 						<div class="custom-file col-sm-10">
 							<div class="custom-control custom-radio custom-control-inline">
-								<input type="radio" id="inputCbtype_chan" name="cb_type" class="custom-control-input" value="찬성">
-								<label class="custom-control-label" for="inputCbtype_chan">찬성</label>
+								<input type="radio" id="inputCbtype_chan" name="cb_type" class="custom-control-input" value="찬성"> <label class="custom-control-label" for="inputCbtype_chan">찬성</label>
 							</div>
 							<div class="custom-control custom-radio custom-control-inline">
-								<input type="radio" id="inputCbtype_ban" name="cb_type" class="custom-control-input" value="반대">
-								<label class="custom-control-label" for="inputCbtype_ban">반대</label>
+								<input type="radio" id="inputCbtype_ban" name="cb_type" class="custom-control-input" value="반대"> <label class="custom-control-label" for="inputCbtype_ban">반대</label>
 							</div>
 						</div>
 					</div>
-	
+
 					<div class="form-group row mb-3">
 						<label for="inputFile" class="col-sm-2 col-form-label">내용</label>
 						<div class="col-sm-10">
 							<textarea class="summernote" id="inputFile" name="cb_content" rows="3" required="required"></textarea>
 						</div>
 					</div>
-										
+
 					<div class="form-group row mb-3">
 						<label for="inputFile" class="col-sm-2 col-form-label">첨부파일</label>
 						<div class="custom-file col-sm-10">
-							<input type="file" class="custom-file-input" id="inputFile" name="cb_file" accept="image/*">
-							<label class="custom-file-label" for="customFile">파일 선택...</label>
-							<small id="fileHelp" class="form-text text-muted">이미지 파일만 첨부 가능합니다.</small>
+							<input type="file" class="custom-file-input" id="inputFile" name="cb_file" accept="image/*"> <label class="custom-file-label" for="customFile">파일 선택...</label> <small id="fileHelp" class="form-text text-muted">이미지 파일만 첨부 가능합니다.</small>
 						</div>
-					</div>	
-					
+					</div>
+
 					<div class="form-group row text-right">
 						<div class="col-sm-12">
 							<button type="submit" class="btn btn-sm btn-outline-primary">작성하기</button>
@@ -92,32 +85,35 @@
 							<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='debate_chanban.jsp'">목록으로</button>
 						</div>
 					</div>
-	
+
 				</form>
 			</div>
 		</div>
-	
+
 	</div>
 </section>
 
 <jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
-function search_movie() {
-	open('searchMovie.jsp', '영화 검색', 'height=800, width=600, menubar=no, scrollbars=no, toolbar=no, location=no, status=no, resizable=no');
-}
-function writeSave() {
-	if (writeForm.cb_movie.value == '') {
-        alert("영화를 선택해주세요.");
-        writeForm.cb_movie.focus();
-		return false;
+	function search_movie() {
+		open(
+				'searchMovie.jsp',
+				'영화 검색',
+				'height=800, width=600, menubar=no, scrollbars=no, toolbar=no, location=no, status=no, resizable=no');
 	}
-}
-$(document).ready(function() {
-	  $('.summernote').summernote({
-		  height:300
-	  });
-});
+	function writeSave() {
+		if (writeForm.cb_movie.value == '') {
+			alert("영화를 선택해주세요.");
+			writeForm.cb_movie.focus();
+			return false;
+		}
+	}
+	$(document).ready(function() {
+		$('.summernote').summernote({
+			height : 300
+		});
+	});
 </script>
 
 </body>

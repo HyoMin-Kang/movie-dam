@@ -26,7 +26,7 @@ public class PreviewDBBean {
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
 		return ds.getConnection();
 	}
-	
+
 	public void insertArticle(PreviewDataBean article) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -67,7 +67,7 @@ public class PreviewDBBean {
 				}
 		}
 	}
-	
+
 	public int getArticleCount() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -77,7 +77,7 @@ public class PreviewDBBean {
 
 		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("select count(*) from preview");
 			rs = pstmt.executeQuery();
 
@@ -105,13 +105,13 @@ public class PreviewDBBean {
 		}
 		return x;
 	}
-	
+
 	public List<PreviewDataBean> getArticles(int start, int end) throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		List<PreviewDataBean> previewList = null;
-		
+
 		try {
 			conn = getConnection();
 			String sql = "select * from preview order by article_id desc limit ?,?";
@@ -119,7 +119,7 @@ public class PreviewDBBean {
 			pstmt.setInt(1, start - 1);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				previewList = new ArrayList<PreviewDataBean>(end);
 				do {
@@ -132,7 +132,7 @@ public class PreviewDBBean {
 					preview.setOriginal_url(rs.getString("original_url"));
 					preview.setArticle_file(rs.getString("article_file"));
 					preview.setCinema(rs.getString("cinema"));
-					
+
 					previewList.add(preview);
 				} while (rs.next());
 			}

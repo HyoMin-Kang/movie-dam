@@ -26,7 +26,7 @@ public class IssueDBBean {
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
 		return ds.getConnection();
 	}
-	
+
 	public void insertArticle(IssueDataBean article) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -63,9 +63,9 @@ public class IssueDBBean {
 				} catch (SQLException ex) {
 				}
 		}
-			
+
 	}
-	
+
 	public int getArticleCount() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -75,7 +75,7 @@ public class IssueDBBean {
 
 		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("select count(*) from issue");
 			rs = pstmt.executeQuery();
 
@@ -103,13 +103,13 @@ public class IssueDBBean {
 		}
 		return x;
 	}
-	
+
 	public List<IssueDataBean> getArticles(int start, int end) throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		List<IssueDataBean> issueList = null;
-		
+
 		try {
 			conn = getConnection();
 			String sql = "select * from issue order by article_id desc limit ?,?";
@@ -117,7 +117,7 @@ public class IssueDBBean {
 			pstmt.setInt(1, start - 1);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				issueList = new ArrayList<IssueDataBean>(end);
 				do {
@@ -127,7 +127,7 @@ public class IssueDBBean {
 					issue.setReg_date(rs.getTimestamp("reg_date"));
 					issue.setOriginal_url(rs.getString("original_url"));
 					issue.setArticle_file(rs.getString("article_file"));
-					
+
 					issueList.add(issue);
 				} while (rs.next());
 			}

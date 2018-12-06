@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "moviedam.board.ArticleDBBean" %>
-<%@ page import = "moviedam.board.RestaurantDBBean" %>
-<%@ page import = "moviedam.member.MemberDBBean" %>
-<%@ page import = "moviedam.member.MemberDataBean" %>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="moviedam.board.ArticleDBBean"%>
+<%@ page import="moviedam.board.RestaurantDBBean"%>
+<%@ page import="moviedam.member.MemberDBBean"%>
+<%@ page import="moviedam.member.MemberDataBean"%>
+<%@ page import="java.sql.Timestamp"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="java.util.*"%>
-<%@ page import="java.io.*" %>
+<%@ page import="java.io.*"%>
 
 <% request.setCharacterEncoding("utf-8"); %>
 <%
@@ -45,16 +44,16 @@
 %>
 
 <jsp:useBean id="article" scope="page" class="moviedam.board.ArticleDataBean">
-   <jsp:setProperty name="article" property="*"/>
+	<jsp:setProperty name="article" property="*" />
 </jsp:useBean>
 <jsp:useBean id="restaurant" scope="page" class="moviedam.board.RestaurantDataBean">
-   <jsp:setProperty name="restaurant" property="*"/>
+	<jsp:setProperty name="restaurant" property="*" />
 </jsp:useBean>
 <jsp:useBean id="preview" scope="page" class="moviedam.board.PreviewDataBean">
-   <jsp:setProperty name="preview" property="*"/>
+	<jsp:setProperty name="preview" property="*" />
 </jsp:useBean>
 <jsp:useBean id="issue" scope="page" class="moviedam.board.IssueDataBean">
-   <jsp:setProperty name="issue" property="*"/>
+	<jsp:setProperty name="issue" property="*" />
 </jsp:useBean>
 
 <%
@@ -81,9 +80,9 @@
 	    int check = article_db.updateArticle(article,userid); 
 	    if(check==1){
 %>
-			<meta http-equiv="Refresh" content="0;url=content.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&category=<%=category%>" >
+<meta http-equiv="Refresh" content="0;url=content.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&category=<%=category%>">
 <% 		} else { %>
-			<script>   
+<script>   
 				alert("작성자만 수정할 수 있습니다.");
 		      	history.go(-2);
 			</script>
@@ -111,9 +110,9 @@
 		int check = restaurant_db.updateArticle(restaurant, userid);
 		if(check==1){
 %>
-			<meta http-equiv="Refresh" content="0;url=content_rest.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&theater=<%=theater%>" >
+<meta http-equiv="Refresh" content="0;url=content_rest.jsp?board_id=<%=board_id %>&article_id=<%=article.getArticle_id()%>&pageNum=<%=currentPage%>&theater=<%=theater%>">
 <% 		} else { %>
-			<script>   
+<script>   
 				alert("작성자만 수정할 수 있습니다.");
 		      	history.go(-2);
 			</script>

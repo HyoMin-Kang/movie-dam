@@ -12,22 +12,22 @@ import javax.sql.DataSource;
 
 public class RestaurantDBBean {
 	private static RestaurantDBBean instance = new RestaurantDBBean();
-	
+
 	public static RestaurantDBBean getInstance() {
 		return instance;
 	}
-	
+
 	private RestaurantDBBean() {
-		
+
 	}
-	
+
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
 		return ds.getConnection();
 	}
-	
+
 	public void insertArticle(RestaurantDataBean article) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -37,7 +37,7 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 			sql = "insert into restaurant values(?,?,?,?,?,?,?,?,?,?,?,?)";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getArticle_id());
 			pstmt.setString(2, article.getArticle_writer());
@@ -51,7 +51,7 @@ public class RestaurantDBBean {
 			pstmt.setFloat(10, article.getStart_lon());
 			pstmt.setString(11, article.getTheater());
 			pstmt.setString(12, article.getArea());
-			
+
 			pstmt.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -73,7 +73,7 @@ public class RestaurantDBBean {
 				}
 		}
 	}
-	
+
 	public int getArticleCount(String option, String search, String theater) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -83,37 +83,48 @@ public class RestaurantDBBean {
 
 		try {
 			conn = getConnection();
-			
+
 			if (theater.equals("all")) {
 				if (option == null) {
 					pstmt = conn.prepareStatement("select count(*) from restaurant");
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from restaurant where article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%'");
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where article_title LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement(
+							"select count(*) from restaurant where article_title LIKE '%" + search + "%'");
 				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where article_content LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement(
+							"select count(*) from restaurant where article_content LIKE '%" + search + "%'");
 				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where article_writer LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement(
+							"select count(*) from restaurant where article_writer LIKE '%" + search + "%'");
 				} else if (option.equals("area")) {
 					pstmt = conn.prepareStatement("select count(*) from restaurant where area LIKE '%" + search + "%'");
 				}
 			} else {
 				if (option == null) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"'");
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater + "'");
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater
+							+ "' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search
+							+ "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%'");
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"' and article_title LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater
+							+ "' and article_title LIKE '%" + search + "%'");
 				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"' and article_content LIKE '%" + search + "%'");
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater
+							+ "' and article_content LIKE '%" + search + "%'");
 				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"' and article_writer LIKE '%" + search + "%'");
-				}  else if (option.equals("area")) {
-					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '"+theater+"' and area LIKE '%" + search + "%'");
-				} 
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater
+							+ "' and article_writer LIKE '%" + search + "%'");
+				} else if (option.equals("area")) {
+					pstmt = conn.prepareStatement("select count(*) from restaurant where theater = '" + theater
+							+ "' and area LIKE '%" + search + "%'");
+				}
 			}
-			
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -140,8 +151,9 @@ public class RestaurantDBBean {
 		}
 		return x;
 	}
-	
-	public List<RestaurantDataBean> getArticles(int start, int end, String option, String search, String theater) throws Exception {
+
+	public List<RestaurantDataBean> getArticles(int start, int end, String option, String search, String theater)
+			throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
@@ -149,61 +161,74 @@ public class RestaurantDBBean {
 		try {
 			conn = getConnection();
 			String sql = "select * from restaurant ";
-			
+
 			if (theater.equals("all")) {
 				if (option == null) {
 					pstmt = conn.prepareStatement(sql += "order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search	+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search
+							+ "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search
+							+ "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(
+							sql += "where article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(
+							sql += "where article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(
+							sql += "where article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("area")) {
-					pstmt = conn.prepareStatement(sql += "where area LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(
+							sql += "where area LIKE '%" + search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				}
 			} else {
 				if (option == null) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(
+							sql += "where theater = '" + theater + "' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("all")) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' and article_title LIKE '%" + search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%" + search + "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
+					pstmt = conn.prepareStatement(sql += "where theater = '" + theater + "' and article_title LIKE '%"
+							+ search + "%' or article_content LIKE '%" + search + "%' or article_writer LIKE '%"
+							+ search + "%' or area LIKE '%" + search + "%' order by article_id desc limit ?,?");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_title")) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' and article_title LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where theater = '" + theater + "' and article_title LIKE '%"
+							+ search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_content")) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' and article_content LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where theater = '" + theater + "' and article_content LIKE '%"
+							+ search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("article_writer")) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' and article_writer LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where theater = '" + theater + "' and article_writer LIKE '%"
+							+ search + "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				} else if (option.equals("area")) {
-					pstmt = conn.prepareStatement(sql += "where theater = '"+theater+"' and area LIKE '%" + search + "%' order by article_id desc limit ?,? ");
+					pstmt = conn.prepareStatement(sql += "where theater = '" + theater + "' and area LIKE '%" + search
+							+ "%' order by article_id desc limit ?,? ");
 					pstmt.setInt(1, start - 1);
 					pstmt.setInt(2, end);
 				}
 			}
-            
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -222,11 +247,11 @@ public class RestaurantDBBean {
 					article.setStart_lon(rs.getFloat("start_lon"));
 					article.setTheater(rs.getString("theater"));
 					article.setArea(rs.getString("area"));
-					
+
 					restaurantList.add(article);
 				} while (rs.next());
 			}
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -248,7 +273,7 @@ public class RestaurantDBBean {
 		}
 		return restaurantList;
 	}
-		
+
 	public RestaurantDataBean getArticle(int article_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -301,7 +326,7 @@ public class RestaurantDBBean {
 		}
 		return article;
 	}
-	
+
 	public List<RestaurantDataBean> getTopArticles() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -316,7 +341,7 @@ public class RestaurantDBBean {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) { 
+			if (rs.next()) {
 				restaurantList = new ArrayList<RestaurantDataBean>();
 				do {
 					RestaurantDataBean article = new RestaurantDataBean();
@@ -352,7 +377,7 @@ public class RestaurantDBBean {
 		}
 		return restaurantList;
 	}
-	
+
 	public RestaurantDataBean updateGetArticle(int article_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -401,8 +426,8 @@ public class RestaurantDBBean {
 		}
 		return article;
 	}
-	
-	public int updateArticle(RestaurantDataBean article,String mem_nickname) throws Exception {
+
+	public int updateArticle(RestaurantDataBean article, String mem_nickname) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -430,7 +455,7 @@ public class RestaurantDBBean {
 					pstmt.setFloat(7, article.getStart_lon());
 					pstmt.setString(8, article.getArticle_file());
 					pstmt.setInt(9, article.getArticle_id());
-					
+
 					pstmt.executeUpdate();
 					x = 1;
 				} else {
@@ -457,8 +482,8 @@ public class RestaurantDBBean {
 				}
 		}
 		return x;
-    }
-	
+	}
+
 	public int deleteArticle(int article_id, String mem_nickname) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -505,7 +530,7 @@ public class RestaurantDBBean {
 		return x;
 	}
 
-	public String getLike_type (int board_id, int article_id, String mem_id) throws Exception {
+	public String getLike_type(int board_id, int article_id, String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -513,15 +538,15 @@ public class RestaurantDBBean {
 		String type = "";
 		try {
 			conn = getConnection();
-			
+
 			sql = "select like_type from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_id);
 			pstmt.setInt(2, article_id);
 			pstmt.setString(3, mem_id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				type = rs.getString(1);
 			} else {
 				type = "N";
@@ -547,7 +572,7 @@ public class RestaurantDBBean {
 		}
 		return type;
 	}
-	
+
 	public String insertLike(RestaurantLikeDataBean like) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -555,21 +580,21 @@ public class RestaurantDBBean {
 		String sql = "";
 		String ltype = "";
 		try {
-			
+
 			conn = getConnection();
-			
+
 			sql = "select * from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getBoard_id());
 			pstmt.setInt(2, like.getArticle_id());
 			pstmt.setString(3, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				String type = like.getLike_type();
-				if(type.equals("Y")) {
+				if (type.equals("Y")) {
 					sql = "insert into rest_like values (?, ?, ?, ?) on duplicate key update like_type = 'N'";
-				} else if(type.equals("N")){
+				} else if (type.equals("N")) {
 					sql = "insert into rest_like values (?, ?, ?, ?) on duplicate key update like_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
@@ -577,7 +602,7 @@ public class RestaurantDBBean {
 				pstmt.setInt(2, like.getArticle_id());
 				pstmt.setString(3, like.getMem_id());
 				pstmt.setString(4, like.getLike_type());
-				
+
 			} else {
 				sql = "insert into rest_like values (?, ?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
@@ -585,23 +610,22 @@ public class RestaurantDBBean {
 				pstmt.setInt(2, like.getArticle_id());
 				pstmt.setString(3, like.getMem_id());
 				pstmt.setString(4, "Y");
-			}			
+			}
 			pstmt.executeUpdate();
-			
-			
+
 			sql = "select like_type from rest_like where board_id = ? and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getBoard_id());
 			pstmt.setInt(2, like.getArticle_id());
 			pstmt.setString(3, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				ltype = rs.getString(1);
 			} else {
 				ltype = "N";
 			}
-					
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -666,7 +690,7 @@ public class RestaurantDBBean {
 		}
 		return x;
 	}
-	
+
 	public RestaurantDataBean getlikeRest(int article_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

@@ -94,7 +94,7 @@ public class ChanbanCommentDBBean {
 				}
 		}
 	}
-	
+
 	public int getChanbanCmtCount(int cb_cmt_ref) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -174,7 +174,7 @@ public class ChanbanCommentDBBean {
 		}
 		return x;
 	}
-	
+
 	public int getChanbanConCount(int cb_cmt_ref) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -214,7 +214,7 @@ public class ChanbanCommentDBBean {
 		}
 		return x;
 	}
-	
+
 	public ArrayList<ChanbanCommentDataBean> getChanbanCmts(int cb_cmt_ref) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -224,7 +224,8 @@ public class ChanbanCommentDBBean {
 		try {
 			conn = getConnection();
 
-			String sql = "select * from cb_comment where cb_cmt_ref like '" + cb_cmt_ref + "'order by cb_cmt_group desc";
+			String sql = "select * from cb_comment where cb_cmt_ref like '" + cb_cmt_ref
+					+ "'order by cb_cmt_group desc";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -242,7 +243,7 @@ public class ChanbanCommentDBBean {
 					comment.setCb_cmt_step(rs.getInt("cb_cmt_step"));
 					comment.setCb_cmt_level(rs.getInt("cb_cmt_level"));
 					comment.setCb_cmt_type(rs.getString("cb_cmt_type"));
-					
+
 					commentList.add(comment);
 				} while (rs.next());
 			}
@@ -262,40 +263,52 @@ public class ChanbanCommentDBBean {
 		}
 		return commentList;
 	}
-	
+
 	public ChanbanCommentDataBean getChanbanCmt(int cb_cmt_id) throws Exception {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        ChanbanCommentDataBean comment=null;
-        try {
-            conn = getConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ChanbanCommentDataBean comment = null;
+		try {
+			conn = getConnection();
 
-            pstmt = conn.prepareStatement("select * from cb_comment where cb_cmt_id = ?");
-            pstmt.setInt(1, cb_cmt_id);
-            rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("select * from cb_comment where cb_cmt_id = ?");
+			pstmt.setInt(1, cb_cmt_id);
+			rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-            	comment = new ChanbanCommentDataBean();
-            	comment.setCb_cmt_id(rs.getInt("cb_cmt_id"));
-            	comment.setCb_cmt_ref(rs.getInt("cb_cmt_ref"));
-            	comment.setCb_cmt_writer(rs.getString("cb_cmt_writer"));
-            	comment.setCb_cmt_content(rs.getString("cb_cmt_content"));
-            	comment.setCb_cmt_date(rs.getTimestamp("cb_cmt_date"));
-            	comment.setCb_cmt_step(rs.getInt("cb_cmt_step"));
-            	comment.setCb_cmt_level(rs.getInt("cb_cmt_level"));
-            	comment.setCb_cmt_type(rs.getString("cb_cmt_type"));
+			if (rs.next()) {
+				comment = new ChanbanCommentDataBean();
+				comment.setCb_cmt_id(rs.getInt("cb_cmt_id"));
+				comment.setCb_cmt_ref(rs.getInt("cb_cmt_ref"));
+				comment.setCb_cmt_writer(rs.getString("cb_cmt_writer"));
+				comment.setCb_cmt_content(rs.getString("cb_cmt_content"));
+				comment.setCb_cmt_date(rs.getTimestamp("cb_cmt_date"));
+				comment.setCb_cmt_step(rs.getInt("cb_cmt_step"));
+				comment.setCb_cmt_level(rs.getInt("cb_cmt_level"));
+				comment.setCb_cmt_type(rs.getString("cb_cmt_type"));
 			}
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
 		return comment;
 	}
-	
+
 	public int deleteChanbanCmt(int cb_cmt_id, String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -315,9 +328,9 @@ public class ChanbanCommentDBBean {
 					pstmt = conn.prepareStatement("delete from cb_comment where cb_cmt_id=?");
 					pstmt.setInt(1, cb_cmt_id);
 					pstmt.executeUpdate();
-					x = 1; 
+					x = 1;
 				} else
-					x = 0; 
+					x = 0;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -387,8 +400,8 @@ public class ChanbanCommentDBBean {
 		}
 		return x;
 	}
-	
-	public String getLike_type (int cb_id, String mem_id) throws Exception {
+
+	public String getLike_type(int cb_id, String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -396,14 +409,14 @@ public class ChanbanCommentDBBean {
 		String type = "";
 		try {
 			conn = getConnection();
-			
+
 			sql = "select cb_like_type from chanban_like where cb_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cb_id);
 			pstmt.setString(2, mem_id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				type = rs.getString(1);
 			} else {
 				type = "N";
@@ -429,7 +442,7 @@ public class ChanbanCommentDBBean {
 		}
 		return type;
 	}
-	
+
 	public String insertLike(ChanbanlikeDataBean like) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -437,49 +450,48 @@ public class ChanbanCommentDBBean {
 		String sql = "";
 		String ltype = "";
 		try {
-			
+
 			conn = getConnection();
-			
+
 			sql = "select * from chanban_like where cb_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getCb_id());
 			pstmt.setString(2, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				String type = like.getCb_like_type();
-				if(type.equals("Y")) {
+				if (type.equals("Y")) {
 					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update cb_like_type = 'N'";
-				} else if(type.equals("N")){
+				} else if (type.equals("N")) {
 					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update cb_like_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getCb_id());
 				pstmt.setString(2, like.getMem_id());
 				pstmt.setString(3, like.getCb_like_type());
-				
+
 			} else {
 				sql = "insert into chanban_like values (?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getCb_id());
 				pstmt.setString(2, like.getMem_id());
 				pstmt.setString(3, "Y");
-			}			
+			}
 			pstmt.executeUpdate();
-			
-			
+
 			sql = "select cb_like_type from chanban_like where cb_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getCb_id());
 			pstmt.setString(2, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				ltype = rs.getString(1);
 			} else {
 				ltype = "N";
 			}
-					
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

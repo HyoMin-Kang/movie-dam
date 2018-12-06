@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="moviedam.member.MemberDBBean"%>
 <%@ page import="moviedam.member.MemberDataBean"%>
 <%@ page import="moviedam.member.FollowDBBean"%>
 <%@ page import="moviedam.member.FollowDataBean"%>
 <%@ page import="moviedam.board.ArticleDBBean"%>
 <%@ page import="moviedam.board.ArticleDataBean"%>
-<%@ page import="moviedam.member.ArticlelikeDBBean" %>
+<%@ page import="moviedam.member.ArticlelikeDBBean"%>
 
 <%
 	request.setCharacterEncoding("utf-8");
@@ -56,168 +55,159 @@
 <jsp:include page="/module/nav.jsp" flush="false" />
 
 <main class="profile-page">
-    <section class="section-profile-cover section-shaped my-0">
-      <!-- Circles background -->
-      <div class="shape shape-style-1 shape-primary alpha-4">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <!-- SVG separator -->
-      <div class="separator separator-bottom separator-skew">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<section class="section-profile-cover section-shaped my-0">
+	<!-- Circles background -->
+	<div class="shape shape-style-1 shape-primary alpha-4">
+		<span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+	</div>
+	<!-- SVG separator -->
+	<div class="separator separator-bottom separator-skew">
+		<svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
         </svg>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container">
-        <div class="card card-profile shadow mt--300">
-          <div class="px-4">
-            <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="#">
-                    <img src="/movie-dam/assets/img/profile-img/<%=profile.getMem_img() %>" width="800" height="800" class="rounded-circle">
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
-                <div class="card-profile-actions py-4 mt-lg-0">
-                  	<a href="#" class="btn btn-sm btn-default float-right">Message</a>
-               	 	<% if(profile.getMem_userid().equals(userid)) { %>
-                	<a href="profile_setting.jsp" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">Setting</a>
-                	<% } else { %>
-                	<form id="followForm" method="post"></form>
-                	<% } %>
-                </div>
-              </div>
-              <div class="col-lg-4 order-lg-1">
-                <div class="card-profile-stats d-flex justify-content-center">
-                  <div>
-                  	<a href="profile_following.jsp?mem_userid=<%=mem_userid%>">
-	                    <span class="heading" id="followingCnt"><%=following_cnt %></span>
-	                    <span class="description">팔로우</span>
-                  	</a>
-                  </div>
-                  <div>
-                  	<a href="profile_follower.jsp?mem_userid=<%=mem_userid%>">
-	                    <span class="heading" id="followerCnt"><%=follower_cnt %></span>
-	                    <span class="description">팔로워</span>
-                    </a>
-                  </div>
-                  <div>
-                  	<a href="profile_like.jsp?mem_userid=<%=mem_userid%>"> 
-						<span class="heading"><%=like_cnt %></span> 
-						<span class="description">좋아요</span>
-					</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="text-center mt-5">
-              <h3><a href="profile.jsp?mem_userid=<%=mem_userid%>"><%=profile.getMem_nickname() %></a>
-                <span class="font-weight-light" id="birth"></span>
-              </h3>
-              <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>자기소개가 없습니다.</div>
-            </div>
-            <div class="mt-5 py-5 border-top text-center">
-              <div class="row justify-content-center">
-                <div class="col-lg-9">
-                	<div class="nav-wrapper">
-						<ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
-							<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#profile" role="tab" aria-selected="true">프로필</a></li>
-							<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-toggle="tab" href="#activiry" role="tab" aria-selected="false">활동</a></li>
-						</ul>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<div class="card card-profile shadow mt--300">
+			<div class="px-4">
+				<div class="row justify-content-center">
+					<div class="col-lg-3 order-lg-2">
+						<div class="card-profile-image">
+							<a href="#">
+								<img src="/movie-dam/assets/img/profile-img/<%=profile.getMem_img() %>" width="800" height="800" class="rounded-circle">
+							</a>
+						</div>
 					</div>
-					<div class="card">
-					    <div class="card-body">
-					        <div class="tab-content" id="myTabContent">
-					            <div class="tab-pane fade show active" id="profile" role="tabpanel">
-					                <dl class="row">
-						                <dt class="col-sm-4">이름</dt>
-						                <dd class="col-sm-8 text-left"><%=profile.getMem_name() %></dd>
-						                <dt class="col-sm-4">이메일</dt>
-						                <dd class="col-sm-8 text-left"><%=profile.getMem_email() %></dd>
-						                <dt class="col-sm-4">생년월일</dt>
-						                <dd class="col-sm-8 text-left"><%=profile.getMem_birth() %></dd>
-						                <dt class="col-sm-4">성별</dt>
-						                <dd class="col-sm-8 text-left">
-						                <% if(profile.getMem_gender() == 0) { %>남성
-						                <% } else { %>여성
-						                <% } %>
-						                </dd>
-						                <dt class="col-sm-4">가입일</dt>
-						                <dd class="col-sm-8 text-left"><%=profile.getJoin_date() %></dd>
-					              	</dl>
-					            </div>
-					            <div class="tab-pane fade" id="activiry" role="tabpanel">
-									<%
+					<div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
+						<div class="card-profile-actions py-4 mt-lg-0">
+							<a href="#" class="btn btn-sm btn-default float-right">Message</a>
+							<% if(profile.getMem_userid().equals(userid)) { %>
+							<a href="#" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">Setting</a>
+							<% } else { %>
+							<form id="followForm" method="post"></form>
+							<% } %>
+						</div>
+					</div>
+					<div class="col-lg-4 order-lg-1">
+						<div class="card-profile-stats d-flex justify-content-center">
+							<div>
+								<a href="profile_following.jsp?mem_userid=<%=mem_userid%>">
+									<span class="heading" id="followingCnt"><%=following_cnt %></span> <span class="description">팔로우</span>
+								</a>
+							</div>
+							<div>
+								<a href="profile_follower.jsp?mem_userid=<%=mem_userid%>">
+									<span class="heading" id="followerCnt"><%=follower_cnt %></span> <span class="description">팔로워</span>
+								</a>
+							</div>
+							<div>
+								<a href="profile_like.jsp?mem_userid=<%=mem_userid%>">
+									<span class="heading"><%=like_cnt %></span> <span class="description">좋아요</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center mt-5">
+					<h3>
+						<a href="profile.jsp?mem_userid=<%=mem_userid%>"><%=profile.getMem_nickname() %></a>
+						<span class="font-weight-light" id="birth"></span>
+					</h3>
+					<div class="h6 font-weight-300">
+						<i class="ni location_pin mr-2"></i>자기소개가 없습니다.
+					</div>
+				</div>
+				<div class="mt-5 py-5 border-top text-center">
+					<div class="row justify-content-center">
+						<div class="col-lg-9">
+							<div class="nav-wrapper">
+								<ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
+									<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#profile" role="tab" aria-selected="true">프로필</a></li>
+									<li class="nav-item"><a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-toggle="tab" href="#activiry" role="tab" aria-selected="false">활동</a></li>
+								</ul>
+							</div>
+							<div class="card">
+								<div class="card-body">
+									<div class="tab-content" id="myTabContent">
+										<div class="tab-pane fade show active" id="profile" role="tabpanel">
+											<dl class="row">
+												<dt class="col-sm-4">이름</dt>
+												<dd class="col-sm-8 text-left"><%=profile.getMem_name() %></dd>
+												<dt class="col-sm-4">이메일</dt>
+												<dd class="col-sm-8 text-left"><%=profile.getMem_email() %></dd>
+												<dt class="col-sm-4">생년월일</dt>
+												<dd class="col-sm-8 text-left"><%=profile.getMem_birth() %></dd>
+												<dt class="col-sm-4">성별</dt>
+												<dd class="col-sm-8 text-left">
+													<% if(profile.getMem_gender() == 0) { %>남성
+													<% } else { %>여성
+													<% } %>
+												</dd>
+												<dt class="col-sm-4">가입일</dt>
+												<dd class="col-sm-8 text-left"><%=profile.getJoin_date() %></dd>
+											</dl>
+										</div>
+										<div class="tab-pane fade" id="activiry" role="tabpanel">
+											<%
 										if (articleList != null && articleList.size() > 0) {
 									%>
-										<table class="table table-sm table-hover">
-										<thead>
-											<tr>
-												<th scope="col">제목</th>
-												<th scope="col">날짜</th>
-												<th scope="col">조회수</th>
-											</tr>
-										</thead>
-									<%			
+											<table class="table table-sm table-hover">
+												<thead>
+													<tr>
+														<th scope="col">제목</th>
+														<th scope="col">날짜</th>
+														<th scope="col">조회수</th>
+													</tr>
+												</thead>
+												<%			
 											
 											for (int i = 0 ; i < articleList.size() ; i++) {
 												   ArticleDataBean article = articleList.get(i);
 									%>
-										<tbody>
-											<tr>
-												<td><a href="/movie-dam/board/content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=1&board_id=1&category=all"><%=article.getArticle_title() %></a></td>
-												<td><%=article.getReg_date() %></td>
-												<td><%=article.getArticle_hits() %></td>
-											</tr>
-										</tbody>
-									<%
+												<tbody>
+													<tr>
+														<td><a href="/movie-dam/board/content.jsp?article_id=<%=article.getArticle_id()%>&pageNum=1&board_id=1&category=all"><%=article.getArticle_title() %></a></td>
+														<td><%=article.getReg_date() %></td>
+														<td><%=article.getArticle_hits() %></td>
+													</tr>
+												</tbody>
+												<%
 											}
 									%>
-										</table>
-									<%		
+											</table>
+											<%		
 										}else{
 									%>
-										<p class="description">없어요</p>
-									<%		
+											<p class="description">없어요</p>
+											<%		
 										}
 				            		%>
-					            </div>		
-					        </div>
-					    </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-9">
+							<div class="tab-content" role="tabpanel"></div>
+						</div>
+
 					</div>
 				</div>
-				
-				<div class="col-lg-9">
-				<div class="tab-content" role="tabpanel">
-
-				
-	            </div>
-           		</div>	
-				
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+			</div>
+		</div>
+	</div>
+</section>
+</main>
 
 <%
 	} catch(Exception e){
 %>
-	<script>
+<script>
 		alert('잘못된 접근입니다!');
 		history.go(-1);
-	</script>		
+	</script>
 <%
 	}
 %>

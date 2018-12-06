@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
-	String pageTitle = request.getParameter("title");	
+	String pageTitle = request.getParameter("title");
 %>
 <!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>영화담 | <%=pageTitle %></title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
+<title>영화담 | <%=pageTitle%></title>
 
 <!-- Favicon -->
 <link rel="icon" href="/movie-dam/assets/img/core-img/movie.ico">
@@ -108,29 +108,25 @@
 #category li.on .category_bg {
 	background-position-x: -46px;
 }
-
 </style>
 </head>
 <body>
 
-<!-- Preloader -->
-<div id="preloader">
-	<div class="dorne-load"></div>
-</div> 
+	<div id="preloader">
+		<div class="dorne-load"></div>
+	</div>
 
-<!-- ***** Search Form Area ***** -->
-<div class="dorne-search-form d-flex align-items-center">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="search-close-btn" id="closeBtn">
-					<i class="pe-7s-close-circle" aria-hidden="true"></i>
+	<div class="dorne-search-form d-flex align-items-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="search-close-btn" id="closeBtn">
+						<i class="pe-7s-close-circle" aria-hidden="true"></i>
+					</div>
+					<form action="/movie-dam/movie/movie_search.jsp" method="get">
+						<input type="search" name="query" placeholder="찾고자 하는 영화를 검색해 보세요!"> <input type="submit" class="d-none" value="submit">
+					</form>
 				</div>
-				<form action="/movie-dam/movie/movie_search.jsp" method="get">
-					<input type="search" name="query" placeholder="찾고자 하는 영화를 검색해 보세요!">
-					<input type="submit" class="d-none" value="submit">
-				</form>
 			</div>
 		</div>
 	</div>
-</div>

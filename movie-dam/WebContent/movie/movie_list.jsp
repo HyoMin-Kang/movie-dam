@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -25,53 +24,43 @@
 
 <jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
 <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
 
-<!-- ***** Listing Destinations Area Start ***** -->
 <section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Movie list</h4>
-                <p id="lead"></p>
-            </div>
-        </div>
-    </div>	
-
-	<div class="row mb-3 mr-2 d-flex justify-content-end">
-		<div class="dropdown mb-4">
-			<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    	장르
-			</button>
-	  		<div class="dropdown-menu" aria-labelledby="dropdownGenre" id="dropdownGenreList">
-	  		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-heading dark text-center">
+					<span></span>
+					<h4>Movie list</h4>
+					<p id="lead"></p>
+				</div>
+			</div>
 		</div>
-		
-		<div class="dropdown mb-4">
-			<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				정렬
-		  	</button>
-		  	<div class="dropdown-menu" aria-labelledby="dropdownSort">
-		    	<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count&with_genres=<%=with_genres%>">인기순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date&with_genres=<%=with_genres%>">최근 개봉순</a>
-				<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue&with_genres=<%=with_genres%>">최고 흥행순</a>
-		  	</div>
+
+		<div class="row mb-3 mr-2 d-flex justify-content-end">
+			<div class="dropdown mb-4">
+				<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">장르</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownGenre" id="dropdownGenreList"></div>
+			</div>
+
+			<div class="dropdown mb-4">
+				<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">정렬</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownSort">
+					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=vote_count&with_genres=<%=with_genres%>">인기순</a>
+					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=release_date&with_genres=<%=with_genres%>">최근 개봉순</a>
+					<a class="dropdown-item" href="movie_list.jsp?resultPage=1&sort=revenue&with_genres=<%=with_genres%>">최고 흥행순</a>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="row" id="showMovieList">
-		
-	</div>
+		<div class="row" id="showMovieList"></div>
 
-	<nav aria-label="Page navigation">
-		<ul class="pagination justify-content-center" id="paging">
-		</ul>
-	</nav>
-</div>
+		<nav aria-label="Page navigation">
+			<ul class="pagination justify-content-center" id="paging">
+			</ul>
+		</nav>
+	</div>
 </section>
 
 

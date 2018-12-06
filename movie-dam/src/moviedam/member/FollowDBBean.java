@@ -1,4 +1,5 @@
 package moviedam.member;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,31 +18,31 @@ public class FollowDBBean {
 
 	private FollowDBBean() {
 	}
-	
+
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
 		return ds.getConnection();
 	}
-	
+
 	public String getFol_type(String mem_id, String target_mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
 		String type = "";
-		
+
 		try {
 			conn = getConnection();
-			
+
 			sql = "select fol_type from follow where mem_id = ? and target_mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mem_id);
 			pstmt.setString(2, target_mem_id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				type = rs.getString(1);
 			} else {
 				type = "N";
@@ -67,7 +68,7 @@ public class FollowDBBean {
 		}
 		return type;
 	}
-	
+
 	public String following(FollowDataBean follow) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -75,49 +76,48 @@ public class FollowDBBean {
 		String sql = "";
 		String ftype = "";
 		try {
-			
+
 			conn = getConnection();
-			
+
 			sql = "select * from follow where mem_id = ? and target_mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, follow.getMem_id());
 			pstmt.setString(2, follow.getTarget_mem_id());
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				String type = follow.getFol_type();
-				if(type.equals("Y")) {
+				if (type.equals("Y")) {
 					sql = "insert into follow values (?, ?, ?) on duplicate key update fol_type = 'N'";
-				} else if(type.equals("N")){
+				} else if (type.equals("N")) {
 					sql = "insert into follow values (?, ?, ?) on duplicate key update fol_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, follow.getMem_id());
 				pstmt.setString(2, follow.getTarget_mem_id());
 				pstmt.setString(3, follow.getFol_type());
-				
+
 			} else {
 				sql = "insert into follow values (?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, follow.getMem_id());
 				pstmt.setString(2, follow.getTarget_mem_id());
 				pstmt.setString(3, "Y");
-			}			
+			}
 			pstmt.executeUpdate();
-			
-			
+
 			sql = "select fol_type from follow where mem_id = ? and target_mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, follow.getMem_id());
 			pstmt.setString(2, follow.getTarget_mem_id());
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				ftype = rs.getString(1);
 			} else {
 				ftype = "N";
 			}
-					
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -139,7 +139,7 @@ public class FollowDBBean {
 		}
 		return ftype;
 	}
-	
+
 	public int getFollowerCount(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -181,21 +181,21 @@ public class FollowDBBean {
 		}
 		return x;
 	}
-	
+
 	public ArrayList<FollowDataBean> getFollowers(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
 		ArrayList<FollowDataBean> followerList = null;
-		
+
 		try {
 			conn = getConnection();
 			sql = "select mem_id from follow where target_mem_id=? and fol_type = 'Y'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mem_id);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				followerList = new ArrayList<FollowDataBean>();
 				do {
@@ -226,7 +226,7 @@ public class FollowDBBean {
 		}
 		return followerList;
 	}
-	
+
 	public int getFollowingCount(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -268,21 +268,21 @@ public class FollowDBBean {
 		}
 		return x;
 	}
-	
+
 	public ArrayList<FollowDataBean> getFollowings(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
 		ArrayList<FollowDataBean> followingList = null;
-		
+
 		try {
 			conn = getConnection();
 			sql = "select target_mem_id from follow where mem_id=? and fol_type = 'Y'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mem_id);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				followingList = new ArrayList<FollowDataBean>();
 				do {

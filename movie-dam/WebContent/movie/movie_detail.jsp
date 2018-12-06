@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="moviedam.debate.ChanbanDBBean"%>
 <%@ page import="moviedam.debate.ChanbanDataBean"%>
@@ -17,80 +16,77 @@
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
-	<jsp:param name="title" value="<%=title %>"/>
+	<jsp:param name="title" value="<%=title %>" />
 </jsp:include>
 
-<jsp:include page="/module/nav.jsp" flush="false"/>
+<jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
 <div class="breadcumb-area height-700 bg-img bg-overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcumb-content">
-                    <div class="map-ratings-review-area d-flex">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="breadcumb-content">
+					<div class="map-ratings-review-area d-flex"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<!-- ***** Breadcumb Area End ***** -->
 
-<!-- ***** Single Listing Area Start ***** -->
 <section class="dorne-single-listing-area section-padding-100">
 	<div class="container">
-        <div class="row justify-content-center">
-            <!-- Single Listing Content -->
+		<div class="row justify-content-center">
+			<!-- Single Listing Content -->
 			<div class="col-12">
-    			<div class="single-listing-content">
-			        <div class="single-listing-nav">
-                        <nav>
-                            <ul id="listingNav">
-                                <li class="active"><a href="#overview">기본 정보</a></li>
-                                <li><a href="#credit">출연·제작</a></li>
-                                <li><a href="#trailer">예고편</a></li>
-                                <li><a href="#related">관련 토론</a></li>
-                                <li><a href="#similar" id="li_similar">유사한 영화</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="overview-content mt-50" id="overview">
-                    	<div class="row">
-	                    	<div class="col-sm-3" id="poster">
-	                    	</div>
-                         	<div class="col-sm-9">
-	                         	<h4 id="title"></h4>
-	                         	<h6 id="original_title" class="text-muted"></h6>
-	                   			<dl class="row">
-		                         	<dt class="col-sm-2 text-truncate">개봉일</dt>
-		                         	<dd class="col-sm-10" id="show_release_date"></dd>
-		                         	<dt class="col-sm-2 text-truncate">장르</dt>
-		                         	<dd class="col-sm-10" id="show_genres"></dd>
-		                         	<dt class="col-sm-2 text-truncate">러닝타임</dt>
-		                         	<dd class="col-sm-10" id="show_runtime"></dd>
-		                         	<dt class="col-sm-2 text-truncate">수익</dt>
-		                         	<dd class="col-sm-10" id="show_revenue"></dd>
-	                    		</dl>
-	                    		<h6><b id="tagline"></b></h6>
-	                    		<p id="overview_text"></p>
-                         	</div>
-                       	</div>
-	                </div>
-	                <div class="listing-reviews-area mt-100" id="credit">
-	                    <h4>출연·제작</h4>
-	                    <div class="row" id="cast_crew"></div>	
-	                </div>
-	                <div class="listing-reviews-area mt-100" id="trailer">
-	                    <h4>예고편</h4>
-	                    <div class="embed-responsive embed-responsive-16by9">
-	                    	<iframe id="showVideo" class="embed-responsive-item" allowfullscreen onerror="alert('failed')"></iframe>
-	                    </div>	
-	                </div>
-	                <div class="listing-reviews-area mt-100" id="related">
-	                    <h4>관련 토론</h4>
-	                    <div class="row">
-	                    <%
+				<div class="single-listing-content">
+					<div class="single-listing-nav">
+						<nav>
+							<ul id="listingNav">
+								<li class="active"><a href="#overview">기본 정보</a></li>
+								<li><a href="#credit">출연·제작</a></li>
+								<li><a href="#trailer">예고편</a></li>
+								<li><a href="#related">관련 토론</a></li>
+								<li><a href="#similar" id="li_similar">유사한 영화</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="overview-content mt-50" id="overview">
+						<div class="row">
+							<div class="col-sm-3" id="poster"></div>
+							<div class="col-sm-9">
+								<h4 id="title"></h4>
+								<h6 id="original_title" class="text-muted"></h6>
+								<dl class="row">
+									<dt class="col-sm-2 text-truncate">개봉일</dt>
+									<dd class="col-sm-10" id="show_release_date"></dd>
+									<dt class="col-sm-2 text-truncate">장르</dt>
+									<dd class="col-sm-10" id="show_genres"></dd>
+									<dt class="col-sm-2 text-truncate">러닝타임</dt>
+									<dd class="col-sm-10" id="show_runtime"></dd>
+									<dt class="col-sm-2 text-truncate">수익</dt>
+									<dd class="col-sm-10" id="show_revenue"></dd>
+								</dl>
+								<h6>
+									<b id="tagline"></b>
+								</h6>
+								<p id="overview_text"></p>
+							</div>
+						</div>
+					</div>
+					<div class="listing-reviews-area mt-100" id="credit">
+						<h4>출연·제작</h4>
+						<div class="row" id="cast_crew"></div>
+					</div>
+					<div class="listing-reviews-area mt-100" id="trailer">
+						<h4>예고편</h4>
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe id="showVideo" class="embed-responsive-item" allowfullscreen onerror="alert('failed')"></iframe>
+						</div>
+					</div>
+					<div class="listing-reviews-area mt-100" id="related">
+						<h4>관련 토론</h4>
+						<div class="row">
+							<%
 							if (chanbanList != null && chanbanList.size() > 0) {
 						%>
 							<table class="table table-sm table-hover">
@@ -108,7 +104,7 @@
 										<th scope="col">작성일</th>
 									</tr>
 								</thead>
-						<% 			
+								<% 			
 							for (int i = 0; i < chanbanList.size(); i++) {
 								ChanbanDataBean chanban = chanbanList.get(i);
 							
@@ -121,26 +117,28 @@
 										<td class="text-center"><%=chanban.getReg_date() %></td>
 									</tr>
 								</tbody>
-						<%
+								<%
 							}
 						%>
 							</table>
-						<% } else { %>
+							<% } else { %>
 							<div class="col-12">
-								<div class="alert alert-secondary" role="alert">이 영화와 관련된 토론이 아직 이루어지지 않았습니다! <strong><a href="/movie-dam/debate/debate_chanban.jsp" class="text-dark">토론 글 찾아보기..</a></strong></div>
+								<div class="alert alert-secondary" role="alert">
+									이 영화와 관련된 토론이 아직 이루어지지 않았습니다! <strong><a href="/movie-dam/debate/debate_chanban.jsp" class="text-dark">토론 글 찾아보기..</a></strong>
+								</div>
 							</div>
-						<% } %>
-	                    </div>
-	                </div>
-	                <div class="listing-menu-area mt-100" id="similar">
-	                    <h4>유사한 영화</h4>
-	                    <div class="row" id="similar_movie"></div>
-	                </div>
-        		</div>
-       		</div>
-       		
-       	
-   		</div>
+							<% } %>
+						</div>
+					</div>
+					<div class="listing-menu-area mt-100" id="similar">
+						<h4>유사한 영화</h4>
+						<div class="row" id="similar_movie"></div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
 	</div>
 </section>
 
@@ -148,7 +146,7 @@
 	} catch(Exception e){ }
 %>
 
-<jsp:include page="/module/footer.jsp" flush="false"/>
+<jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
 function numberWithCommas(x) {

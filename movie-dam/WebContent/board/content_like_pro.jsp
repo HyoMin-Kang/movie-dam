@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="org.json.simple.JSONObject"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="moviedam.board.ArticleDBBean"%>
@@ -54,7 +53,7 @@
 	} else {
 
 %>
-	<script>
+<script>
 		alert('로그인을 해주세요.');
 		location.href = '/movie-dam/member/login_form.jsp';
 	</script>

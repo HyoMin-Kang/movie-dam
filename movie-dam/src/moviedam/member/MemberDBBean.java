@@ -1,4 +1,5 @@
 package moviedam.member;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,30 +9,31 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class MemberDBBean {
-	
+
 	private static MemberDBBean instance = new MemberDBBean();
-	
+
 	public static MemberDBBean getInstance() {
 		return instance;
 	}
-	
-	private MemberDBBean() {}
-	
-	private Connection getConnection() throws Exception {
-	    Context initCtx = new InitialContext();
-	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
-	    DataSource ds = (DataSource)envCtx.lookup("jdbc/miso");
-	    return ds.getConnection();
+
+	private MemberDBBean() {
 	}
-	
+
+	private Connection getConnection() throws Exception {
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
+		return ds.getConnection();
+	}
+
 	public String insertMember(MemberDataBean member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String rs = "";
-			        
-		try{
+
+		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, member.getMem_status());
 			pstmt.setString(2, member.getMem_userid());
@@ -46,95 +48,125 @@ public class MemberDBBean {
 			pstmt.setInt(11, member.getMem_type());
 			pstmt.executeUpdate();
 			rs = "ok";
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			rs = "error";
 		} finally {
-			if(pstmt != null)
-				try { pstmt.close(); } catch(SQLException ex) {}
-			if(conn != null)
-				try { conn.close(); } catch(SQLException ex) {}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 		return rs;
 	}
-	
+
 	public int userCheck(String mem_userid, String mem_pwd) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String dbpwd = "";
 		int x = -1;
-		
+
 		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("select mem_pwd from member where mem_userid = ?");
 			pstmt.setString(1, mem_userid);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				dbpwd = rs.getString("mem_pwd");
-				if(dbpwd.equals(mem_pwd))
-					x = 1; //인증 성공
+				if (dbpwd.equals(mem_pwd))
+					x = 1; // 인증 성공
 				else
-					x = 0; //비밀번호 틀림
+					x = 0; // 비밀번호 틀림
 			} else
-				x = -1; //아이디 존재하지 않음
-				
-		} catch(Exception ex) {
+				x = -1; // 아이디 존재하지 않음
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if(rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if(pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if(conn != null) try { conn.close(); } catch(SQLException ex) {}
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 		return x;
 	}
-	
+
 	public int idConfirm(String mem_userid) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int x = -1;
-		
+
 		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("select mem_userid from member where mem_userid = ?");
 			pstmt.setString(1, mem_userid);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				x = 1; //아이디 중복
+
+			if (rs.next()) {
+				x = 1; // 아이디 중복
 			} else {
-				x = -1; //아이디 존재 안함
+				x = -1; // 아이디 존재 안함
 			}
-			
-		} catch(Exception ex) {
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 		return x;
 	}
-	
+
 	public MemberDataBean getProfile(String mem_userid) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		MemberDataBean profile = null;
-		
+
 		try {
 			conn = getConnection();
-			
+
 			pstmt = conn.prepareStatement("select * from member where mem_userid = ?");
 			pstmt.setString(1, mem_userid);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				profile = new MemberDataBean();
 				profile.setMem_status(rs.getInt("mem_status"));
 				profile.setMem_userid(rs.getString("mem_userid"));
@@ -150,14 +182,26 @@ public class MemberDBBean {
 			} else {
 				profile = null;
 			}
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 		return profile;
 	}
-	
+
 }

@@ -16,7 +16,7 @@ import moviedam.board.RestaurantLikeDataBean;
 import moviedam.debate.ChanbanlikeDataBean;
 
 public class ArticlelikeDBBean {
-	
+
 	private static ArticlelikeDBBean instance = new ArticlelikeDBBean();
 
 	public static ArticlelikeDBBean getInstance() {
@@ -32,7 +32,7 @@ public class ArticlelikeDBBean {
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/miso");
 		return ds.getConnection();
 	}
-	
+
 	public ArrayList<ArticlelikeDataBean> getlikeArticles(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -75,7 +75,7 @@ public class ArticlelikeDBBean {
 		}
 		return articleList;
 	}
-	
+
 	public ArrayList<RestaurantLikeDataBean> getlikeRestaurants(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -118,7 +118,7 @@ public class ArticlelikeDBBean {
 		}
 		return restaurantList;
 	}
-	
+
 	public ArrayList<ChanbanlikeDataBean> getlikeChanbans(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -140,7 +140,7 @@ public class ArticlelikeDBBean {
 					chanban.setCb_id(rs.getInt("cb_id"));
 					chanban.setMem_id(rs.getString("mem_id"));
 					chanban.setCb_like_type(rs.getString("cb_like_type"));
-					
+
 					chanbanList.add(chanban);
 				} while (rs.next());
 			}
@@ -160,7 +160,7 @@ public class ArticlelikeDBBean {
 		}
 		return chanbanList;
 	}
-	
+
 	public int getArticleLikeCount(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -172,7 +172,7 @@ public class ArticlelikeDBBean {
 			conn = getConnection();
 
 			sql = "select count(*) from article_like where mem_id=? and like_type='Y' and board_id = 1";
-			pstmt = conn.prepareStatement(sql); 
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mem_id);
 			rs = pstmt.executeQuery();
 
@@ -202,7 +202,7 @@ public class ArticlelikeDBBean {
 		}
 		return x;
 	}
-	
+
 	public int getRestLikeCount(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -244,7 +244,7 @@ public class ArticlelikeDBBean {
 		}
 		return x;
 	}
-	
+
 	public int getChanbanLikeCount(String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -286,5 +286,5 @@ public class ArticlelikeDBBean {
 		}
 		return x;
 	}
-	
+
 }

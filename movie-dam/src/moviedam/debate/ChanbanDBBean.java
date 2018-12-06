@@ -30,7 +30,7 @@ import kr.co.shineware.util.common.model.Pair;
 import moviedam.board.ArticlelikeDataBean;
 
 public class ChanbanDBBean {
-	
+
 	private static ChanbanDBBean instance = new ChanbanDBBean();
 
 	public static ChanbanDBBean getInstance() {
@@ -53,34 +53,34 @@ public class ChanbanDBBean {
 	List<String> doc = null;
 	List<List<String>> docs = null;
 	File file = new File(indexPath, "word_index.txt");
-	
+
 	public HashMap<String, Double> analyzeContent(String content) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "";	
+		String sql = "";
 		docs = new ArrayList<List<String>>();
 		int docsSize = 0;
 		Analyze analyze = new Analyze();
 		HashMap<String, Double> map = new HashMap<String, Double>();
-		
+
 		BufferedReader reader = null;
 		PrintWriter writer = null;
-		try {			
-			//형태소 분석
+		try {
+			// 형태소 분석
 			doc = new ArrayList<String>();
 			content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-			List<List<Pair<String,String>>> result = komoran.analyze(content);
+			List<List<Pair<String, String>>> result = komoran.analyze(content);
 			for (List<Pair<String, String>> eojeolResult : result) {
 				for (Pair<String, String> wordMorph : eojeolResult) {
 					System.out.println(wordMorph);
-					if(wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
+					if (wordMorph.getSecond().equals("NNP") || wordMorph.getSecond().equals("NNG"))
 						doc.add(wordMorph.getFirst());
 				}
-					System.out.println();
-			}			
-		
-			//index 생성 부분
+				System.out.println();
+			}
+
+			// index 생성 부분
 			HashSet<String> docSet = new HashSet<String>(doc);
 			Map<String, Integer> indexMap = new HashMap<>();
 			Map<String, Integer> indexedMap = new HashMap<>();
@@ -88,9 +88,9 @@ public class ChanbanDBBean {
 			reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				System.out.println("line: " + line);	
+				System.out.println("line: " + line);
 				String[] data = line.split("=");
-				if(data.length >= 2) {
+				if (data.length >= 2) {
 					String key = data[0];
 					String value = data[1];
 					indexedMap.put(key, Integer.parseInt(value));
@@ -99,85 +99,86 @@ public class ChanbanDBBean {
 				}
 			}
 			indexMap.putAll(indexedMap);
-			
-			for(String term : docSet) {			
-				if(indexMap.containsKey(term)) {
-					indexMap.put(term, indexMap.get(term)+1);
+
+			for (String term : docSet) {
+				if (indexMap.containsKey(term)) {
+					indexMap.put(term, indexMap.get(term) + 1);
 				} else {
 					indexMap.put(term, 1);
 				}
 			}
-			System.out.println(indexMap);
-			
+
 			docsSize = indexMap.size();
-			//tf-idf 계산
-			for(String term : doc) {
+			// tf-idf 계산
+			for (String term : doc) {
 				int docsCount = indexMap.get(term);
 				double tfidf = analyze.tfIdf(doc, docsCount, docsSize, term);
 				map.put(term, tfidf);
-				System.out.println("term:" + term + ", tf-idf:" + tfidf);
 			}
 
-			//writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			// writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
-			for(String key : indexMap.keySet()) {
+			for (String key : indexMap.keySet()) {
 				writer.println(key + "=" + indexMap.get(key));
 				writer.flush();
-			}			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(writer != null) writer.close();
-			if(reader != null) reader.close();
+			if (writer != null)
+				writer.close();
+			if (reader != null)
+				reader.close();
 		}
 		return map;
 	}
-	
+
 	public static boolean ASC = true;
-    public static boolean DESC = false;
-	public static HashMap<String,Double> sortByValue(HashMap<String,Double> unsortedMap, final boolean order) {
+	public static boolean DESC = false;
+
+	public static HashMap<String, Double> sortByValue(HashMap<String, Double> unsortedMap, final boolean order) {
 		List<Entry<String, Double>> list = new LinkedList<Entry<String, Double>>(unsortedMap.entrySet());
 		// value로 값 정렬
-		Collections.sort(list, new Comparator<Entry<String,Double>>() {
-			public int compare(Entry<String,Double> comp1, Entry<String,Double> comp2) {
-				if(order) {
+		Collections.sort(list, new Comparator<Entry<String, Double>>() {
+			public int compare(Entry<String, Double> comp1, Entry<String, Double> comp2) {
+				if (order) {
 					return comp1.getValue().compareTo(comp2.getValue());
 				} else {
 					return comp2.getValue().compareTo(comp1.getValue());
 				}
 			}
 		});
-		// 정렬된 항목을 기반으로 linked hashmap 생성 
-		HashMap<String,Double> sortedMap = new LinkedHashMap<String,Double>();
-		for(Entry<String,Double> entry : list) {
+		// 정렬된 항목을 기반으로 linked hashmap 생성
+		HashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+		for (Entry<String, Double> entry : list) {
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
 		return sortedMap;
 	}
-	
+
 	public void insertChanban(ChanbanDataBean cb) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
 
-		try {	
+		try {
 			String cb_tag = "";
 			HashMap<String, Double> analyzedMap = analyzeContent(cb.getCb_content());
 			HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
-			if(sortedMap.size() >= 7) { 
+			if (sortedMap.size() >= 7) {
 				List<String> top7List = new ArrayList<String>();
-				List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-				List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
-				for(Entry<String,Double> entry : topTags) {
+				List<Entry<String, Double>> sortedList = new ArrayList<Entry<String, Double>>(sortedMap.entrySet());
+				List<Entry<String, Double>> topTags = sortedList.subList(0, 7);
+				for (Entry<String, Double> entry : topTags) {
 					top7List.add(entry.getKey());
 				}
 				System.out.println(top7List);
 				cb_tag = String.join("|", top7List);
 			} else {
 				List<String> topNList = new ArrayList<String>();
-				List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-				for(Entry<String,Double> entry : sortedList) {
+				List<Entry<String, Double>> sortedList = new ArrayList<Entry<String, Double>>(sortedMap.entrySet());
+				for (Entry<String, Double> entry : sortedList) {
 					topNList.add(entry.getKey());
 				}
 				System.out.println(topNList);
@@ -219,7 +220,7 @@ public class ChanbanDBBean {
 				}
 		}
 	}
-	
+
 	public int getChanbanCount(String option, String search) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -229,11 +230,12 @@ public class ChanbanDBBean {
 
 		try {
 			conn = getConnection();
-			
+
 			if (option == null) {
 				pstmt = conn.prepareStatement("select count(*) from chanban");
 			} else if (option.equals("all")) {
-				pstmt = conn.prepareStatement("select count(*) from chanban where cb_title LIKE '%" + search + "%' or cb_content LIKE '%" + search + "%' or cb_writer LIKE '%" + search + "%'");
+				pstmt = conn.prepareStatement("select count(*) from chanban where cb_title LIKE '%" + search
+						+ "%' or cb_content LIKE '%" + search + "%' or cb_writer LIKE '%" + search + "%'");
 			} else if (option.equals("cb_title")) {
 				pstmt = conn.prepareStatement("select count(*) from chanban where cb_title LIKE '%" + search + "%'");
 			} else if (option.equals("cb_content")) {
@@ -241,7 +243,7 @@ public class ChanbanDBBean {
 			} else if (option.equals("cb_writer")) {
 				pstmt = conn.prepareStatement("select count(*) from chanban where cb_writer LIKE '%" + search + "%'");
 			}
-				
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -268,7 +270,7 @@ public class ChanbanDBBean {
 		}
 		return x;
 	}
-	
+
 	public List<ChanbanDataBean> getChanbans(int start, int end, String option, String search) throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -277,17 +279,19 @@ public class ChanbanDBBean {
 		try {
 			conn = getConnection();
 			String sql = "select * from chanban ";
-			
+
 			if (option == null) {
 				pstmt = conn.prepareStatement(sql += "order by cb_id desc limit ?,? ");
 				pstmt.setInt(1, start - 1);
 				pstmt.setInt(2, end);
 			} else if (option.equals("all")) {
-				pstmt = conn.prepareStatement(sql += "where cb_title LIKE '%" + search + "%' or cb_content LIKE '%" + search + "%' or cb_writer LIKE '%" + search + "%' order by cb_id desc limit ?,?");
+				pstmt = conn.prepareStatement(sql += "where cb_title LIKE '%" + search + "%' or cb_content LIKE '%"
+						+ search + "%' or cb_writer LIKE '%" + search + "%' order by cb_id desc limit ?,?");
 				pstmt.setInt(1, start - 1);
 				pstmt.setInt(2, end);
 			} else if (option.equals("cb_title")) {
-				pstmt = conn.prepareStatement(sql += "where cb_title LIKE '%" + search + "%' order by cb_id desc limit ?,? ");
+				pstmt = conn.prepareStatement(
+						sql += "where cb_title LIKE '%" + search + "%' order by cb_id desc limit ?,? ");
 				pstmt.setInt(1, start - 1);
 				pstmt.setInt(2, end);
 			} else if (option.equals("cb_content")) {
@@ -300,7 +304,7 @@ public class ChanbanDBBean {
 						sql += "where cb_writer LIKE '%" + search + "%' order by cb_id desc limit ?,? ");
 				pstmt.setInt(1, start - 1);
 				pstmt.setInt(2, end);
-			}			
+			}
 
 			rs = pstmt.executeQuery();
 
@@ -318,7 +322,7 @@ public class ChanbanDBBean {
 					chanban.setCb_hits(rs.getInt("cb_hits"));
 					chanban.setCb_file(rs.getString("cb_file"));
 					chanban.setCb_type(rs.getString("cb_type"));
-					
+
 					chanbanList.add(chanban);
 				} while (rs.next());
 			}
@@ -490,8 +494,8 @@ public class ChanbanDBBean {
 		}
 		return chanban;
 	}
-	
-	public int updateChanban(ChanbanDataBean chanban,String mem_userid) throws Exception {
+
+	public int updateChanban(ChanbanDataBean chanban, String mem_userid) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -511,25 +515,27 @@ public class ChanbanDBBean {
 					String cb_tag = "";
 					HashMap<String, Double> analyzedMap = analyzeContent(chanban.getCb_content());
 					HashMap<String, Double> sortedMap = sortByValue(analyzedMap, DESC);
-					if(sortedMap.size() >= 7) { 
+					if (sortedMap.size() >= 7) {
 						List<String> top7List = new ArrayList<String>();
-						List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-						List<Entry<String,Double>> topTags = sortedList.subList(0, 7);
-						for(Entry<String,Double> entry : topTags) {
+						List<Entry<String, Double>> sortedList = new ArrayList<Entry<String, Double>>(
+								sortedMap.entrySet());
+						List<Entry<String, Double>> topTags = sortedList.subList(0, 7);
+						for (Entry<String, Double> entry : topTags) {
 							top7List.add(entry.getKey());
 						}
 						System.out.println(top7List);
 						cb_tag = String.join("|", top7List);
 					} else {
 						List<String> topNList = new ArrayList<String>();
-						List<Entry<String,Double>> sortedList = new ArrayList<Entry<String,Double>>(sortedMap.entrySet());
-						for(Entry<String,Double> entry : sortedList) {
+						List<Entry<String, Double>> sortedList = new ArrayList<Entry<String, Double>>(
+								sortedMap.entrySet());
+						for (Entry<String, Double> entry : sortedList) {
 							topNList.add(entry.getKey());
 						}
 						System.out.println(topNList);
 						cb_tag = String.join("|", topNList);
 					}
-					
+
 					sql = "update chanban set cb_content=?,cb_tag=?,cb_title=?,cb_movie=?,cb_file=?,cb_type=? where cb_id =?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, chanban.getCb_content());
@@ -565,8 +571,8 @@ public class ChanbanDBBean {
 				}
 		}
 		return x;
-	    }
-	
+	}
+
 	public int deleteChanban(int cb_id, String mem_userid) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -613,7 +619,7 @@ public class ChanbanDBBean {
 		return x;
 	}
 
-	public String getLike_type (int article_id, String mem_id) throws Exception {
+	public String getLike_type(int article_id, String mem_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -621,14 +627,14 @@ public class ChanbanDBBean {
 		String type = "";
 		try {
 			conn = getConnection();
-			
+
 			sql = "select like_type from chanban_like where article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, article_id);
 			pstmt.setString(2, mem_id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				type = rs.getString(1);
 			} else {
 				type = "N";
@@ -654,7 +660,7 @@ public class ChanbanDBBean {
 		}
 		return type;
 	}
-	
+
 	public String insertLike(ArticlelikeDataBean like) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -662,49 +668,48 @@ public class ChanbanDBBean {
 		String sql = "";
 		String ltype = "";
 		try {
-			
+
 			conn = getConnection();
-			
+
 			sql = "select * from chanban_like where and article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getArticle_id());
 			pstmt.setString(2, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				String type = like.getLike_type();
-				if(type.equals("Y")) {
+				if (type.equals("Y")) {
 					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update like_type = 'N'";
-				} else if(type.equals("N")){
+				} else if (type.equals("N")) {
 					sql = "insert into chanban_like values (?, ?, ?) on duplicate key update like_type = 'Y'";
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getArticle_id());
 				pstmt.setString(2, like.getMem_id());
 				pstmt.setString(3, like.getLike_type());
-				
+
 			} else {
 				sql = "insert into chanban_like values (?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, like.getArticle_id());
 				pstmt.setString(2, like.getMem_id());
 				pstmt.setString(3, "Y");
-			}			
+			}
 			pstmt.executeUpdate();
-			
-			
+
 			sql = "select like_type from chanban_like where article_id = ? and mem_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, like.getArticle_id());
 			pstmt.setString(2, like.getMem_id());
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				ltype = rs.getString(1);
 			} else {
 				ltype = "N";
 			}
-					
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -768,7 +773,7 @@ public class ChanbanDBBean {
 		}
 		return x;
 	}
-	
+
 	public ChanbanDataBean getlikeChanban(int cb_id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -812,7 +817,7 @@ public class ChanbanDBBean {
 		}
 		return chanban;
 	}
-	
+
 	public ArrayList<ChanbanDataBean> getRelatedArticle(String movie_code) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -841,7 +846,7 @@ public class ChanbanDBBean {
 					chanban.setCb_hits(rs.getInt("cb_hits"));
 					chanban.setCb_file(rs.getString("cb_file"));
 					chanban.setCb_type(rs.getString("cb_type"));
-					
+
 					chanbanList.add(chanban);
 				} while (rs.next());
 			}

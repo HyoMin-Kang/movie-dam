@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "영화 검색";
@@ -8,56 +7,55 @@
 	String api_key = "9dd279523f7113a4103a8f1e9ef6abe3";
 %>
 <jsp:include page="/module/header.jsp" flush="false">
-	<jsp:param name="title" value="<%=title %>"/>
+	<jsp:param name="title" value="<%=title %>" />
 </jsp:include>
 
-<jsp:include page="/module/nav.jsp" flush="false"/>
+<jsp:include page="/module/nav.jsp" flush="false" />
 
 <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
 
 <section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Movie search</h4>
-                <p id="lead">영화 찾아보기</p>
-            </div>
-        </div>
-    </div>	
-    
-   	<div class="row mb-5">
-   		<div class="col-8 offset-md-2">
-		<form id="searchForm" action="movie_search.jsp">
-		<div class="input-group mb-3">
-			<% if(query.equals("")) { %>
-				<input type="text" class="form-control" id="searchMovie" name="query" placeholder="찾고 싶은 영화 제목을 검색해 보세요.">
-			<% } else { %>
-				<input type="text" class="form-control" id="searchMovie" name="query" value="<%=query%>">
-			<% } %>
-			<div class="input-group-append">
-				<input class="btn btn-dark" type="submit" value="검색">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-heading dark text-center">
+					<span></span>
+					<h4>Movie search</h4>
+					<p id="lead">영화 찾아보기</p>
+				</div>
 			</div>
-		</div>	
-		</form>
 		</div>
+
+		<div class="row mb-5">
+			<div class="col-8 offset-md-2">
+				<form id="searchForm" action="movie_search.jsp">
+					<div class="input-group mb-3">
+						<% if(query.equals("")) { %>
+						<input type="text" class="form-control" id="searchMovie" name="query" placeholder="찾고 싶은 영화 제목을 검색해 보세요.">
+						<% } else { %>
+						<input type="text" class="form-control" id="searchMovie" name="query" value="<%=query%>">
+						<% } %>
+						<div class="input-group-append">
+							<input class="btn btn-dark" type="submit" value="검색">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12" id="resultList"></div>
+		</div>
+
+		<nav aria-label="Page navigation">
+			<ul class="pagination justify-content-center" id="paging">
+			</ul>
+		</nav>
+
 	</div>
-	
-	<div class="row">
-  		<div class="col-12" id="resultList">
-  		</div>
-	</div>
-	
-	<nav aria-label="Page navigation">
-		<ul class="pagination justify-content-center" id="paging">
-	  	</ul>
-	</nav>
-    
-</div>
 </section>
 
-<jsp:include page="/module/footer.jsp" flush="false"/>
+<jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
 var page = '<%=resultPage%>';

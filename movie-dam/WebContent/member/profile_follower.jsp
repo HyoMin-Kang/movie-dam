@@ -1,20 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="moviedam.member.MemberDBBean" %>
-<%@ page import="moviedam.member.MemberDataBean" %>
-<%@ page import="moviedam.member.FollowDBBean" %>
-<%@ page import="moviedam.member.FollowDataBean" %>
-<%@ page import="moviedam.member.ArticlelikeDBBean" %>
-<%@ page import="moviedam.board.ArticlelikeDataBean" %>
-<%@ page import="moviedam.board.RestaurantLikeDataBean" %>
-<%@ page import="moviedam.debate.ChanbanlikeDataBean" %>
-<%@ page import="moviedam.board.ArticleDataBean" %>
-<%@ page import="moviedam.board.ArticleDBBean" %>
-<%@ page import="moviedam.board.RestaurantDBBean" %>
-<%@ page import="moviedam.board.RestaurantDataBean" %>
-<%@ page import="moviedam.debate.ChanbanDBBean" %>
-<%@ page import="moviedam.debate.ChanbanDataBean" %>
+<%@ page import="moviedam.member.MemberDBBean"%>
+<%@ page import="moviedam.member.MemberDataBean"%>
+<%@ page import="moviedam.member.FollowDBBean"%>
+<%@ page import="moviedam.member.FollowDataBean"%>
+<%@ page import="moviedam.member.ArticlelikeDBBean"%>
+<%@ page import="moviedam.board.ArticlelikeDataBean"%>
+<%@ page import="moviedam.board.RestaurantLikeDataBean"%>
+<%@ page import="moviedam.debate.ChanbanlikeDataBean"%>
+<%@ page import="moviedam.board.ArticleDataBean"%>
+<%@ page import="moviedam.board.ArticleDBBean"%>
+<%@ page import="moviedam.board.RestaurantDBBean"%>
+<%@ page import="moviedam.board.RestaurantDataBean"%>
+<%@ page import="moviedam.debate.ChanbanDBBean"%>
+<%@ page import="moviedam.debate.ChanbanDataBean"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String userid = (String)session.getAttribute("userid");
@@ -67,8 +66,7 @@
 <section class="section-profile-cover section-shaped my-0">
 	<!-- Circles background -->
 	<div class="shape shape-style-1 shape-primary alpha-4">
-		<span></span> <span></span> <span></span> <span></span> <span></span>
-		<span></span> <span></span>
+		<span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
 	</div>
 	<!-- SVG separator -->
 	<div class="separator separator-bottom separator-skew">
@@ -84,7 +82,7 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-3 order-lg-2">
 						<div class="card-profile-image">
-							<a href="#"> 
+							<a href="#">
 								<img src="/movie-dam/assets/img/profile-img/<%=user_profile.getMem_img()%>" width="800" height="800" class="rounded-circle">
 							</a>
 						</div>
@@ -93,7 +91,7 @@
 						<div class="card-profile-actions py-4 mt-lg-0">
 							<a href="#" class="btn btn-sm btn-default float-right">Message</a>
 							<% if (user_profile.getMem_userid().equals(userid)) { %>
-							<a href="profile_setting.jsp" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">Setting</a>
+							<a href="#" class="btn btn-sm btn-info mr-4" id="setProfile" data-toggle="tooltip" data-placement="bottom" title="프로필 설정">Setting</a>
 							<% } else { %>
 							<form id="followForm" method="post"></form>
 							<% } %>
@@ -103,20 +101,17 @@
 						<div class="card-profile-stats d-flex justify-content-center">
 							<div>
 								<a href="profile_following.jsp?mem_userid=<%=mem_userid%>">
-									<span class="heading" id="followingCnt"><%=following_cnt%></span>
-									<span class="description">팔로우</span>
+									<span class="heading" id="followingCnt"><%=following_cnt%></span> <span class="description">팔로우</span>
 								</a>
 							</div>
 							<div>
-								<a href="profile_follower.jsp?mem_userid=<%=mem_userid%>"> 
-									<span class="heading" id="followerCnt"><%=follower_cnt%></span> 
-									<span class="description">팔로워</span>
+								<a href="profile_follower.jsp?mem_userid=<%=mem_userid%>">
+									<span class="heading" id="followerCnt"><%=follower_cnt%></span> <span class="description">팔로워</span>
 								</a>
 							</div>
 							<div>
-								<a href="profile_like.jsp?mem_userid=<%=mem_userid%>"> 
-									<span class="heading"><%=like_cnt %></span> 
-									<span class="description">좋아요</span>
+								<a href="profile_like.jsp?mem_userid=<%=mem_userid%>">
+									<span class="heading"><%=like_cnt %></span> <span class="description">좋아요</span>
 								</a>
 							</div>
 						</div>
@@ -127,7 +122,9 @@
 						<a href="profile.jsp?mem_userid=<%=mem_userid%>"><%=user_profile.getMem_nickname()%></a>
 						<span class="font-weight-light" id="birth"></span>
 					</h3>
-					<div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>자기소개가 없습니다.</div>
+					<div class="h6 font-weight-300">
+						<i class="ni location_pin mr-2"></i>자기소개가 없습니다.
+					</div>
 				</div>
 
 				<div class="mt-5 py-5 border-top text-center">
@@ -144,7 +141,8 @@
 								<div class="review-title-ratings d-flex justify-content-between">
 									<h6>
 										<a href="profile.jsp?mem_userid=<%=follower_profile.getMem_userid()%>"><%=follower_profile.getMem_nickname()%>
-											<small>(<%=follower.getMem_id()%>)</small>
+											<small>(<%=follower.getMem_id()%>)
+											</small>
 										</a>
 									</h6>
 								</div>
@@ -157,9 +155,9 @@
 							} else {
 					%>
 					<div class="single-review-area col">
-							<div class="alert alert-secondary" role="alert">
-							    아직 <strong><%=user_profile.getMem_nickname() %></strong>님을 팔로우하는 사람이 없습니다!
-							</div>
+						<div class="alert alert-secondary" role="alert">
+							아직 <strong><%=user_profile.getMem_nickname() %></strong>님을 팔로우하는 사람이 없습니다!
+						</div>
 					</div>
 					<%
 						}
@@ -176,10 +174,10 @@
 <%
 	} catch (Exception e) {
 %>
-	<script>
+<script>
 		alert('잘못된 접근입니다!');
 		history.go(-1);
-	</script>		
+	</script>
 <%
 	}
 %>

@@ -92,7 +92,7 @@ public class CommentRestDBBean {
 				}
 		}
 	}
-	
+
 	public int getCommentCount(int cmt_ref) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -159,7 +159,7 @@ public class CommentRestDBBean {
 					comment.setCmt_parent(rs.getInt("cmt_parent"));
 					comment.setCmt_restep(rs.getInt("cmt_restep"));
 					comment.setCmt_relevel(rs.getInt("cmt_relevel"));
-					
+
 					commentList.add(comment);
 				} while (rs.next());
 			}
@@ -179,39 +179,51 @@ public class CommentRestDBBean {
 		}
 		return commentList;
 	}
-	
+
 	public CommentRestDataBean getComment(int cmt_id) throws Exception {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        CommentRestDataBean content=null;
-        try {
-            conn = getConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CommentRestDataBean content = null;
+		try {
+			conn = getConnection();
 
-            pstmt = conn.prepareStatement("select * from comment_rest where cmt_id = ?");
-            pstmt.setInt(1, cmt_id);
-            rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("select * from comment_rest where cmt_id = ?");
+			pstmt.setInt(1, cmt_id);
+			rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-            	content = new CommentRestDataBean();
-            	content.setCmt_id(rs.getInt("cmt_id"));
-            	content.setCmt_ref(rs.getInt("cmt_ref"));
-            	content.setCmt_writer(rs.getString("cmt_writer"));
-            	content.setCmt_content(rs.getString("cmt_content"));
-            	content.setCmt_date(rs.getTimestamp("cmt_date"));
-            	content.setCmt_restep(rs.getInt("cmt_restep"));
-            	content.setCmt_relevel(rs.getInt("cmt_relevel"));
+			if (rs.next()) {
+				content = new CommentRestDataBean();
+				content.setCmt_id(rs.getInt("cmt_id"));
+				content.setCmt_ref(rs.getInt("cmt_ref"));
+				content.setCmt_writer(rs.getString("cmt_writer"));
+				content.setCmt_content(rs.getString("cmt_content"));
+				content.setCmt_date(rs.getTimestamp("cmt_date"));
+				content.setCmt_restep(rs.getInt("cmt_restep"));
+				content.setCmt_relevel(rs.getInt("cmt_relevel"));
 			}
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
 		return content;
 	}
-	
+
 	public int deleteComment(int cmt_id, String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -231,9 +243,9 @@ public class CommentRestDBBean {
 					pstmt = conn.prepareStatement("delete from comment_rest where cmt_id=?");
 					pstmt.setInt(1, cmt_id);
 					pstmt.executeUpdate();
-					x = 1; 
+					x = 1;
 				} else
-					x = 0; 
+					x = 0;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

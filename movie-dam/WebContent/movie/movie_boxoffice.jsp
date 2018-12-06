@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String title = "박스오피스";
@@ -9,95 +9,89 @@
 %>
 
 <jsp:include page="/module/header.jsp" flush="false">
-	<jsp:param name="title" value="<%=title %>"/>
+	<jsp:param name="title" value="<%=title %>" />
 </jsp:include>
 
-<jsp:include page="/module/nav.jsp" flush="false"/>
+<jsp:include page="/module/nav.jsp" flush="false" />
 
-<!-- ***** Breadcumb Area Start ***** -->
 <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/movie-dam/assets/img/bg-img/editor-2.jpg)"></div>
-<!-- ***** Breadcumb Area End ***** -->
 
-<!-- ***** Listing Destinations Area Start ***** -->
 <section class="dorne-listing-destinations-area section-padding-100-50">
-<div class="container">
-	<div class="row">
-        <div class="col-12">
-            <div class="section-heading dark text-center">
-                <span></span>
-                <h4>Box office</h4>
-                <p>일간 박스오피스</p>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-heading dark text-center">
+					<span></span>
+					<h4>Box office</h4>
+					<p>일간 박스오피스</p>
+				</div>
+			</div>
+		</div>
 
-	<div class="row mb-3 mr-2 d-flex justify-content-end">
-		<form action="./movie_boxoffice.jsp" onsubmit="return selectDate();">
-			<div class="form-group" id="selectTargetDate">
-				<div class="input-group input-group-alternative">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+		<div class="row mb-3 mr-2 d-flex justify-content-end">
+			<form action="./movie_boxoffice.jsp" onsubmit="return selectDate();">
+				<div class="form-group" id="selectTargetDate">
+					<div class="input-group input-group-alternative">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+						</div>
+						<c:if test="<%=selectedDate == null %>">
+							<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="오늘 날짜" size="25">
+						</c:if>
+						<c:if test="<%=selectedDate != null %>">
+							<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="<%=selectedDate%>" size="25">
+						</c:if>
+						<div class="input-group-append">
+							<button class="btn btn-dark" type="submit" id="button-addon2">찾기</button>
+						</div>
 					</div>
-					<c:if test="<%=selectedDate == null %>">
-					<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="오늘 날짜" size="25">
-					</c:if>
-					<c:if test="<%=selectedDate != null %>">
-					<input class="form-control datepicker" name="targetDate" placeholder="Select date" type="text" value="<%=selectedDate%>" size="25">
-					</c:if>
-					<div class="input-group-append">
-				    	<button class="btn btn-dark" type="submit" id="button-addon2">찾기</button>
-				  	</div>
+				</div>
+			</form>
+		</div>
+		<div class="row">
+			<% for(int i=0; i<10; i++) { %>
+			<div class="col-12 col-sm-6 col-lg-4" id="resultBoxOffice<%=i %>">
+				<div class="single-features-area mb-50">
+					<a href="movie_detail.jsp" class="detail_link">
+						<img src="#" alt="" class="poster_path">
+					</a>
+					<div class="price-start"></div>
+					<div class="feature-content d-flex align-items-center justify-content-between">
+						<div class="feature-title"></div>
+						<div class="feature-favourite">
+							<a href="#" data-toggle="modal" onclick="openModal(<%=i %>)" data-target=".showChart<%=i %>" class="card-link">
+								<i class="fas fa-chart-bar"></i>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
-		</form>
-	</div>
-	<div class="row">
-<% 
-	for(int i=0; i<10; i++) {
-%>
-		<div class="col-12 col-sm-6 col-lg-4" id="resultBoxOffice<%=i %>">
-			<div class="single-features-area mb-50">
-			<a href="movie_detail.jsp" class="detail_link"><img src="#" alt="" class="poster_path"></a>
-				<div class="price-start"></div>
-				<div class="feature-content d-flex align-items-center justify-content-between">
-					<div class="feature-title">
-						
+			<% } %>
+		</div>
+		<% for(int i=0; i<10; i++) { %>
+		<div class="modal showChart<%=i %>" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="h5 modal-title modalTitle"></div>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-					<div class="feature-favourite">
-						<a href="#" data-toggle="modal" onclick="openModal(<%=i %>)" data-target=".showChart<%=i %>" class="card-link"><i class="fas fa-chart-bar"></i></a>
+					<div class="modal-body">
+						<span id="chartSalesInten<%=i %>" style='width: 450px; height: 250px; display: inline-block'></span> <span id="chartAudiInten<%=i %>" style='width: 450px; height: 250px; display: inline-block'></span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-<%	} %>
+		<%	} %>
 	</div>
-<%	
-	for(int i=0; i<10; i++) {
-%>
-	<div class="modal showChart<%=i %>" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="h5 modal-title modalTitle"> </div>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<span id="chartSalesInten<%=i %>" style='width: 450px; height: 250px; display: inline-block'></span>
-					<span id="chartAudiInten<%=i %>" style='width: 450px; height: 250px; display: inline-block'></span>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-<%	} %>
-</div>
 </section>
 
-<jsp:include page="/module/footer.jsp" flush="false"/>
+<jsp:include page="/module/footer.jsp" flush="false" />
 
 <script>
 $(function() {
@@ -230,10 +224,8 @@ $(document).ready(function() {
 				openDt.push(response['boxOfficeResult']['dailyBoxOfficeList'][i]['openDt']);
 				
 				console.log(response2);
-/* 				if(response2['results'].length != 0) { */
 					$('#resultBoxOffice'+i+'').find('.detail_link').attr('href', 'movie_detail.jsp?id='+response2['results'][0]['id']+'');
 					$('#resultBoxOffice'+i+'').find('.poster_path').attr('src', 'https://image.tmdb.org/t/p/original'+response2['results'][0]['poster_path']+'');
-/* 				} */
 				if(rankInten[i] > 0) {
 					$('#resultBoxOffice'+i+'').find('.price-start').html('<p>'+rank[i]+'위 (<i class="fas fa-caret-up" style="color:blue"></i>'+rankInten[i]+')</p>');
 				} else if(rankInten[i] == 0) {

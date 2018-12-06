@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="moviedam.debate.ChanbanCommentDBBean"%>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ page import="java.sql.Timestamp"%>
 
 <% request.setCharacterEncoding("utf-8");%>
 
@@ -17,7 +17,7 @@ int check = dbPro.deleteChanbanCmt(cb_cmt_id, id);
 	
 %>
 <head>
-	<meta http-equiv="Refresh" content="0;url=chanban_content.jsp?cb_id=<%=cb_id%>&pageNum=<%=pageNum%>">
+<meta http-equiv="Refresh" content="0;url=chanban_content.jsp?cb_id=<%=cb_id%>&pageNum=<%=pageNum%>">
 </head>
 <body>
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "moviedam.board.CommentDBBean" %>
-<%@ page import = "moviedam.board.CommentRestDBBean" %>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ page import="moviedam.board.CommentDBBean"%>
+<%@ page import="moviedam.board.CommentRestDBBean"%>
+<%@ page import="java.sql.Timestamp"%>
 
 <% request.setCharacterEncoding("utf-8");%>
 
@@ -31,9 +31,9 @@
 <%
 	if(category.equals("") || category == null) {
 %>
-	<meta http-equiv="Refresh" content="0;url=content_rest.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>">
+<meta http-equiv="Refresh" content="0;url=content_rest.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&theater=<%=theater%>">
 <%	} else { %>
-	<meta http-equiv="Refresh" content="0;url=content.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>">
+<meta http-equiv="Refresh" content="0;url=content.jsp?article_id=<%=article_id%>&pageNum=<%=pageNum%>&board_id=<%=board_id%>&category=<%=category%>">
 <%  } %>
 
 </head>

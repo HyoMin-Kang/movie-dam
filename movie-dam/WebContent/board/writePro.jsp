@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "moviedam.board.ArticleDBBean" %>
-<%@ page import = "moviedam.board.RestaurantDBBean" %>
-<%@ page import = "moviedam.board.PreviewDBBean" %>
-<%@ page import = "moviedam.board.IssueDBBean" %>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="moviedam.board.ArticleDBBean"%>
+<%@ page import="moviedam.board.RestaurantDBBean"%>
+<%@ page import="moviedam.board.PreviewDBBean"%>
+<%@ page import="moviedam.board.IssueDBBean"%>
+<%@ page import="java.sql.Timestamp"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="java.util.*"%>
-<%@ page import="java.io.*" %>
+<%@ page import="java.io.*"%>
 
 <% request.setCharacterEncoding("utf-8"); %>
 <%	
@@ -45,16 +44,16 @@
 %>
 
 <jsp:useBean id="article" scope="page" class="moviedam.board.ArticleDataBean">
-   <jsp:setProperty name="article" property="*"/>
+	<jsp:setProperty name="article" property="*" />
 </jsp:useBean>
 <jsp:useBean id="restaurant" scope="page" class="moviedam.board.RestaurantDataBean">
-   <jsp:setProperty name="restaurant" property="*"/>
+	<jsp:setProperty name="restaurant" property="*" />
 </jsp:useBean>
 <jsp:useBean id="preview" scope="page" class="moviedam.board.PreviewDataBean">
-   <jsp:setProperty name="preview" property="*"/>
+	<jsp:setProperty name="preview" property="*" />
 </jsp:useBean>
 <jsp:useBean id="issue" scope="page" class="moviedam.board.IssueDataBean">
-   <jsp:setProperty name="issue" property="*"/>
+	<jsp:setProperty name="issue" property="*" />
 </jsp:useBean>
 
 <%	
